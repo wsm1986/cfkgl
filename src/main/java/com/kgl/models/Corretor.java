@@ -31,7 +31,6 @@ public class Corretor {
 	@NotBlank
 	private String telefone;
 
-	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar dtInclusao;
 
