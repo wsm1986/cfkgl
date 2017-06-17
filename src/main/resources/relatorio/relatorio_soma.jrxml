@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_soma" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9fcc186-88cf-491a-b240-774b52253f17">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     despesas.`id` AS despesas_id,
+     despesas.`dt_venciomento` AS despesas_dt_venciomento,
+     despesas.`is_status` AS despesas_is_status,
+     despesas.`valor` AS despesas_valor,
+     despesas.`conta_id` AS despesas_conta_id,
+     despesas.`inquilino_id` AS despesas_inquilino_id,
+     despesas_A.`id` AS despesas_A_id,
+     despesas_A.`dt_venciomento` AS despesas_A_dt_venciomento,
+     despesas_A.`is_status` AS despesas_A_is_status,
+     despesas_A.`valor` AS despesas_A_valor,
+     despesas_A.`conta_id` AS despesas_A_conta_id,
+     despesas_A.`inquilino_id` AS despesas_A_inquilino_id,
+     inquilino.`id` AS inquilino_id,
+     inquilino.`dia_vencimento` AS inquilino_dia_vencimento,
+     inquilino.`dt_final_contrato` AS inquilino_dt_final_contrato,
+     inquilino.`dt_inicio_contrato` AS inquilino_dt_inicio_contrato,
+     inquilino.`email` AS inquilino_email,
+     inquilino.`nome` AS inquilino_nome,
+     inquilino.`numero_casa` AS inquilino_numero_casa,
+     inquilino.`telefone` AS inquilino_telefone,
+     inquilino.`tempo_contrato` AS inquilino_tempo_contrato,
+     inquilino.`valor_contrato` AS inquilino_valor_contrato,
+     conta.`id` AS conta_id,
+     conta.`descricao` AS conta_descricao
+FROM
+     `inquilino` inquilino INNER JOIN `despesas` despesas ON inquilino.`id` = despesas.`inquilino_id`
+     INNER JOIN `conta` conta ON despesas.`conta_id` = conta.`id`,
+     `despesas` despesas_A]]>
+	</queryString>
+	<field name="inquilino_nome" class="java.lang.String"/>
+	<field name="conta_descricao" class="java.lang.String"/>
+	<field name="despesas_valor" class="java.math.BigDecimal"/>
+	<field name="despesas_is_status" class="java.lang.Boolean"/>
+	<field name="despesas_dt_venciomento" class="java.sql.Timestamp"/>
+	<variable name="despesas_valor_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{despesas_valor}]]></variableExpression>
+	</variable>
+	<variable name="despesas_valor_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{despesas_valor}]]></variableExpression>
+	</variable>
+	<group name="inquilino_nome">
+		<groupExpression><![CDATA[$F{inquilino_nome}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="34" forecolor="#00FFFF" backcolor="#0099FF" uuid="d66bbba6-2889-4e93-a8e1-4d5083bf3662"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="213" y="10" width="178" height="20" uuid="a13cb05e-529b-49cd-98e1-40ea422ebbe2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATORIO DE DESPESAS ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="19" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="20" uuid="d748a9cc-9ef4-4c6b-b784-09e13f6d5123"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="0" width="114" height="20" uuid="374d9cd4-bed7-44d6-aa45-d6c34ec1b0a3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="2" width="116" height="21" uuid="26216e16-6c18-4ab2-8cb2-305dee9c689b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="0" width="114" height="20" uuid="2379fd4b-eebd-489d-9f3d-9c5f54821d46"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="2" width="114" height="20" uuid="9ec9130b-c89c-466f-8360-9eac57bd6eff"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Vencimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="114" height="20" uuid="f205f873-f498-43f8-b25c-ae0622d03a3a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{inquilino_nome}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="114" height="20" uuid="39b5de68-eda9-4013-bdbb-569aa53ea7f7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{conta_descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="342" y="0" width="114" height="20" uuid="1046f3e5-a4fa-4ca2-ad22-1364ce559d5e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{despesas_is_status} == true ? "PAGO" : "FALTA PAGAR"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="114" height="20" uuid="263fe335-f0c6-4fd4-8eeb-8a872755b629"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{despesas_dt_venciomento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="456" y="0" width="114" height="20" uuid="2836c87c-5bac-48b3-8c9a-b32f724f6dc6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{despesas_valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="27" forecolor="#00FFEF" backcolor="#0099FF" uuid="fb2fee21-5e47-4619-aaa0-7dbded9a5103"/>
+			</rectangle>
+			<textField>
+				<reportElement x="456" y="5" width="114" height="20" uuid="1b710e4d-04d4-4430-bc72-438017f2947d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{despesas_valor_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="373" y="7" width="100" height="20" uuid="81701ae9-9a34-4f01-8a1d-ca5f6e727ebf"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="3" y="0" width="100" height="20" uuid="910a1506-f868-4849-b3f4-00c434f126d6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="4" width="80" height="20" uuid="d4b5eba1-2dd3-4431-8dcf-ec240646a644"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="522" y="4" width="40" height="20" uuid="e59aea23-2377-4117-b9f3-4071da3d7e3b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="456" y="2" width="113" height="20" uuid="86154a90-31df-46ea-9dc9-458d20ff6631"/>
+				<textFieldExpression><![CDATA[$V{despesas_valor_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

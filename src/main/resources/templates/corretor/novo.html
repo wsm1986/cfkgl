@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+<title></title>
+</head>
+<body>
+	<div th:fragment="content">
+
+
+		<form method="POST" th:object="${corretor}" th:action="@{/corretor/novo}" id="form">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">CADASTRO</h1>
+					<div class="alert  alert-danger  alert-dismissible" role="alert"
+							th:if="${#fields.hasAnyErrors()}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<th:block th:each="erro : ${#fields.detailedErrors()}">
+								<div>
+									<i class="fa  fa-exclamation-circle"></i> <span
+										th:text="${erro.message}">ERRO informado.</span>
+								</div>
+							</th:block>
+					</div>
+					<div class="row">
+
+
+						<div class="col-sm-12  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+							<label for="nome" class="control-label">Nome</label> <input
+								id="nome" type="text" class="form-control" th:field="*{nome}" />
+						</div>
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('cpfCnpj')} ? has-error">
+							<label for="nome" class="control-label">CPF</label> 
+							<input	id="rg" type="text"   class="form-control" th:field="*{cpfCnpj}" />
+						</div>
+						
+					
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('telefone')} ? has-error">
+							<label for="nome" class="control-label">Telefone</label> 
+							<input	id="phone" type="text"   class="form-control inputmask" th:field="*{telefone}"  placeholder="(99) 99999-9999"  />
+						</div>
+						
+						<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
+							<label for="nome" class="control-label">Email</label> 
+							<input	id="email" type="email" class="form-control" th:field="*{email}"/>
+						</div>
+					</div>
+					<div class="row">
+						<h4 class="page-header">BANCO</h4>
+						
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('conta.banco')} ? has-error">
+							<label for="nome" class="control-label">Banco</label> 
+							<input	id="banco" type="text" class="form-control" th:field="*{conta.banco}"/>
+						</div>
+						
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('conta.agencia')} ? has-error">
+							<label for="nome" class="control-label">Agencia</label> 
+							<input	id="agencia" type="text" class="form-control" th:field="*{conta.agencia}"/>
+						</div>
+						
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('conta.numero')} ? has-error">
+							<label for="nome" class="control-label">Numero</label> 
+							<input	id="numeroC" type="text" class="form-control" th:field="*{conta.numero}"/>
+						</div>
+					</div>					
+					<div class="row">
+						<h4 class="page-header">ENDEREÇO</h4>
+						
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('endereco.cep')} ? has-error">
+							<label for="nome" class="control-label">Cep</label> 
+							<input	id="email" type="text" class="form-control" th:field="*{endereco.cep}"/>
+						</div>
+						
+						<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('endereco.rua')} ? has-error">
+							<label for="nome" class="control-label">Rua</label> 
+							<input	id="email" type="text" class="form-control" th:field="*{endereco.rua}"/>
+						</div>
+						
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('endereco.numero')} ? has-error">
+							<label for="nome" class="control-label">Numero</label> 
+							<input	id="numero" type="text" class="form-control" th:field="*{endereco.numero}"/>
+						</div>
+						
+						<!--
+						<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('valorContrato')} ? has-error">
+							<label for="nome" class="control-label">Valor</label> 
+							<input	id="valor" type="text"   class="form-control money" th:field="*{valorContrato}" placeholder="R$:" />
+						</div>
+						 
+						<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('dtInicioContrato')} ? has-error">
+							<label for="dtFimContrato" class="control-label">Data Inicio Contrato</label>
+							<div class='input-group date' id='dtInicioContrato'>
+								<input type='text' class="form-control" th:field="*{dtInicioConverter}"
+									placeholder="ddmmyyyy" /> <span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6  form-group">
+							<label for="dtFimContrato" class="control-label">Data Final Contrato</label>
+							<div class='input-group date' id='dtFinalContrato'>
+								<input type='text' class="form-control" th:field="*{dtFinalConverter}"
+									placeholder="ddmmyyyy" /> <span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						 -->
+ 							
+				</div>
+			</div>
+		</div>
+	<button type="submit" class="btn btn-primary">Novo</button>
+				
+		</form>
+		
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" th:fragment="nav">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <div class="navbar-brand" >
+                  
+               </div>
+               <div class="navbar-text" style="margin-left: 0px">
+                  CONTROLE FINANCEIRO K.G.L
+               </div>
+            </div>
+            
+            <ul class="nav navbar-top-links navbar-right">
+             <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>   
+            </ul>
+            
+            <div class="navbar-default sidebar" role="navigation">
+               <div class="sidebar-nav navbar-collapse">
+                  <ul class="nav" id="side-menu">
+                     <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                           <input type="text" class="form-control" placeholder="Pesquisar..." />
+                           <span class="input-group-btn">
+                           <button class="btn btn-default" type="button">
+                           <i class="fa fa-search"></i>
+                           </button>
+                           </span>
+                        </div>
+                        
+                     </li>
+                     <li>
+                        <a href="#" th:href="@{/index}"><i class="fa fa-dashboard fa-fw"></i> Home</a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Corretor<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                           <li><a href="#" th:href="@{/corretor/form}"  >Novo</a></li>
+                           <li><a href="#" th:href="@{/inquilino/lista}"   >Corretores</a></li>
+                        </ul>
+                        
+                     </li>
+                     <li >
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Operadora<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                        
+							 <li><a href="#" th:href="@{/contas/form}"  >Novo</a></li>
+							 <li><a href="#" th:href="@{/contas/form}"  >Operadoras</a></li>                          
+                        </ul>
+                        
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Produto<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                         <li><a href="#" th:href="@{/despesas/pesquisa}"  >Novo</a></li>
+                         <li><a href="#" th:href="@{/despesas/form}"  >Produtos</a></li>
+                        </ul>
+                        
+                     </li>
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Movimentações<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                         <li><a href="#" th:href="@{/despesas/pesquisa}"  >Contrato</a></li>
+                         <li><a href="#" th:href="@{/despesas/form}"  >Pagamento</a></li>
+                        </ul>
+                        
+                     </li>                     
+                    
+                  </ul>
+               </div>
+               
+            </div>
+            
+         </nav>

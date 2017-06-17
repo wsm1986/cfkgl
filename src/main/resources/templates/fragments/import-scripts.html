@@ -1,0 +1,56 @@
+<!-- jQuery -->
+<script th:src="@{/webjars//jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/webjars/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Morris Charts JavaScript -->
+<script th:src="@{/webjars/raphaeljs/raphael-min.js}"></script>
+<script th:src="@{/webjars/morrisjs/morris.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/webjars/startbootstrap-sb-admin-2/js/sb-admin-2.js}"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/momentjs/min/moment-with-locales.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/Eonasdan-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jasny-bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/js/jasny-bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.mask.min.js}"></script>
+<script type="text/javascript">
+        /*<![CDATA[*/
+	        $(document).ready(function() {
+	        
+             	$('.inputmask').inputmask({
+             		  mask: '(99)99999-9999'
+             		})
+             		
+             	$('.money').mask('000.000.000.000.000,00', {reverse: true});    
+
+             	$(".somenteNumero").bind("keyup blur focus", function(e) {
+                    e.preventDefault();
+                    var expre = /[^\d]/g;
+                    $(this).val($(this).val().replace(expre,''));
+               });
+
+             	$(".rg").mask("99.999.999-9",{placeholder:" "});
+
+             	$(".cpf").mask("999.999.999-99",{placeholder:" "});    
+             			
+			  } );  
+
+			  
+	    	/*]]>*/	
+	        </script>

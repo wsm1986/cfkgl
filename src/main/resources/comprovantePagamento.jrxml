@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprovantePagamento" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8675e83f-3881-485d-a559-f269adf3df61">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nome_inquilino" class="java.lang.String"/>
+	<parameter name="endereco_propriedade" class="java.lang.String"/>
+	<parameter name="cpf_inquilino" class="java.lang.String"/>
+	<parameter name="valor_pago" class="java.lang.String"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="data_pagamento" class="java.util.Date"/>
+	<group name="Detalhe">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="191">
+				<staticText>
+					<reportElement x="0" y="162" width="126" height="20" uuid="e2f2fb08-2558-4a2e-b630-9c7d32d4afa6"/>
+					<text><![CDATA[ ________________________]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="22" width="100" height="14" uuid="ed7811f1-df50-4c7a-ab1a-22057080f7e2"/>
+					<text><![CDATA[Nome do Inquilino:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="43" width="144" height="12" uuid="4882ef17-3d4f-4068-99a4-f506b8f5fb1d"/>
+					<text><![CDATA[Endereço da Propriedade:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="69" width="144" height="12" uuid="f8548c8e-b91d-4ee7-9b54-6b6546c2df00"/>
+					<text><![CDATA[Recebi do Sr.(a).]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="94" width="144" height="13" uuid="57012791-f368-4011-aed5-e46631189b42"/>
+					<text><![CDATA[C.P.F]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="118" width="144" height="13" uuid="64c6b922-5a1b-4505-a672-b9f448c6de30"/>
+					<text><![CDATA[A Soma de R$:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="143" width="533" height="14" uuid="42c778b3-ae84-4d33-9d07-afc3ab01de1b"/>
+					<text><![CDATA[Como Forma de Pagamento de Aluguel Residencial do Imóvel descrito acima, para o periodo de]]></text>
+				</staticText>
+				<line>
+					<reportElement x="2" y="35" width="544" height="1" uuid="ea18f433-d774-406c-b3a5-2f254d38cc72"/>
+				</line>
+				<line>
+					<reportElement x="2" y="54" width="544" height="1" uuid="bd923bee-bdf5-4e93-830e-a086410affe9"/>
+				</line>
+				<line>
+					<reportElement x="2" y="80" width="544" height="1" uuid="56056a93-cd52-45f7-a2c9-85966d0a6c89"/>
+				</line>
+				<line>
+					<reportElement x="2" y="104" width="544" height="1" uuid="897f20eb-f045-49bc-bf6c-0c12b816adce"/>
+				</line>
+				<line>
+					<reportElement x="2" y="131" width="544" height="1" uuid="95fa8a49-1fff-4791-ba5d-6f9d55bb10ba"/>
+				</line>
+				<textField>
+					<reportElement x="102" y="25" width="444" height="14" uuid="fe1bb32e-8fee-4044-9e3b-3ef77cd10d8e"/>
+					<textFieldExpression><![CDATA[$P{nome_inquilino}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="134" y="44" width="411" height="17" uuid="22179455-4048-46da-affc-f92bc49a9185"/>
+					<textFieldExpression><![CDATA[$P{endereco_propriedade}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="78" y="121" width="383" height="22" uuid="cb668f24-554b-4199-8847-dffdaac55f5c"/>
+					<textFieldExpression><![CDATA[$P{valor_pago}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="33" y="94" width="191" height="20" uuid="c40cad29-30f0-4237-9886-629286bbd8f9"/>
+					<textFieldExpression><![CDATA[$P{cpf_inquilino}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="90" y="70" width="444" height="14" uuid="891d7736-f0d8-420b-8a9b-85fcfbdd96f1"/>
+					<textFieldExpression><![CDATA[$P{nome_inquilino}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="5" y="160" width="85" height="20" uuid="c62d24be-ab13-46a4-a8ac-a7d216bee5a8"/>
+					<textFieldExpression><![CDATA[$P{cidade}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="218" y="173" width="230" height="1" uuid="73f5d1f2-a087-4c6c-97a8-5ca4db813259"/>
+				</line>
+				<textField>
+					<reportElement x="241" y="161" width="221" height="12" uuid="b1b947d4-ff1d-48bb-bbda-6026a4ed4af2"/>
+					<textFieldExpression><![CDATA[$P{data_pagamento}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="50" forecolor="#D3D3D3" backcolor="#D3D3D3" uuid="9b504161-c43f-4296-bdcb-90c68c48235d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="135" y="15" width="301" height="21" uuid="ea6a9533-cc52-4c00-9a7b-54755a3f2498"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[COMPROVANTE DE PAGAMENTO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="58" width="336" height="20" uuid="ee39d653-cbaa-42d8-bd6b-625d3e6f305c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Assinatura do Proprietario, Locador ou Responsável]]></text>
+			</staticText>
+			<line>
+				<reportElement x="126" y="50" width="420" height="1" uuid="771174c5-7452-48ba-bf3b-7bdc9f42b908"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
