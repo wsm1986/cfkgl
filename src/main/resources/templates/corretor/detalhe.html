@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+<title></title>
+</head>
+<body>
+<div th:fragment="content" id="page-wrapper">
+
+
+            <div class="row">
+                <div class="col-lg-10">
+                    <h1 class="page-header">DETALHE</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            DADOS DO CORRETOR
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+							<div class="rol">
+								<div class="col-sm-3">
+									<ul class="list-group">
+										<li class="primary-font" >CORRETOR</li>
+										<li class="list-group-item" th:text="|Nome :${corretor.nome}|">750</li>
+										<li class="list-group-item" th:text="|CPF : ${corretor.cpfCnpj}|">58.00</li>
+										<li class="list-group-item" th:text="|TELEFONE : ${corretor.telefone}|">58.00</li>
+										<li class="list-group-item" th:text="|EMAIL : ${corretor.email}|">58.00</li>
+									</ul>	
+								</div>
+								<div class="col-sm-3">
+									<ul class="list-group">
+										<li class="primary-font" >DADOS BANCARIO</li>
+										<li class="list-group-item" th:text="|BANCO : ${corretor.conta.banco}|">58.00</li>
+										<li class="list-group-item" th:text="|AGENCIA : ${corretor.conta.agencia}|">58.00</li>
+										<li class="list-group-item" th:text="|Conta : ${corretor.conta.numero}|">58.00</li>
+									</ul>
+								</div>
+								<div class="col-sm-3">
+									<ul class="list-group">
+										<li class="primary-font" >ENDEREÇO</li>
+										<li class="list-group-item" th:text="|CEP : ${corretor.endereco.cep}|">58.00</li>
+										<li class="list-group-item" th:text="|RUA : ${corretor.endereco.rua}|">58.00</li>
+										<li class="list-group-item" th:text="|Conta : ${corretor.endereco.numero}|">58.00</li>																																																												
+									</ul>
+								</div>
+							</div>
+						</div>
+						<a class="btn btn-outline btn-default" th:href="@{/corretor/listar}" >VOLTAR</a>
+					</div>						
+				</div>
+		</div>
+	</div>
+</body>
+</html>

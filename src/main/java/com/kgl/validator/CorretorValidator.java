@@ -26,15 +26,15 @@ public class CorretorValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "conta.numero", "numero.obrigatorio");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.cep", "cep.obrigatorio");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.rua", "rua.obrigatorio");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.numero", "nome.obrigatorio");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.numero", "endereco.obrigatorio");
 
         Corretor corretor = (Corretor) obj;
 
         //se o objeto profile for null o estoura o erro
+        /*
         if (corretor.getNome() == null || corretor.getNome().isEmpty()) {
             errors.rejectValue("nome", "nome.obrigatorio");
         }
-/*
         //se o objeto birthDate for null estoura o erro
         if (user.getBirthDate() == null) {
             errors.rejectValue("birthDate", "required.birthDate");

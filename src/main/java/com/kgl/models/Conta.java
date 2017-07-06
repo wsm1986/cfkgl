@@ -3,6 +3,8 @@ package com.kgl.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,9 @@ public class Conta implements Serializable {
 	private String titular;
 	private String agencia;
 	private String numero;
-	private String banco;
+	
+	@Enumerated(EnumType.STRING)
+	private Banco banco;
 
 	public Integer getId() {
 		return id;
@@ -52,12 +56,11 @@ public class Conta implements Serializable {
 		this.numero = numero;
 	}
 
-	public String getBanco() {
+	public Banco getBanco() {
 		return banco;
 	}
 
-	public void setBanco(String banco) {
+	public void setBanco(Banco banco) {
 		this.banco = banco;
 	}
-
 }

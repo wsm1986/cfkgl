@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+<title></title>
+</head>
+<body>
+
+<div th:fragment="content" id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Corretores</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Corretores	
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>Email</th>
+                                        <th>telefone</th>
+                                        <th>Alterar</th>
+                                        <th>Detalhe</th>
+                                        <th>Deletar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                         			<tr th:each="corretor : ${corretores}">
+										<td th:text="${corretor.nome}">1</td>
+										<td th:text="${corretor.cpfCnpj}">1</td>
+										<td th:text="${corretor.email}">1</td>
+										<td th:text="${corretor.telefone}">1</td>
+										<td> <a th:href="${(#mvc.url('CC#update').arg(0,corretor)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a></td>
+										<td> <a th:href="${(#mvc.url('CC#detalhe').arg(0,corretor.id)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a></td>
+										<td class="remove-item">
+												<a th:href="${(#mvc.url('CC#deletar').arg(0,corretor.id)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>    
+											 <!--<a th:href="${(#mvc.url('IC#getData').arg(0,lista.id)).build()}" class="fa fa-trash-o fa-fw  " ></a> -->
+										
+				      					</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                        <!-- /.panel-body -->
+                        </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+                <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+
+    function alterarClass(){
+        alert("1");
+    }
+    </script>
+            
+</div>
+</body>
+</html>
