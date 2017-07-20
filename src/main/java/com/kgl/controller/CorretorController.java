@@ -29,7 +29,7 @@ public class CorretorController {
 	@Autowired
 	private CorretorValidator corretorValidation;
 
-	@RequestMapping("/form")
+	@RequestMapping({ "/", "/form"})
 	private ModelAndView form(Corretor Corretor) {
 		ModelAndView mvn = new ModelAndView("corretor/novo");
 		mvn.addObject("corretor", Corretor);

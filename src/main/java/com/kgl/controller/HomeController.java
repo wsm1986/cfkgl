@@ -8,11 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-	@Autowired
-	@RequestMapping({ "/", "/index", "/index.html" })
-	public ModelAndView index() {
-		return new ModelAndView("form");
-	}
 	
 	
 
