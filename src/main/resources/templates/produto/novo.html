@@ -12,7 +12,7 @@
 		<div class="panel-body">
 			<div class="col-lg-12">
 					<form method="POST" th:object="${produto}"  th:action="@{/produto/salvar}"  >
-						<h1 class="page-header">CADASTRAR CONTAS</h1>
+						<h1 class="page-header">CADASTRAR PRODUTO E COMISSAO</h1>
 		
 						<div class="alert  alert-danger  alert-dismissible" role="alert"
 							th:if="${#fields.hasAnyErrors()}">
@@ -48,10 +48,6 @@
 								<input	id="idadeMaxima" type="text"   class="form-control cnpj" th:field="*{idadeMaxima}" />
 						</div>
 						
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('totalComissao')} ? has-error">
-							<label for="totalComissao" class="control-label">Porcentagem</label> 
-							<input	id="totalComissao" type="text"   class="form-control cnpj" th:field="*{totalComissao}" />
-						</div>			
 						
 					</div>
 				</div>
@@ -78,7 +74,96 @@
 					</div>
 					
 				</div>
-		                <div class="row">
+
+
+				<div class="row">
+				<div class="form-group" >
+				
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('primeiraParcela')} ? has-error">
+							<label for="idade" class="control-label">Primeira</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{primeiraParcela}" />
+						</div>
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('segundaParcela')} ? has-error">
+							<label for="idade" class="control-label">Segunda</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{segundaParcela}" />
+						</div>
+						
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('terceiraParcela')} ? has-error">
+							<label for="idade" class="control-label">Terceira</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{terceiraParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('quartaParcela')} ? has-error">
+							<label for="idade" class="control-label">Quarta</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{quartaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('quintaParcela')} ? has-error">
+							<label for="idade" class="control-label">Quinta</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{quintaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('sextaParcela')} ? has-error">
+							<label for="idade" class="control-label">Sexta</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{sextaParcela}" />
+						</div>
+				</div>
+				</div>
+				<div class="row">
+				<div class="form-group" >
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('setimaParcela')} ? has-error">
+							<label for="idade" class="control-label">Setima</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{setimaParcela}" />
+						</div>
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('oitavaParcela')} ? has-error">
+							<label for="idade" class="control-label">Oitava</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{oitavaParcela}" />
+						</div>
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('nonaParcela')} ? has-error">
+							<label for="idade" class="control-label">Nona</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{nonaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('decimaParcela')} ? has-error">
+							<label for="idade" class="control-label">Decima</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{decimaParcela}" />
+						</div>
+
+
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('decimaPrimeiraParcela')} ? has-error">
+							<label for="idade" class="control-label">Decima Primeira</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{decimaPrimeiraParcela}" />
+						</div>
+
+
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('decimaSegundaParcela')} ? has-error">
+							<label for="idade" class="control-label">Decima Segunda</label> <input
+								id="idade" type="text" class="form-control"
+								th:field="*{decimaSegundaParcela}" />
+						</div>
+					</div>
+				</div>
+				
+	                <div class="row">
 						<button type="submit" class="btn btn-primary" >Adicionar</button>
 						</div>
 						<div class="row">
@@ -95,17 +180,40 @@
 			                                        <th>Categoria</th>
 			                                        <th>Tabela Comissao</th>
 			                                        <th>Total</th>
-			                                        <th>Idade</th>
+			                                        <th>1</th>
+			                                        <th>2</th>
+			                                        <th>3</th>
+			                                        <th>4</th>
+			                                        <th>5</th>
+			                                        <th>6</th>
+			                                        <th>7</th>
+			                                        <th>8</th>
+			                                        <th>9</th>
+			                                        <th>10</th>
+			                                        <th>11</th>
+			                                        <th>12</th>
 			                                        <th>Excluir</th>
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
 			                                    <tr class="odd gradeX" th:each="produto : ${produtos}">
-													<td th:text="${produto.operadora.nome}">1</td>
+													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
 													<td th:text="${produto.tabelaComissao}">1</td>
-													<td th:text="${produto.totalComissao}">1</td>
-													<td th:text="${produto.idadeMinima}">1</td>
+													<td th:text="|${produto.totalComissao}|+'%'">1</td>
+													<td th:text="${produto.primeiraParcela}+'%'">1</td>
+													<td th:text="${produto.segundaParcela}+'%'">1</td>
+													<td th:text="${produto.terceiraParcela}+'%'">1</td>																																							
+													<td th:text="${produto.quartaParcela}+'%'">1</td>
+													<td th:text="${produto.quintaParcela}+'%'">1</td>
+													<td th:text="${produto.sextaParcela}+'%'">1</td>
+													<td th:text="${produto.setimaParcela}+'%'">1</td>
+													<td th:text="${produto.oitavaParcela}+'%'">1</td>
+													<td th:text="${produto.nonaParcela}+'%'">1</td>
+													<td th:text="${produto.decimaParcela}+'%'">1</td>
+													<td th:text="${produto.decimaPrimeiraParcela}+'%'">1</td>
+													<td th:text="${produto.decimaSegundaParcela}+'%'">1</td>
+																																							
 													<td >	<a th:href="${(#mvc.url('PC#remover').arg(0,produto)).build()}" class="fa fa-trash-o fa-fw" ></a>  </td>
 			                                    </tr>
 			                                    

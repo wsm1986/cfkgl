@@ -31,7 +31,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addRedirectViewController("/", "/inquilino/form");
+		registry.addRedirectViewController("/", "/corretor/form");
 	}
 
 	@Bean
