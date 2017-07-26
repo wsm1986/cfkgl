@@ -48,4 +48,11 @@ public class ProdutoController {
 		dao.delete(produto);
 		return form(produto);
 	}
+	
+	@RequestMapping("/findAll")
+	private ModelAndView lista() {
+		ModelAndView mvn = new ModelAndView("produto/produtos");
+		mvn.addObject("produtos", dao.findAll());
+		return mvn;
+	}
 }

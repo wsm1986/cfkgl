@@ -23,12 +23,12 @@ public class Contrato implements Serializable {
 	private Long codigoContrato;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@NotNull(message = "Data Vencimento é obrigatório")
+	@NotNull(message = "Data Implantação é obrigatório")
 	private Calendar dtImplantacao;
 	
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@NotNull(message = "Data Vencimento é obrigatório")
+	@NotNull(message = "Data Inicio é obrigatório")
 	private Calendar dtInicio;
 	
 	@OneToOne

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+<title></title>
+</head>
+<body>
+	<div th:fragment="content">
+
+
+		<form method="POST" th:object="${contrato}" th:action="@{/contrato/novo}" id="form">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">IMPLATAÇÃO DE CONTRATO</h1>
+					
+					<div class="row">
+						<div class="col-sm-2  form-group">
+							<label for="nome" class="control-label">Corretor</label> 
+							<select class="form-control" th:field="*{corretor}">
+								<option th:each="corretor : ${corretores}"
+									th:text="${corretor.nome}" th:value="${corretor.nome}"
+								>
+								</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="row">
+						<h4 class="page-header">BANCO</h4>
+						
+					
+					</div>					
+					<div class="row">
+						
+				</div>
+			</div>
+		</div>
+	<button type="submit" class="btn btn-primary">Novo</button>
+				
+		</form>
+		
+
+	</div>
+</body>
+</html>
