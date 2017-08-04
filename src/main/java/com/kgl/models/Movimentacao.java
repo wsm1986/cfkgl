@@ -23,14 +23,13 @@ public class Movimentacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String descricao;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@NotNull(message = "Data Vencimento é obrigatório")
-	private Calendar data;
+
 	private BigDecimal valor;
 
 	@ManyToOne
-	private Conta conta;
+	private Contrato contrato;
 
 	@Enumerated(EnumType.STRING)
 	private TipoMovimentacao tipoMovimentacao;
@@ -59,14 +58,6 @@ public class Movimentacao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Calendar getData() {
-		return data;
-	}
-
-	public void setData(Calendar data) {
-		this.data = data;
-	}
-
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -75,12 +66,12 @@ public class Movimentacao implements Serializable {
 		this.valor = valor;
 	}
 
-	public Conta getConta() {
-		return conta;
+	public Contrato getContrato() {
+		return contrato;
 	}
 
-	public void setConta(Conta conta) {
-		this.conta = conta;
+	public void setContrato(Contrato contrato) {
+		this.contrato = contrato;
 	}
 
 }

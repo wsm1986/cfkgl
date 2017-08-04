@@ -215,4 +215,8 @@ public class Produto {
 	public void setDecimaSegundaParcela(Integer decimaSegundaParcela) {
 		this.decimaSegundaParcela = decimaSegundaParcela;
 	}
+	
+	public String getDescricao() {
+		return operadora.getNome() + " Idade:  "+idadeMinima +" a " + idadeMaxima+ " - " + categoriaProduto.name() + " - TABELA DE COMISSAO: " + tabelaComissao.getNome() + "- TOTAL: " +getTotalComissao();
+	}
 }

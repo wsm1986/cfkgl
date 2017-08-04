@@ -9,37 +9,123 @@
 	<div th:fragment="content">
 
 
-		<form method="POST" th:object="${contrato}" th:action="@{/contrato/novo}" id="form">
+
+
+		<form method="POST" th:object="${contrato}" th:action="@{/contrato/salvar}" action="#">
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-142">
 					<h1 class="page-header">IMPLATAÇÃO DE CONTRATO</h1>
 					
 					<div class="row">
-						<div class="col-sm-2  form-group">
+						<div class="col-sm-4  form-group">
 							<label for="nome" class="control-label">Corretor</label> 
 							<select class="form-control" th:field="*{corretor}">
 								<option th:each="corretor : ${corretores}"
-									th:text="${corretor.nome}" th:value="${corretor.nome}"
+									th:text="${corretor.nome} +' | CPF: ' + |${corretor.cpfCnpj} " th:value="${corretor.id}"
 								>
 								</option>
 							</select>
 						</div>
+						
+						<div class="col-sm-6  form-group">
+							<label for="nome" class="control-label">Convenio</label> 
+							<select class="form-control" th:field="*{subProduto}">
+								<option th:each="subProduto : ${subProdutos}"
+									th:text="${subProduto.descricao}" th:value="${subProduto.produto.operadora.id}"
+								>
+								</option>
+							</select>
+						</div>
+						
+						
 
 					</div>
-					<div class="row">
-						<h4 class="page-header">BANCO</h4>
-						
 					
-					</div>					
-					<div class="row">
+						<h4 class="page-header">DADOS DO CONTRATO</h4>
 						
-				</div>
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('codigoContrato')} ? has-error">
+							<label for="idade" class="control-label">Numero Proposta</label> <input
+								id="idade" type="text" class="form-control somenteNumero"
+								th:field="*{codigoContrato}" />
+						</div>
+
+						
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('codigoContrato')} ? has-error">
+							<label for="idade" class="control-label">Numero Proposta</label> <input
+								id="idade" type="text" class="form-control somenteNumero"
+								th:field="*{codigoContrato}" />
+						</div>												
+
+						<div class="col-sm-2  form-group">
+							<label for="dtVencimentoConverter" class="control-label">Data Cadastro </label>
+							<div class='input-group date' id='data'>
+								<input type='text' class="form-control" th:field="*{dtCadastro}"		placeholder="ddmmyyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+
+
+						<div class="col-sm-2  form-group">
+							<label for="dtVencimentoConverter" class="control-label">Data Assinatura </label>
+							<div class='input-group date' id='data'>
+								<input type='text' class="form-control" th:field="*{dtAssinatura}"		placeholder="ddmmyyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						
+						
+
+						<div class="col-sm-2  form-group">
+							<label for="dtVencimentoConverter" class="control-label">Data Vigencia </label>
+							<div class='input-group date' id='data'>
+								<input type='text' class="form-control" th:field="*{dtVigencia}"		placeholder="ddmmyyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+																		
+
+
+
+						<div class="col-sm-2  form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+								<label for="nome" class="control-label">Valor</label> 
+								<input id="valor" type="text" class="form-control money" th:field="*{valor}"/>
+							</div>
+						</div>
+						
+						<div class="col-sm-6  form-group" >
+							<label for="segurado" class="control-label">Nome Segurado</label> 
+							<input id="segurado" type="text" class="form-control " th:field="*{nome}" />
+								
+						</div>
+						
+						
 			</div>
 		</div>
-	<button type="submit" class="btn btn-primary">Novo</button>
+				<button type="submit" class="btn btn-primary">Novo</button>
 				
 		</form>
-		
+				<script type="text/javascript">
+        /*<![CDATA[*/
+	        $(document).ready(function() {
+	        
+             	$('#data').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });	
+
+
+			  } );  
+
+			  
+	    	/*]]>*/	
+	        </script>
 
 	</div>
 </body>
