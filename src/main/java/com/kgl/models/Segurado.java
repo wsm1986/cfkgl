@@ -19,6 +19,8 @@ public class Segurado {
 	@NotBlank
 	private String cpfCnpj;
 
+	private Integer quantVidas;
+
 	public Long getId() {
 		return id;
 	}
@@ -41,5 +43,13 @@ public class Segurado {
 
 	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
+	}
+
+	public Integer getQuantVidas() {
+		return quantVidas;
+	}
+
+	public void setQuantVidas(Integer quantVidas) {
+		this.quantVidas = quantVidas;
 	}
 }

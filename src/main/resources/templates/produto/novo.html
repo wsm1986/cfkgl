@@ -75,94 +75,148 @@
 					
 				</div>
 
-
 				<div class="row">
 				<div class="form-group" >
-				
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('primeiraParcela')} ? has-error">
-							<label for="idade" class="control-label">Primeira</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{primeiraParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.primeiraParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">KGL: </label>
+							<label for="idade" class="control-label">Primeira</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.primeiraParcelaKgl}" />
 						</div>
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('segundaParcela')} ? has-error">
-							<label for="idade" class="control-label">Segunda</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{segundaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.segundaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Segunda</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.segundaParcelaKgl}" />
 						</div>
 						
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('terceiraParcela')} ? has-error">
-							<label for="idade" class="control-label">Terceira</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{terceiraParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.terceiraParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Terceira</label> 
+							<input id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.terceiraParcelaKgl}" />
 						</div>
 
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('quartaParcela')} ? has-error">
-							<label for="idade" class="control-label">Quarta</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{quartaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.quartaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Quarta</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.quartaParcelaKgl}" />
 						</div>
 
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('quintaParcela')} ? has-error">
-							<label for="idade" class="control-label">Quinta</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{quintaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.quintaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Quinta</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.quintaParcelaKgl}" />
 						</div>
 
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('sextaParcela')} ? has-error">
-							<label for="idade" class="control-label">Sexta</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{sextaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.sextaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Sexta</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero" th:field="*{parcelaKgl.sextaParcelaKgl}" />
 						</div>
-				</div>
-				</div>
-				<div class="row">
-				<div class="form-group" >
-
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('setimaParcela')} ? has-error">
-							<label for="idade" class="control-label">Setima</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{setimaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.setimaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Setima</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.setimaParcelaKgl}" />
 						</div>
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('oitavaParcela')} ? has-error">
-							<label for="idade" class="control-label">Oitava</label> <input
-								id="idade" type="text" class="form-control somenteNumero" 
-								th:field="*{oitavaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.oitavaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Oitava</label>
+							 <input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.oitavaParcelaKgl}" />
 						</div>
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('nonaParcela')} ? has-error">
-							<label for="idade" class="control-label">Nona</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{nonaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.nonaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Nona</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.nonaParcelaKgl}" />
 						</div>
 
 
-						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('decimaParcela')} ? has-error">
-							<label for="idade" class="control-label">Decima</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{decimaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.decimaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Decima</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.decimaParcelaKgl}" />
 						</div>
 
 
-						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('decimaPrimeiraParcela')} ? has-error">
-							<label for="idade" class="control-label">Decima Primeira</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{decimaPrimeiraParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.decimaPrimeiraParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Decima Pri</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.decimaPrimeiraParcelaKgl}" />
 						</div>
 
 
-						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('decimaSegundaParcela')} ? has-error">
-							<label for="idade" class="control-label">Decima Segunda</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{decimaSegundaParcela}" />
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaKgl.decimaSegundaParcelaKgl')} ? has-error">
+							<label for="idade" class="control-label">Decima Seg</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaKgl.decimaSegundaParcelaKgl}" />
 						</div>
+					
 					</div>
 				</div>
+
+
+				<div class="row">
+				<div class="form-group" >
 				
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.primeiraParcela')} ? has-error">
+							<label for="idade" class="control-label">Corretor: </label>
+							<label for="idade" class="control-label">Pri	</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.primeiraParcela}" />
+						</div>
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.segundaParcela')} ? has-error">
+							<label for="idade" class="control-label">Segunda</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.segundaParcela}" />
+						</div>
+						
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.terceiraParcela')} ? has-error">
+							<label for="idade" class="control-label">Terceira</label> 
+							<input id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.terceiraParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.quartaParcela')} ? has-error">
+							<label for="idade" class="control-label">Quarta</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.quartaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.quintaParcela')} ? has-error">
+							<label for="idade" class="control-label">Quinta</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.quintaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.sextaParcela')} ? has-error">
+							<label for="idade" class="control-label">Sexta</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero" th:field="*{parcelaCorretor.sextaParcela}" />
+						</div>
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.setimaParcela')} ? has-error">
+							<label for="idade" class="control-label">Setima</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.setimaParcela}" />
+						</div>
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.oitavaParcela')} ? has-error">
+							<label for="idade" class="control-label">Oitava</label>
+							 <input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.oitavaParcela}" />
+						</div>
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.nonaParcela')} ? has-error">
+							<label for="idade" class="control-label">Nona</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.nonaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.decimaParcela')} ? has-error">
+							<label for="idade" class="control-label">Decima</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.decimaParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.decimaPrimeiraParcela')} ? has-error">
+							<label for="idade" class="control-label">Decima Pri</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.decimaPrimeiraParcela}" />
+						</div>
+
+
+						<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('parcelaCorretor.decimaSegundaParcela')} ? has-error">
+							<label for="idade" class="control-label">Decima Seg</label> 
+							<input	id="idade" type="text" class="form-control somenteNumero"	th:field="*{parcelaCorretor.decimaSegundaParcela}" />
+						</div>						
+				</div>
+				</div>				
 	                <div class="row">
 						<button type="submit" class="btn btn-primary" >Adicionar</button>
 						</div>
@@ -196,27 +250,47 @@
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
+
+			                                    <tr  th:each="produto : ${produtos}" class="success"> 
+													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
+													<td th:text="${produto.categoriaProduto}">1</td>
+													<td th:text="COMISSAO_KGL">1</td>
+													<td th:text="|${produto.parcelaKgl.totalComissao}|+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.primeiraParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.segundaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.terceiraParcelaKgl}+'%'">1</td>																																							
+													<td th:text="${produto.parcelaKgl.quartaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.quintaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.sextaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.setimaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.oitavaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.nonaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.decimaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.decimaPrimeiraParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.decimaSegundaParcelaKgl}+'%'">1</td>
+																																							
+													<td >  </td>
+			                                    </tr>
 			                                    <tr class="odd gradeX" th:each="produto : ${produtos}">
 													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
 													<td th:text="${produto.tabelaComissao}">1</td>
-													<td th:text="|${produto.totalComissao}|+'%'">1</td>
-													<td th:text="${produto.primeiraParcela}+'%'">1</td>
-													<td th:text="${produto.segundaParcela}+'%'">1</td>
-													<td th:text="${produto.terceiraParcela}+'%'">1</td>																																							
-													<td th:text="${produto.quartaParcela}+'%'">1</td>
-													<td th:text="${produto.quintaParcela}+'%'">1</td>
-													<td th:text="${produto.sextaParcela}+'%'">1</td>
-													<td th:text="${produto.setimaParcela}+'%'">1</td>
-													<td th:text="${produto.oitavaParcela}+'%'">1</td>
-													<td th:text="${produto.nonaParcela}+'%'">1</td>
-													<td th:text="${produto.decimaParcela}+'%'">1</td>
-													<td th:text="${produto.decimaPrimeiraParcela}+'%'">1</td>
-													<td th:text="${produto.decimaSegundaParcela}+'%'">1</td>
+													<td th:text="|${produto.parcelaCorretor.totalComissao}|+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.primeiraParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.segundaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.terceiraParcela}+'%'">1</td>																																							
+													<td th:text="${produto.parcelaCorretor.quartaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.quintaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.sextaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.setimaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.oitavaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.nonaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.decimaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.decimaPrimeiraParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.decimaSegundaParcela}+'%'">1</td>
 																																							
 													<td >	<a th:href="${(#mvc.url('PC#remover').arg(0,produto)).build()}" class="fa fa-trash-o fa-fw" ></a>  </td>
-			                                    </tr>
-			                                    
+			                                    </tr>			                                    
 			                                </tbody>
 			                            </table>
 			                            <!-- /.table-responsive -->

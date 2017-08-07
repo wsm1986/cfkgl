@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class SubProduto {
 
@@ -16,6 +18,7 @@ public class SubProduto {
 	@OneToOne
 	private Produto produto;
 	
+	@NotBlank(message = "Favor Informar a Descricao")
 	private String descricao;
 
 	public Long getId() {

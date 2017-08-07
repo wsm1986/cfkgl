@@ -11,7 +11,7 @@
 
 		<div class="panel-body">
 			<div class="col-lg-12">
-					<form method="POST" th:object="${subProduto}"  th:action="@{/produto/salvarSubProduto}"  >
+					<form method="POST" th:object="${subProduto}"  th:action="@{/subProduto/salvar}"  >
 						<h1 class="page-header">CADASTRAR SUBPRODUTO</h1>
 		
 						<div class="alert  alert-danger  alert-dismissible" role="alert"
@@ -32,11 +32,12 @@
 						<div class="row">
 								<div class="form-group" >
 									
-									<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('produto')} ? has-error">
+									<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('produto')} ? has-error">
 											<label for="nome" class="control-label">PRODUTO</label> 
 											<select class="form-control" th:field="*{produto}">
 												<option th:each="produto : ${produtos}"
-													th:text="${produto.operadora.nome}" th:value="${produto.id}"	>
+													th:text="${produto.operadora.nome} +' | 
+ ' + |${produto.tabelaComissao} " th:value="${produto.id}"	>
 												</option>
 											</select>
 									</div>

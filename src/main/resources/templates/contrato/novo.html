@@ -11,13 +11,25 @@
 
 
 
-		<form method="POST" th:object="${contrato}" th:action="@{/contrato/salvar}" action="#">
+		<form method="POST" th:object="${contrato}" th:action="@{/contrato/salvar}" action="#" id="form">
 			<div class="row">
 				<div class="col-lg-142">
 					<h1 class="page-header">IMPLATAÇÃO DE CONTRATO</h1>
-					
+					<div class="alert  alert-danger  alert-dismissible" role="alert"
+							th:if="${#fields.hasAnyErrors()}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<th:block th:each="erro : ${#fields.detailedErrors()}">
+								<div>
+									<i class="fa  fa-exclamation-circle"></i> <span
+										th:text="${erro.message}">ERRO informado.</span>
+								</div>
+							</th:block>
+					</div>					
 					<div class="row">
-						<div class="col-sm-4  form-group">
+						<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('corretor')} ? has-error">
 							<label for="nome" class="control-label">Corretor</label> 
 							<select class="form-control" th:field="*{corretor}">
 								<option th:each="corretor : ${corretores}"
@@ -27,12 +39,11 @@
 							</select>
 						</div>
 						
-						<div class="col-sm-6  form-group">
+						<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('subProduto')} ? has-error">
 							<label for="nome" class="control-label">Convenio</label> 
 							<select class="form-control" th:field="*{subProduto}">
 								<option th:each="subProduto : ${subProdutos}"
-									th:text="${subProduto.descricao}" th:value="${subProduto.produto.operadora.id}"
-								>
+									th:text="${subProduto.descricao}" th:value="${subProduto.id}">
 								</option>
 							</select>
 						</div>
@@ -49,16 +60,10 @@
 								th:field="*{codigoContrato}" />
 						</div>
 
-						
-						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('codigoContrato')} ? has-error">
-							<label for="idade" class="control-label">Numero Proposta</label> <input
-								id="idade" type="text" class="form-control somenteNumero"
-								th:field="*{codigoContrato}" />
-						</div>												
 
-						<div class="col-sm-2  form-group">
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('dtCadastro')} ? has-error">
 							<label for="dtVencimentoConverter" class="control-label">Data Cadastro </label>
-							<div class='input-group date' id='data'>
+							<div class='input-group date' id='dataCadastro'>
 								<input type='text' class="form-control" th:field="*{dtCadastro}"		placeholder="ddmmyyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -67,9 +72,9 @@
 						</div>
 
 
-						<div class="col-sm-2  form-group">
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('dtAssinatura')} ? has-error">
 							<label for="dtVencimentoConverter" class="control-label">Data Assinatura </label>
-							<div class='input-group date' id='data'>
+							<div class='input-group date' id='dataAssinatura'>
 								<input type='text' class="form-control" th:field="*{dtAssinatura}"		placeholder="ddmmyyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -79,17 +84,15 @@
 						
 						
 
-						<div class="col-sm-2  form-group">
+						<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('dtVigencia')} ? has-error">
 							<label for="dtVencimentoConverter" class="control-label">Data Vigencia </label>
-							<div class='input-group date' id='data'>
+							<div class='input-group date' id='dataVigencia'>
 								<input type='text' class="form-control" th:field="*{dtVigencia}"		placeholder="ddmmyyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
 						</div>
-																		
-
 
 
 						<div class="col-sm-2  form-group">
@@ -99,30 +102,104 @@
 							</div>
 						</div>
 						
-						<div class="col-sm-6  form-group" >
+						<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('segurado.nome')} ? has-error">
 							<label for="segurado" class="control-label">Nome Segurado</label> 
-							<input id="segurado" type="text" class="form-control " th:field="*{nome}" />
-								
+							<input id="segurado" type="text" class="form-control " th:field="*{segurado.nome}"/>
+							<!-- <a class="btn btn-primary" id="testarImpressora" th:text="#{button.test.printer}"></a> -->
 						</div>
 						
+						<div class="col-sm-2  form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('segurado.cpfCnpj')} ? has-error">
+								<label for="nome" class="control-label">C.P.F</label> 
+								<input id="cpf" type="text" class="form-control cpf" th:field="*{segurado.cpfCnpj}"/>
+							</div>
+						</div>
+
+
+						<div class="col-sm-2  form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('segurado.quantVidas')} ? has-error">
+								<label for="nome" class="control-label">Qaunt. Vidas</label> 
+								<input id="cpf" type="text" class="form-control valor" th:field="*{segurado.quantVidas}"/>
+							</div>
+						</div>
+
+<!-- 						
+						<div class="row">
+			                    <div class="panel panel-default">
+			                        <div class="panel-heading">
+			                        </div>
+			                        <div class="panel-body">
+			                            <table width="100%" class="table table-striped table-bordered table-hover"  id="products-table">
+			                                <thead>
+			                                    <tr>
+			                                        <th>Nome</th>
+			                                        <th>CNPJ</th>
+			                                        <th>Excluir</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr class="odd gradeX" th:each="segurado : ${contrato.segurados}">
+													<td th:text="${segurado.nome}">1</td>
+													<td th:text="${segurado.cpfCnpj}">1</td>
+													<td >	  </td>
+			                                    </tr>
+			                                    
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                    </div>
+		                </div> -->
 						
 			</div>
 		</div>
-				<button type="submit" class="btn btn-primary">Novo</button>
-				
+		<!-- <button onclick="AddTableRow()"  class="btn btn-primary" type="button"  >Adicionar</button> -->				
+		<button type="submit" class="btn btn-primary">Salvar</button>
 		</form>
 				<script type="text/javascript">
         /*<![CDATA[*/
 	        $(document).ready(function() {
 	        
-             	$('#data').datetimepicker({
+             	$('#dataCadastro').datetimepicker({
                     locale: 'pt-br',
                     format: 'DD/MM/YYYY'
                 });	
 
-
+             	$('#dataAssinatura').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });
+             	
+             	$('#dataVigencia').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });             	
 			  } );  
+        
+			$('#testarImpressora').click(function() {
+			    $('#form').attr('action', "/contrato/addSegurado/"+$('#segurado').val()).submit();
+			 });
 
+			
+			
+			(function($) {
+				  AddTableRow = function() {
+
+				    var newRow = $("<tr>");
+				    var cols = "";
+
+				    cols += '<td>'+$('#segurado').val()+'</td>';
+				    cols += '<td>'+$('#cpf').val()+'</td>';
+				    cols += '<td>';
+				    cols += '<button onclick="RemoveTableRow(this)" type="button">Remover</button>';
+				    cols += '</td>';
+
+				    newRow.append(cols);
+				    $("#products-table").append(newRow);
+
+				    return false;
+				  };
+				})(jQuery);
+			
 			  
 	    	/*]]>*/	
 	        </script>

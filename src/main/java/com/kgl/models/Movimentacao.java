@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -30,6 +31,10 @@ public class Movimentacao implements Serializable {
 
 	@ManyToOne
 	private Contrato contrato;
+	
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private DateTime dtPagamento;
 
 	@Enumerated(EnumType.STRING)
 	private TipoMovimentacao tipoMovimentacao;
@@ -72,6 +77,14 @@ public class Movimentacao implements Serializable {
 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
+	}
+
+	public DateTime getDtPagamento() {
+		return dtPagamento;
+	}
+
+	public void setDtPagamento(DateTime dtPagamento) {
+		this.dtPagamento = dtPagamento;
 	}
 
 }

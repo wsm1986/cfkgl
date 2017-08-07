@@ -1,5 +1,7 @@
 package com.kgl.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,7 +28,7 @@ public class OperadoraController {
 	}
 	
 	@RequestMapping({ "/salvar" })
-	public ModelAndView salvar(Operadora operadora, BindingResult result) {
+	public ModelAndView salvar(@Valid Operadora operadora, BindingResult result) {
 		if (result.hasErrors()) {
 			return form(operadora);
 		}

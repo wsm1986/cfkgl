@@ -2,19 +2,17 @@ package com.kgl.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -39,8 +37,8 @@ public class Contrato implements Serializable {
 	@NotNull(message = "Data Inicio é obrigatório")
 	private DateTime dtVigencia;
 
-	@OneToMany
-	private List<Segurado> segurados = new ArrayList<>();
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Segurado segurado;
 
 	@OneToOne
 	private Corretor corretor;
@@ -52,9 +50,6 @@ public class Contrato implements Serializable {
 	private SubProduto subProduto;
 
 	private Boolean statusContrato;
-
-	@javax.persistence.Transient
-	private String nomeSegurado;
 
 	public Long getId() {
 		return id;
@@ -96,14 +91,6 @@ public class Contrato implements Serializable {
 		this.dtVigencia = dtVigencia;
 	}
 
-	public List<Segurado> getSegurados() {
-		return segurados;
-	}
-
-	public void setSegurados(List<Segurado> segurados) {
-		this.segurados = segurados;
-	}
-
 	public Corretor getCorretor() {
 		return corretor;
 	}
@@ -136,16 +123,20 @@ public class Contrato implements Serializable {
 		this.statusContrato = statusContrato;
 	}
 
-	public String getNomeSegurado() {
-		return nomeSegurado;
+	public Contrato() {
 	}
 
-	public void setNomeSegurado(String nomeSegurado) {
-		this.nomeSegurado = nomeSegurado;
+	public Segurado getSegurado() {
+		return segurado;
 	}
 
+	public void setSegurado(Segurado segurado) {
+		this.segurado = segurado;
+	}
 
-
-	
+	@Override
+	public String toString() {
+		return "Contrato [subProduto=" + subProduto + "]";
+	}
 
 }

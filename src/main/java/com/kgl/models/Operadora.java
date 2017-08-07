@@ -20,7 +20,7 @@ public class Operadora implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	//@NotBlank(message = "Favor Informar a Operadora")
+	@NotBlank(message = "Favor Informar a Operadora")
 	private String nome;
 	private String cnpj;
 
