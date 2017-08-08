@@ -12,6 +12,8 @@ import com.kgl.models.Contrato;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Parcela;
 import com.kgl.models.Produto;
+import com.kgl.models.StatusContrato;
+import com.kgl.models.StatusMovimentacao;
 import com.kgl.models.SubProduto;
 import com.kgl.models.TabelaComissao;
 import com.kgl.models.TipoMovimentacao;
@@ -39,6 +41,7 @@ public class CriadorDeContrato {
 	
 	public void implantarContrato(Contrato contrato) {
 		//List<Produto> movimentacaoEntrada = produtoRepository.findByOperadoraAndTabelaComissao(contrato.getSubProduto().getProduto().getOperadora(), TabelaComissao.COMISSAO_KGL);
+		contrato.setStatusContrato(StatusContrato.AGUARDANDO_IMPLANTACAO);
 		contratoRepository.save(contrato);
 		gerarMovimentacaoFinanceiraEntrada(contrato);
 		gerarMovimentacaoFinanceira(contrato);
@@ -84,8 +87,8 @@ public class CriadorDeContrato {
 	
 	private void gerarMovimentacao(Contrato contrato, BigDecimal valor, TipoMovimentacao tipo, Integer mesPagamento) {
 		Movimentacao mov = new Movimentacao();
-		mov.setDescricao(contrato.toString());
 		mov.setTipoMovimentacao(tipo);
+		mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
 		mov.setValor(valor);
 		mov.setContrato(contrato);
 		mov.setDtPagamento(contrato.getDtCadastro().plusMonths(mesPagamento));

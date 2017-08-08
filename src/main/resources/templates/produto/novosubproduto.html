@@ -72,7 +72,7 @@
 			                                <tbody>
 			                                    <tr class="odd gradeX" th:each="subProduto : ${subProdutos}">
 													<td th:text="${subProduto.descricao}">1</td>
-													<td >	<a th:href="${(#mvc.url('PC#removerSub').arg(0,subProduto)).build()}" class="fa fa-trash-o fa-fw" ></a>  </td>
+													<td >	<a th:href="${(#mvc.url('SPC#removerSub').arg(0,subProduto)).build()}" class="fa fa-trash-o fa-fw" ></a>  </td>
 			                                    </tr>
 			                                    
 			                                </tbody>

@@ -44,25 +44,44 @@
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
+			                                    <tr  th:each="produto : ${produtos}" class="success"> 
+													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
+													<td th:text="${produto.categoriaProduto}">1</td>
+													<td th:text="COMISSAO_KGL">1</td>
+													<td th:text="|${produto.parcelaKgl.totalComissao}|+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.primeiraParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.segundaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.terceiraParcelaKgl}+'%'">1</td>																																							
+													<td th:text="${produto.parcelaKgl.quartaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.quintaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.sextaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.setimaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.oitavaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.nonaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.decimaParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.decimaPrimeiraParcelaKgl}+'%'">1</td>
+													<td th:text="${produto.parcelaKgl.decimaSegundaParcelaKgl}+'%'">1</td>
+																																							
+			                                    </tr>
 			                                    <tr class="odd gradeX" th:each="produto : ${produtos}">
 													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
 													<td th:text="${produto.tabelaComissao}">1</td>
-													<td th:text="|${produto.totalComissao}|+'%'">1</td>
-													<td th:text="${produto.primeiraParcela}+'%'">1</td>
-													<td th:text="${produto.segundaParcela}+'%'">1</td>
-													<td th:text="${produto.terceiraParcela}+'%'">1</td>																																							
-													<td th:text="${produto.quartaParcela}+'%'">1</td>
-													<td th:text="${produto.quintaParcela}+'%'">1</td>
-													<td th:text="${produto.sextaParcela}+'%'">1</td>
-													<td th:text="${produto.setimaParcela}+'%'">1</td>
-													<td th:text="${produto.oitavaParcela}+'%'">1</td>
-													<td th:text="${produto.nonaParcela}+'%'">1</td>
-													<td th:text="${produto.decimaParcela}+'%'">1</td>
-													<td th:text="${produto.decimaPrimeiraParcela}+'%'">1</td>
-													<td th:text="${produto.decimaSegundaParcela}+'%'">1</td>
+													<td th:text="|${produto.parcelaCorretor.totalComissao}|+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.primeiraParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.segundaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.terceiraParcela}+'%'">1</td>																																							
+													<td th:text="${produto.parcelaCorretor.quartaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.quintaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.sextaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.setimaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.oitavaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.nonaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.decimaParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.decimaPrimeiraParcela}+'%'">1</td>
+													<td th:text="${produto.parcelaCorretor.decimaSegundaParcela}+'%'">1</td>
 																																							
-			                                    </tr>
+			                                    </tr>	
 			                                    
 			                                </tbody>
 			                            </table>

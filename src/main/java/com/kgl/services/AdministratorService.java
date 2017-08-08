@@ -14,7 +14,7 @@ public class AdministratorService {
 	private String filePath;
 
 	public AdministratorService() {
-		this.filePath = getClass().getClassLoader().getResource("administrators.json").getPath();
+		//this.filePath = getClass().getClassLoader().getResource("administrators.json").getPath();
 	}
 
 	public AdministratorService(String filePath) {

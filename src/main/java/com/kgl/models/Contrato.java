@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,7 +51,8 @@ public class Contrato implements Serializable {
 	@OneToOne
 	private SubProduto subProduto;
 
-	private Boolean statusContrato;
+	@Enumerated(EnumType.STRING)
+	private StatusContrato statusContrato;
 
 	public Long getId() {
 		return id;
@@ -115,13 +118,6 @@ public class Contrato implements Serializable {
 		this.subProduto = subProduto;
 	}
 
-	public Boolean getStatusContrato() {
-		return statusContrato;
-	}
-
-	public void setStatusContrato(Boolean statusContrato) {
-		this.statusContrato = statusContrato;
-	}
 
 	public Contrato() {
 	}
@@ -136,7 +132,18 @@ public class Contrato implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contrato [subProduto=" + subProduto + "]";
+		return "[Proposta: " + codigoContrato + " | R$: " + valor + " | " + subProduto.toString()
+				+ " | " + statusContrato+ "] ";
 	}
+
+	public StatusContrato getStatusContrato() {
+		return statusContrato;
+	}
+
+	public void setStatusContrato(StatusContrato statusContrato) {
+		this.statusContrato = statusContrato;
+	}
+
+
 
 }

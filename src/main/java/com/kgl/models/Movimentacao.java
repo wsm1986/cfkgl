@@ -2,7 +2,6 @@ package com.kgl.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,8 +23,6 @@ public class Movimentacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String descricao;
-
 	private BigDecimal valor;
 
 	@ManyToOne
@@ -38,6 +34,9 @@ public class Movimentacao implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private TipoMovimentacao tipoMovimentacao;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusMovimentacao status;
 
 	public TipoMovimentacao getTipoMovimentacao() {
 		return tipoMovimentacao;
@@ -53,14 +52,6 @@ public class Movimentacao implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public BigDecimal getValor() {
@@ -85,6 +76,14 @@ public class Movimentacao implements Serializable {
 
 	public void setDtPagamento(DateTime dtPagamento) {
 		this.dtPagamento = dtPagamento;
+	}
+
+	public StatusMovimentacao getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusMovimentacao status) {
+		this.status = status;
 	}
 
 }
