@@ -12,10 +12,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -25,6 +28,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
+
+import com.kgl.models.Operadora;
 
 @Configuration
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
@@ -118,4 +123,13 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 				.resourceChain(true).addResolver(new WebJarsResourceResolver());
 		// @formatter:on
 	}
+	
+	@Component
+	public class ConfigurationRest extends RepositoryRestConfigurerAdapter {
+	    @Override
+	    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+	        config.exposeIdsFor(Operadora.class);
+	    }
+	}
+
 }

@@ -41,4 +41,16 @@ public class OperadoraController {
 		dao.delete(operadora);
 		return form(operadora);
 	}
+	
+	@RequestMapping("/listar")
+	private ModelAndView listar() {
+		ModelAndView mvn = new ModelAndView("operadora/operadoras");
+		return mvn;
+	}
+	
+	@RequestMapping("/teste")
+	private ModelAndView teste() {
+		ModelAndView mvn = new ModelAndView("index2");
+		return mvn;
+	}
 }

@@ -55,23 +55,29 @@
 			                        </div>
 			                        <!-- /.panel-heading -->
 			                        <div class="panel-body">
-			                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-			                                <thead>
-			                                    <tr>
-			                                        <th>Operadora</th>
-			                                        <th>CNPJ</th>
-			                                        <th>Excluir</th>
-			                                    </tr>
-			                                </thead>
-			                                <tbody>
-			                                    <tr class="odd gradeX" th:each="operadora : ${operadoras}">
-													<td th:text="${operadora.nome}">1</td>
-													<td th:text="${operadora.cnpj}">1</td>
-													<td >	<a th:href="${(#mvc.url('OC#remover').arg(0,operadora)).build()}" class="fa fa-trash-o fa-fw" ></a>  </td>
-			                                    </tr>
-			                                    
-			                                </tbody>
-			                            </table>
+			                            	<table id="operadorasTable" class="display table table-striped table-bordered table-hover">
+      
+										       <!-- Header Table -->
+										       <thead>
+										            <tr>
+										                <th>Id</th>
+														<th>Nome</th>
+										                <th>Cnpj</th>
+										                <th>Cnpj</th>
+										                
+										            </tr>
+										        </thead>
+										        <!-- Footer Table -->
+										        <tfoot>
+										            <tr>
+										                <th>Id</th>
+														<th>Nome</th>
+										                <th>Cnpj</th>
+										                <th>Cnpj</th>
+										                
+										            </tr>
+										        </tfoot>
+										    </table>
 			                            <!-- /.table-responsive -->
 			                        </div>
 			                        <!-- /.panel-body -->
