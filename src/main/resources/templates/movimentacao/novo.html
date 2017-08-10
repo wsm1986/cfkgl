@@ -35,17 +35,21 @@
 			                                <thead>
 			                                    <tr>
 			                                        <th>Data Pagamento</th>
-			                                        <th>Contrato</th>
+			                                        <th>Num. Proposta</th>
+			                                        <th>$ Contrato</th>
+			                                        <th>Descricao Contrato</th>
 			                                        <th>Tipo</th>
 			                                        <th>Valor</th>
 			                                        <th>Status</th>
-			                                        <th>Excluir</th>
+			                                        <th>Detalhe</th>
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}">
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
-													<td th:text="${movimentacao.contrato}">1</td>
+													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
+													<td th:text="${movimentacao.contrato.valor}">1</td>
+													<td th:text="${movimentacao.contrato.statusContrato}">1</td>
 													<td th:text="${movimentacao.tipoMovimentacao}">1</td>
 													<td th:text="${movimentacao.valor}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
@@ -74,15 +78,8 @@
 							</div>
 
  <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
 
-    function alterarClass(){
-        alert("1");
-    }
+
     </script>
 
 						</div>

@@ -20,8 +20,8 @@ $(document).ready( function () {
     
 $(document).ready( function () {
 	 var table = $('#operadorasTable').DataTable({
-			"sAjaxSource": "/operadora?page=0&size=100",
-			"sAjaxDataProp": "_embedded.operadora",
+			"sAjaxSource": "/operadoraIni?page=0&size=100",
+			"sAjaxDataProp": "_embedded.operadoraIni",
 			"pagingType": "full_numbers",
 			"bProcessing": true,
 			"order": [[ 0, "asc" ]],

@@ -22,11 +22,13 @@ import com.kgl.models.Contrato;
 import com.kgl.models.Segurado;
 import com.kgl.repository.CorretorRepository;
 import com.kgl.validator.ContratoValidator;
+import com.kgl.webservices.ContratoRepository;
+import com.kgl.webservices.MovimentacaoRepository;
 import com.kgl.webservices.SubProdutoRepository;
 
 @Controller
 @RequestMapping("/contrato")
-public class ContratoController {
+public class ContratoKglController {
 
 	@Autowired
 	private CorretorRepository corretorDao;
@@ -38,6 +40,12 @@ public class ContratoController {
 	CriadorDeContrato contratoNovo;
 	
 	@Autowired
+	ContratoRepository contratoRepository;
+	
+	@Autowired
+	MovimentacaoRepository movRepository;
+	
+	@Autowired
 	private ContratoValidator contratoValidation;
 
 	@RequestMapping({ "/", "/form" })
@@ -45,6 +53,15 @@ public class ContratoController {
 		ModelAndView mvn = new ModelAndView("contrato/novo");
 		mvn.addObject("corretores", corretorDao.findAll());
 		mvn.addObject("subProdutos", produtoDao.findAll());
+		return mvn;
+
+	}
+	
+
+	@RequestMapping({ "/listar" })
+	private ModelAndView listar() {
+		ModelAndView mvn = new ModelAndView("contrato/listar");
+		mvn.addObject("contratos",contratoRepository.findAll());
 		return mvn;
 
 	}
@@ -84,4 +101,14 @@ public class ContratoController {
 		System.out.println(segurado);
 		return "redirect:/contrato/form";
 	}
+	
+	@RequestMapping(value = "/detalharContr/{contrato}", method = RequestMethod.GET)
+	public ModelAndView detalharContr(@PathVariable("contrato") Contrato contrato) {
+		System.out.println(contrato.getCodigoContrato());
+		ModelAndView mvn = new ModelAndView("contrato/listar");
+		mvn.addObject("contratos",contratoRepository.findAll());
+		mvn.addObject("movimentacoes", movRepository.findByContrato(contrato));
+		return mvn;
+	}
+	
 }

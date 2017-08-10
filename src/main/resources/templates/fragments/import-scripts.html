@@ -29,36 +29,52 @@
 <script type="text/javascript" th:src="@{/js/jasny-bootstrap.js}"></script>
 <script type="text/javascript" th:src="@{/js/jasny-bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/jquery.mask.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/dataTables.bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/dataTables.responsive.js}"></script>
 
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-	<script src="/js/datatable.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatable.js"></script>
 
 
 <script type="text/javascript">
-        /*<![CDATA[*/
-	        $(document).ready(function() {
-	        
-             	$('.inputmask').inputmask({
-             		  mask: '(99)99999-9999'
-             		})
-             		
-             	$('.money').mask('000.000.000.000.000,00', {reverse: true});    
+	/*<![CDATA[*/
+	$(document).ready(function() {
 
-             	$(".somenteNumero").bind("keyup blur focus", function(e) {
-                    e.preventDefault();
-                    var expre = /[^\d]/g;
-                    $(this).val($(this).val().replace(expre,''));
-               });
+		$('.inputmask').inputmask({
+			mask : '(99)99999-9999'
+		})
 
-             	$(".rg").mask("99.999.999-9",{placeholder:" "});
+		$('.money').mask('000.000.000.000.000,00', {
+			reverse : true
+		});
 
-             	$(".cpf").mask("999.999.999-99",{placeholder:" "});    
-             			
-			  } );  
+		$(".somenteNumero").bind("keyup blur focus", function(e) {
+			e.preventDefault();
+			var expre = /[^\d]/g;
+			$(this).val($(this).val().replace(expre, ''));
+		});
 
-			  
-	    	/*]]>*/	
-	        </script>
+		$('#dataTables-example').DataTable({
+			responsive : true
+		});
+		
+		$('#dataTables-mov').DataTable({
+			responsive : true
+		});
+
+		$(".rg").mask("99.999.999-9", {
+			placeholder : " "
+		});
+
+		$(".cpf").mask("999.999.999-99", {
+			placeholder : " "
+		});
+
+	});
+
+	/*]]>*/
+</script>

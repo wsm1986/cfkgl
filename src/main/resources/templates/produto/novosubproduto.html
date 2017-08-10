@@ -36,8 +36,7 @@
 											<label for="nome" class="control-label">PRODUTO</label> 
 											<select class="form-control" th:field="*{produto}">
 												<option th:each="produto : ${produtos}"
-													th:text="${produto.operadora.nome} +' | 
- ' + |${produto.tabelaComissao} " th:value="${produto.id}"	>
+													th:text="${produto.operadora.nome} +' | ' + |${produto.tabelaComissao}  " th:value="${produto.id}"	>
 												</option>
 											</select>
 									</div>
@@ -90,11 +89,6 @@
 		</div>
 
  <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
 
     function alterarClass(){
         alert("1");
