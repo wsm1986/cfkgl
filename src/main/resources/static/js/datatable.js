@@ -14,10 +14,16 @@ $(document).ready( function () {
 	 })
 });
 
+
+
+    
+    
 $(document).ready( function () {
 	 var table = $('#operadorasTable').DataTable({
-			"sAjaxSource": "/operadora",
+			"sAjaxSource": "/operadora?page=0&size=100",
 			"sAjaxDataProp": "_embedded.operadora",
+			"pagingType": "full_numbers",
+			"bProcessing": true,
 			"order": [[ 0, "asc" ]],
 			"aoColumns": [
 			      { "mData": "id"},
@@ -34,6 +40,8 @@ $(document).ready( function () {
 			]
 	 
 	 })
+	 
+			 
 	 
 	 $('#operadorasTable tbody').on( 'click', 'button', function () {
 		 return "<a href=${(#mvc.url('OC#remover').arg(0,operadora)).build()}";

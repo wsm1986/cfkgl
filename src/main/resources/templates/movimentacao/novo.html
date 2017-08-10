@@ -18,7 +18,6 @@
 					
 						<div class="form-group input-group col-lg-1">
 						
-			                <input type="text" class="form-control" th:field="*{contrato.codigoContrato}"></input>
 			     
 			            </div>
 		
@@ -28,23 +27,7 @@
 						
 			                    <div class="panel panel-default">
 			                        <div class="panel-heading">
-			                        <div class="row">
-										<div class="col-sm-6">
-											<div class="dataTables_length" id="dataTables-example_length">
-												<label>Show <select name="dataTables-example_length"
-													aria-controls="dataTables-example"
-													class="form-control input-sm"><option value="10">10</option>
-														<option value="25">25</option>
-														<option value="50">50</option>
-														<option value="100">100</option></select> entries
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div id="dataTables-example_filter" class="dataTables_filter">
-											</div>
-										</div>
-								</div>	
+	
 			                        </div>
 			                        <!-- /.panel-heading -->
 			                        <div class="panel-body">
@@ -89,6 +72,19 @@
 									</select>
 								</div>-->
 							</div>
+
+ <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+
+    function alterarClass(){
+        alert("1");
+    }
+    </script>
+
 						</div>
 
 </body>
