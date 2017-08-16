@@ -101,7 +101,7 @@ public class CorretorController {
 		Role role = new Role();
 		role.setNome("ROLE_USER");
 		list.add(role);
-		//User user = new User(userName,password,list);
-		//userRepository.save(user);
+		User user = new User(userName,password,list);
+		userRepository.save(user);
 	}
 }
