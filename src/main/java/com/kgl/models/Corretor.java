@@ -28,7 +28,6 @@ public class Corretor {
 	@NotBlank
 	private String cpfCnpj;
 	@NotBlank
-	@Column(unique=true)
 	private String email;
 	@NotBlank
 	private String telefone;
