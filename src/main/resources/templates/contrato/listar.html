@@ -49,10 +49,10 @@
 										<td th:text="${contrato.segurado.nome}">1</td>
 										<td th:text="${contrato.corretor.nome}">1</td>
 										<td th:text="${contrato.statusContrato}">1</td>
-										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " title="Alterar"></a>
 										
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar" ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar" ></a>
 										</td>
 										
                                     </tr>
@@ -65,10 +65,10 @@
 										<td th:text="${contrato.segurado.nome}">1</td>
 										<td th:text="${contrato.corretor.nome}">1</td>
 										<td th:text="${contrato.statusContrato}">1</td>
-										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " title="Alterar"></a>
 										
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar"></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar"></a>
 										</td>
 										
                                     </tr>
@@ -81,10 +81,10 @@
 										<td th:text="${contrato.segurado.nome}">1</td>
 										<td th:text="${contrato.corretor.nome}">1</td>
 										<td th:text="${contrato.statusContrato}">1</td>
-										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  "  title="Alterar"></a>
 										
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar" ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar"></a>
 										</td>
 										
                                     </tr>                                    
