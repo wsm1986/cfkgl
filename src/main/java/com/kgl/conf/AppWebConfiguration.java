@@ -151,7 +151,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	}
 	
 	
-	@PostConstruct
+/*	@PostConstruct
 	public void insertUserDefault() {
 		List<com.kgl.models.User> listUser = userRepository.findAll();
 		String password;
@@ -171,7 +171,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 			userRepository.save(user);
 			
 		}
-	}
+	}*/
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
