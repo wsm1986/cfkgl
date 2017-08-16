@@ -161,14 +161,14 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 			Role role = new Role();
 			role.setNome("ROLE_USER");
 			list.add(role);
-			User user = new User("admin@gmail.com",password,list);
-			userRepository.save(user);
+			//User user = new User("admin@gmail.com",password,list);
+			//userRepository.save(user);
 			role = new Role();
 			role.setNome("ROLE_ADMIN");
 			list = new ArrayList<>();
 			list.add(role);
-			user = new User("karina@gmail.com",password,list);
-			userRepository.save(user);
+			//user = new User("karina@gmail.com",password,list);
+			//userRepository.save(user);
 			
 		}
 	}
