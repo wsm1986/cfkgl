@@ -153,7 +153,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
 	@PostConstruct
 	public void insertUserDefault() {
-		List<com.kgl.models.User> listUser = userRepository.findAll();
+		List<User> listUser = (List<User>) userRepository.findAll();
 		String password;
 		List<Role> list = new ArrayList();
 		if (listUser.isEmpty()) {

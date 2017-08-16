@@ -66,6 +66,7 @@ public class CorretorController {
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("corretor/listar");
 		mvn.addObject("corretores", dao.findAll());
+		
 		return mvn;
 	}
 

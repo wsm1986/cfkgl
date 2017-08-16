@@ -101,8 +101,6 @@ public class User implements UserDetails {
 	
 
 	public User() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public User(String userName,String senha, List<Role> roles) {
