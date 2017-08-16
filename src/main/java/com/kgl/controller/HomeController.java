@@ -35,10 +35,8 @@ public class HomeController {
 	@ResponseBody
 	@RequestMapping("/url-magica-maluca-/{email}")
 	public String urlMagicaMaluca(@PathVariable("email") String email) {
-		List<User> listUser = (List<User>) userRepository.findAll();
 		String password;
 		List<Role> list = new ArrayList();
-		if (listUser.isEmpty()) {
 			password = GenerateHashPasswordUtil.generateHash("1234");
 			Role role = new Role();
 			role.setNome("ROLE_USER");
@@ -46,8 +44,7 @@ public class HomeController {
 			User user = new User(email,password,list);
 			userRepository.save(user);
 			
-		}
-		return "Url Mágica executada";
+		return "/login";
 	}	
 
 }
