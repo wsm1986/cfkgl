@@ -1,10 +1,16 @@
 package com.kgl.conf;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+
 import org.h2.server.web.WebServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -29,14 +35,26 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
+import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.Operadora;
+import com.kgl.models.Role;
+import com.kgl.models.User;
+import com.kgl.repository.UserRepository;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addRedirectViewController("/", "/corretor/form");
+		registry.addRedirectViewController("/", "/index");
 	}
 
 	@Bean
@@ -131,5 +149,34 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	        config.exposeIdsFor(Operadora.class);
 	    }
 	}
+	
+	
+	@PostConstruct
+	public void insertUserDefault() {
+		List<com.kgl.models.User> listUser = userRepository.findAll();
+		String password;
+		List<Role> list = new ArrayList();
+		if (listUser.isEmpty()) {
+			password = GenerateHashPasswordUtil.generateHash("1234");
+			Role role = new Role();
+			role.setNome("ROLE_USER");
+			list.add(role);
+			User user = new User("admin@gmail.com",password,list);
+			userRepository.save(user);
+			role = new Role();
+			role.setNome("ROLE_ADMIN");
+			list = new ArrayList<>();
+			list.add(role);
+			user = new User("karina@gmail.com",password,list);
+			userRepository.save(user);
+			
+		}
+	}
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		return bCryptPasswordEncoder;
+	}
+	
 
 }

@@ -43,12 +43,13 @@ public class CriadorDeContrato {
 		//List<Produto> movimentacaoEntrada = produtoRepository.findByOperadoraAndTabelaComissao(contrato.getSubProduto().getProduto().getOperadora(), TabelaComissao.COMISSAO_KGL);
 		contrato.setStatusContrato(StatusContrato.AGUARDANDO_IMPLANTACAO);
 		contratoRepository.save(contrato);
-		gerarMovimentacaoFinanceiraEntrada(contrato);
-		gerarMovimentacaoFinanceira(contrato);
+		gerarMovimentacao(contrato);
+		//gerarMovimentacaoFinanceiraEntrada(contrato);
+		//gerarMovimentacaoFinanceira(contrato);
 	}
 
 
-	private void gerarMovimentacaoFinanceira(Contrato contrato) {
+	/*private void gerarMovimentacaoFinanceira(Contrato contrato) {
 			Produto prod = contrato.getSubProduto().getProduto();
 			gerarMovimentacao(contrato,prod.getParcelaCorretor().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaCorretor().getPrimeiraParcela()),TipoMovimentacao.SAIDA, 0);
 			gerarMovimentacao(contrato,prod.getParcelaCorretor().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaCorretor().getSegundaParcela()), TipoMovimentacao.SAIDA,1);
@@ -78,24 +79,30 @@ public class CriadorDeContrato {
 		gerarMovimentacao(contrato,prod.getParcelaKgl().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaKgl().getOitavaParcelaKgl()), TipoMovimentacao.ENTRADA,7);
 		gerarMovimentacao(contrato,prod.getParcelaKgl().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaKgl().getNonaParcelaKgl()),TipoMovimentacao.ENTRADA, 8);
 		gerarMovimentacao(contrato,prod.getParcelaKgl().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaKgl().getDecimaParcelaKgl()), TipoMovimentacao.ENTRADA,9);
-		gerarMovimentacao(contrato,prod.getParcelaKgl().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaKgl().getDecimaPrimeiraParcelaKgl()), TipoMovimentacao.ENTRADA,10);
+		gerarMovimentacao(contrato,prod.getParcelaKgl().calcularValorPorcentagmovem(contrato.getValor(),prod.getParcelaKgl().getDecimaPrimeiraParcelaKgl()), TipoMovimentacao.ENTRADA,10);
 		gerarMovimentacao(contrato,prod.getParcelaKgl().calcularValorPorcentagem(contrato.getValor(),prod.getParcelaKgl().getDecimaSegundaParcelaKgl()), TipoMovimentacao.ENTRADA,11);
 		
 	
-}
+}*/
 	
 	
-	private void gerarMovimentacao(Contrato contrato, BigDecimal valor, TipoMovimentacao tipo, Integer mesPagamento) {
-		Movimentacao mov = new Movimentacao();
-		mov.setTipoMovimentacao(tipo);
-		mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
-		mov.setValor(valor);
-		mov.setContrato(contrato);
-		mov.setDtPagamento(contrato.getDtCadastro().plusMonths(mesPagamento));
-		if (valor.compareTo(BigDecimal.ZERO) == 1){
-			movimentacaoRepository.save(mov);
+	private void gerarMovimentacao(Contrato contrato) {
+		for (int mesPagamento = 0; mesPagamento < 12; mesPagamento++) {
+			Movimentacao mov = new Movimentacao();
+			mov.setContrato(contrato);
+			mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
+
+			mov.setValorCorretor(contrato.getSubProduto().getProduto().getParcelaCorretor()
+					.calcularValorLucro(contrato.getValor(), mesPagamento));
+			mov.setValorKgl(contrato.getSubProduto().getProduto().getParcelaKgl()
+					.calcularValorLucro(contrato.getValor(), mesPagamento));
+			mov.setLucro(mov.getValorKgl().subtract(mov.getValorCorretor()));
+			mov.setDtPagamento(contrato.getDtCadastro().plusMonths(mesPagamento));
+			if (mov.getValorKgl().compareTo(BigDecimal.ZERO) == 1) {
+				movimentacaoRepository.save(mov);
+			}
 		}
-		
+
 	}
 
 	public CriadorDeContrato() {

@@ -130,11 +130,6 @@ public class Contrato implements Serializable {
 		this.segurado = segurado;
 	}
 
-	@Override
-	public String toString() {
-		return "[Proposta: " + codigoContrato + " | R$: " + valor + " | " + subProduto.toString()
-				+ " | " + statusContrato+ "] ";
-	}
 
 	public StatusContrato getStatusContrato() {
 		return statusContrato;

@@ -9,6 +9,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.Contrato;
+import com.kgl.models.Role;
 import com.kgl.models.Segurado;
+import com.kgl.models.StatusContrato;
 import com.kgl.repository.CorretorRepository;
 import com.kgl.validator.ContratoValidator;
 import com.kgl.webservices.ContratoRepository;
@@ -38,16 +42,20 @@ public class ContratoKglController {
 
 	@Autowired
 	CriadorDeContrato contratoNovo;
-	
+
 	@Autowired
 	ContratoRepository contratoRepository;
-	
+
 	@Autowired
 	MovimentacaoRepository movRepository;
+
+	@Autowired
+	CorretorRepository corretorRepository;
 	
 	@Autowired
 	private ContratoValidator contratoValidation;
-
+	
+	
 	@RequestMapping({ "/", "/form" })
 	private ModelAndView form(Contrato contrato) {
 		ModelAndView mvn = new ModelAndView("contrato/novo");
@@ -56,12 +64,19 @@ public class ContratoKglController {
 		return mvn;
 
 	}
-	
 
 	@RequestMapping({ "/listar" })
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		mvn.addObject("contratos",contratoRepository.findAll());
+		com.kgl.models.User user = (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		for (Role role : user.getRoles()) {
+			if(role.getAuthority().equals("ROLE_ADMIN")) {
+				mvn.addObject("contratos", contratoRepository.findAll());
+			}else {
+				mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(user.getUsername())));
+			}
+			System.out.println(role.getAuthority());
+		}
 		return mvn;
 
 	}
@@ -101,14 +116,33 @@ public class ContratoKglController {
 		System.out.println(segurado);
 		return "redirect:/contrato/form";
 	}
-	
-	@RequestMapping(value = "/detalharContr/{contrato}", method = RequestMethod.GET)
-	public ModelAndView detalharContr(@PathVariable("contrato") Contrato contrato) {
-		System.out.println(contrato.getCodigoContrato());
+
+	@RequestMapping(value = "/detalharContr/{id}", method = RequestMethod.GET)
+	public ModelAndView detalharContr(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		mvn.addObject("contratos",contratoRepository.findAll());
-		mvn.addObject("movimentacoes", movRepository.findByContrato(contrato));
+		mvn.addObject("contratos", contratoRepository.findAll());
+		mvn.addObject("movimentacoes", movRepository.findByContrato(contratoRepository.findOne(id)));
 		return mvn;
 	}
+
+	@RequestMapping(value = "/remover/{contrato}", method = RequestMethod.GET)
+	public ModelAndView remover(@PathVariable("contrato") Contrato contrato) {
+		contratoRepository.delete(contrato);
+		return listar();
+	}
 	
+	@RequestMapping(value = "/update/recusar/{contrato}", method = RequestMethod.GET)
+	public ModelAndView recusar(@PathVariable("contrato") Contrato contrato) {
+		contrato.setStatusContrato(StatusContrato.RECUSADO);
+		contratoRepository.save(contrato);
+		return listar();
+	}
+	
+	@RequestMapping(value = "/update/implantar/{contrato}", method = RequestMethod.GET)
+	public ModelAndView implantar(@PathVariable("contrato") Contrato contrato) {
+		contrato.setStatusContrato(StatusContrato.IMPLANTADO);
+		contratoRepository.save(contrato);
+		return listar();
+	}
+
 }

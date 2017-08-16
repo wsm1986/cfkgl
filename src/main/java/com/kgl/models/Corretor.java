@@ -3,6 +3,7 @@ package com.kgl.models;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +28,7 @@ public class Corretor {
 	@NotBlank
 	private String cpfCnpj;
 	@NotBlank
+	@Column(unique=true)
 	private String email;
 	@NotBlank
 	private String telefone;

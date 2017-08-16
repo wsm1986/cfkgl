@@ -154,4 +154,63 @@ public class ParcelaKgl implements Parcela{
 			return valor.multiply(new BigDecimal(calc));
 
 	}
+
+	@Override
+	public BigDecimal calcularValorLucro(BigDecimal valor, Integer numParcela) {
+		switch (numParcela) {
+		case 0:
+			numParcela = this.getPrimeiraParcelaKgl();
+			break;
+
+		case 1:
+			numParcela = this.getSegundaParcelaKgl();
+			break;
+
+		case 2:
+			numParcela = this.getTerceiraParcelaKgl();
+			break;
+
+		case 3:
+			numParcela = this.getQuartaParcelaKgl();
+			break;
+
+		case 4:
+			numParcela = this.getQuintaParcelaKgl();
+			break;
+
+		case 5:
+			numParcela = this.getSextaParcelaKgl();
+			break;
+
+		case 6:
+			numParcela = this.getSetimaParcelaKgl();
+			break;
+
+		case 7:
+			numParcela = this.getOitavaParcelaKgl();
+			break;
+
+		case 8:
+			numParcela = this.getNonaParcelaKgl();
+			break;
+
+		case 9:
+			numParcela = this.getDecimaParcelaKgl();
+			break;
+
+		case 10:
+			numParcela = this.getDecimaPrimeiraParcelaKgl();
+			break;
+
+		case 11:
+			numParcela = this.getDecimaSegundaParcelaKgl();
+			break;
+
+		default:
+			return new BigDecimal(0);
+		}
+		Double calc = Double.valueOf(Double.valueOf(numParcela) / 100);
+		return valor.multiply(new BigDecimal(calc));
+
+	}
 }

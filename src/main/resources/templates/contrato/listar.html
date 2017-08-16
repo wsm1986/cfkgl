@@ -35,11 +35,12 @@
                                         <th>Data Vigencia</th>
                                         <th>Segurado</th>
                                         <th>Corretor</th>
+										<th>Status</th>
                                         <th>Detalhe</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                         			<tr th:each="contrato : ${contratos}">
+                         			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'RECUSADO')}"  class="danger">
 										<td th:text="${contrato.codigoContrato}">1</td>
 										<td th:text="${contrato.subProduto.descricao}">1</td>
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
@@ -47,9 +48,46 @@
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${contrato.segurado.nome}">1</td>
 										<td th:text="${contrato.corretor.nome}">1</td>
-										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a></td>
+										<td th:text="${contrato.statusContrato}">1</td>
+										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " ></a>
+										</td>
 										
                                     </tr>
+                         			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'IMPLANTADO')}"  class="success">
+										<td th:text="${contrato.codigoContrato}">1</td>
+										<td th:text="${contrato.subProduto.descricao}">1</td>
+										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
+										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
+										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
+										<td th:text="${contrato.segurado.nome}">1</td>
+										<td th:text="${contrato.corretor.nome}">1</td>
+										<td th:text="${contrato.statusContrato}">1</td>
+										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " ></a>
+										</td>
+										
+                                    </tr>
+                         			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'AGUARDANDO_IMPLANTACAO')}"  >
+										<td th:text="${contrato.codigoContrato}">1</td>
+										<td th:text="${contrato.subProduto.descricao}">1</td>
+										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
+										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
+										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
+										<td th:text="${contrato.segurado.nome}">1</td>
+										<td th:text="${contrato.corretor.nome}">1</td>
+										<td th:text="${contrato.statusContrato}">1</td>
+										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " ></a>
+										</td>
+										
+                                    </tr>                                    
                                     
                                 </tbody>
                             </table>
@@ -77,11 +115,13 @@
 			                                        <th>Data Pagamento</th>
 			                                        <th>Num. Proposta</th>
 			                                        <th>$ Contrato</th>
-			                                        <th>Descricao Contrato</th>
-			                                        <th>Tipo</th>
-			                                        <th>Valor</th>
+			                                       <th>%%%%</th>
+			                                        <th>Valor Kgl</th>
+			                                        <th>Valor COrretor</th>
+			                                        <th>Lucro</th>
 			                                        <th>Status</th>
-			                                        <th>Detalhe</th>
+			                                        <th>Excluir</th>
+			                                        
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
@@ -89,11 +129,13 @@
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
-													<td th:text="${movimentacao.contrato.statusContrato}">1</td>
-													<td th:text="${movimentacao.tipoMovimentacao}">1</td>
-													<td th:text="${movimentacao.valor}">1</td>
+													<td th:text="${movimentacao.contrato.valor}">1</td>
+													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.valorCorretor}">1</td>
+													<td th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
-													<td >	</td>
+													<td> <a th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" class="fa fa-thumbs-o-up fa-fw  " ></a></td>
+													
 			                                    </tr>
 			                                    
 			                                </tbody>

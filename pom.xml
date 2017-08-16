@@ -171,6 +171,10 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.21</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>artemis-server</artifactId>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>

@@ -5,34 +5,33 @@ import java.math.BigDecimal;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ParcelaCorretor implements Parcela{
+public class ParcelaCorretor implements Parcela {
 
 	private Integer totalComissao;
-	
-	private Integer primeiraParcela = 0;
-	
-	private Integer segundaParcela = 0;
-	
-	private Integer terceiraParcela= 0;
-	
-	private Integer quartaParcela= 0;
-	
-	private Integer quintaParcela= 0;
-	
-	private Integer sextaParcela= 0;
-	
-	private Integer setimaParcela= 0;
-	
-	private Integer oitavaParcela= 0;
-	
-	private Integer nonaParcela= 0;
-	
-	private Integer decimaParcela= 0;
-	
-	private Integer decimaPrimeiraParcela= 0;
-	
-	private Integer decimaSegundaParcela= 0;
 
+	private Integer primeiraParcela = 0;
+
+	private Integer segundaParcela = 0;
+
+	private Integer terceiraParcela = 0;
+
+	private Integer quartaParcela = 0;
+
+	private Integer quintaParcela = 0;
+
+	private Integer sextaParcela = 0;
+
+	private Integer setimaParcela = 0;
+
+	private Integer oitavaParcela = 0;
+
+	private Integer nonaParcela = 0;
+
+	private Integer decimaParcela = 0;
+
+	private Integer decimaPrimeiraParcela = 0;
+
+	private Integer decimaSegundaParcela = 0;
 
 	public Integer getTotalComissao() {
 		return totalComissao = primeiraParcela + segundaParcela + terceiraParcela + quartaParcela + quintaParcela
@@ -139,10 +138,70 @@ public class ParcelaCorretor implements Parcela{
 	public void setDecimaSegundaParcela(Integer decimaSegundaParcela) {
 		this.decimaSegundaParcela = decimaSegundaParcela;
 	}
+
 	@Override
 	public BigDecimal calcularValorPorcentagem(BigDecimal valor, Integer porcentagem) {
-			Double calc = Double.valueOf(Double.valueOf(porcentagem) / 100);
-			return valor.multiply(new BigDecimal(calc));
+		Double calc = Double.valueOf(Double.valueOf(porcentagem) / 100);
+		return valor.multiply(new BigDecimal(calc));
+
+	}
+
+	@Override
+	public BigDecimal calcularValorLucro(BigDecimal valor, Integer numParcela) {
+		switch (numParcela) {
+		case 0:
+			numParcela = this.getPrimeiraParcela();
+			break;
+
+		case 1:
+			numParcela = this.getSegundaParcela();
+			break;
+
+		case 2:
+			numParcela = this.getTerceiraParcela();
+			break;
+
+		case 3:
+			numParcela = this.getQuartaParcela();
+			break;
+
+		case 4:
+			numParcela = this.getQuintaParcela();
+			break;
+
+		case 5:
+			numParcela = this.getSextaParcela();
+			break;
+
+		case 6:
+			numParcela = this.getSetimaParcela();
+			break;
+
+		case 7:
+			numParcela = this.getOitavaParcela();
+			break;
+
+		case 8:
+			numParcela = this.getNonaParcela();
+			break;
+
+		case 9:
+			numParcela = this.getDecimaParcela();
+			break;
+
+		case 10:
+			numParcela = this.getDecimaPrimeiraParcela();
+			break;
+
+		case 11:
+			numParcela = this.getDecimaSegundaParcela();
+			break;
+
+		default:
+			return new BigDecimal(0);
+		}
+		Double calc = Double.valueOf(Double.valueOf(numParcela) / 100);
+		return valor.multiply(new BigDecimal(calc));
 
 	}
 }

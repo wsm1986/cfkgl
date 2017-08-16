@@ -21,46 +21,23 @@ public class Movimentacao implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
-	private BigDecimal valor;
+	private BigDecimal valorCorretor;
+
+	private BigDecimal valorKgl;
+
+	private String porcentagemMov;
 
 	@ManyToOne
 	private Contrato contrato;
-	
-	
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private DateTime dtPagamento;
 
-	@Enumerated(EnumType.STRING)
-	private TipoMovimentacao tipoMovimentacao;
-	
+	private BigDecimal lucro;
 	@Enumerated(EnumType.STRING)
 	private StatusMovimentacao status;
-
-	public TipoMovimentacao getTipoMovimentacao() {
-		return tipoMovimentacao;
-	}
-
-	public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) {
-		this.tipoMovimentacao = tipoMovimentacao;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
 
 	public Contrato getContrato() {
 		return contrato;
@@ -84,6 +61,46 @@ public class Movimentacao implements Serializable {
 
 	public void setStatus(StatusMovimentacao status) {
 		this.status = status;
+	}
+
+	public BigDecimal getValorKgl() {
+		return valorKgl;
+	}
+
+	public void setValorKgl(BigDecimal valorKgl) {
+		this.valorKgl = valorKgl;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPorcentagemMov() {
+		return porcentagemMov;
+	}
+
+	public void setPorcentagemMov(String porcentagemMov) {
+		this.porcentagemMov = porcentagemMov;
+	}
+
+	public BigDecimal getValorCorretor() {
+		return valorCorretor;
+	}
+
+	public void setValorCorretor(BigDecimal valorCorretor) {
+		this.valorCorretor = valorCorretor;
+	}
+
+	public BigDecimal getLucro() {
+		return lucro;
+	}
+
+	public void setLucro(BigDecimal lucro) {
+		this.lucro = lucro;
 	}
 
 }

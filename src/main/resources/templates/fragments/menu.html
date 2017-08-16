@@ -16,14 +16,15 @@
             
             <ul class="nav navbar-top-links navbar-right">
              <!-- /.dropdown -->
+             
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw" ></i> <i class="fa fa-caret-down" th:text="   ${#authentication.name}"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a th:href="@{/confUser}"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -50,7 +51,7 @@
                      <li>
                         <a href="#" th:href="@{/index}"><i class="fa fa-dashboard fa-fw"></i> Home</a>
                      </li>
-                     <li>
+                     <li sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Corretor<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                            <li><a href="#" th:href="@{/corretor/form}"  >Novo</a></li>
@@ -58,11 +59,11 @@
                         </ul>
                         
                      </li>
-                     <li >
+                     <li sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" th:href="@{/operadora/form}"><i class="fa fa-sitemap fa-fw"></i> Operadora<span class="fa arrow"></span></a>
                         
                      </li>
-                     <li>
+                     <li sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Produto<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                          <li><a href="#" th:href="@{/produto/form}"  >Novo</a></li>
@@ -74,7 +75,7 @@
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Movimentações<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                         <li><a href="#" th:href="@{/contrato/form}"  >Contrato</a></li>
+                         <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/contrato/form}"  >Contrato</a></li>
                          <li><a href="#" th:href="@{/contrato/listar}"  >Pesquisar Contrato</a></li>
                          <li><a href="#" th:href="@{/movimentacao/form}"  >Pagamento</a></li>
                         </ul>

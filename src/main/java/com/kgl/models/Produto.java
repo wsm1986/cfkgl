@@ -23,7 +23,7 @@ public class Produto{
 	@Enumerated(EnumType.STRING)
 	private TabelaComissao tabelaComissao;
 
-	@Embedded @Column(name="WELL")
+	@Embedded 
 	private ParcelaCorretor parcelaCorretor;
 
 	@Embedded

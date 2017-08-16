@@ -1,20 +1,19 @@
 package com.kgl.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 @Controller
 public class SegurancaController {
 
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@AuthenticationPrincipal User user) {
-		if (user != null) {
-			return "redirect:/inquilino/lista";
-			
-		}
-		
 		return "login";
 	}
-	
+
 }

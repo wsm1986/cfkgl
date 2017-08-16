@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+
+<title>UOLDiveo - BPag - Atualizar Usuario</title>
+</head>
+<body>
+	<div th:fragment="content">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Atualizar Senha</h1>
+			</div>
+		</div>
+
+
+		<form class="form-group" th:object="${user}" th:action="@{/update/user}" method="POST">
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Corretores	
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>User Name</th>
+										<th>Funções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                         			<tr th:each="usuario : ${users}">
+										<td th:text="${usuario.id}">1</td>
+										<td th:text="${usuario.userName}">1</td>
+										<td> <a th:href="${(#mvc.url('CU#detalhar').arg(0,usuario)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                        <!-- /.panel-body -->
+                        </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+			<div class="row">
+				<div class="panel panel-default" id="msg">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">Configuração Usuario</div>
+
+					<div class="panel-body">
+
+						<div class="form-group">
+							<label for="valorTransacao" class="control-label">Nome Usuario</label> 
+							<input class="form-control" th:field="*{userName}" type="text" disabled="disabled" />
+							<input class="form-control" th:field="*{id}" type="hidden"  />
+						</div>
+
+						<div class="form-group">
+							<label for="valorTransacao" class="control-label">Nova	Senha</label> 
+							<input class="form-control" th:field="*{senha}"	 type="password" />
+						</div>
+
+						<div class="form-group">
+							<label for="valorTransacao" class="control-label">Confirmar	Senha</label>
+							<input class="form-control"  type="password" onblur="validarSenha(this)" />
+						</div>
+						
+						
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit" id="btnAtualizar" disabled="disabled">Atualizar Senha</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+			
+						
+		</form>
+  <script type="text/javascript">
+        
+	function validarSenha(input) {
+		
+		if (input.value != document.getElementById('senha').value) {
+			$('#msg').attr("style","").text('Repita a senha corretamente').addClass("alert alert-danger");
+		    $('#btnAtualizar').prop('disabled',true);
+		  } else {
+			  $('#msg').attr("style","");
+			  $('#btnAtualizar').prop('disabled',false);
+		  }
+	}
+	</script>
+	</div>
+</body>
+</html>
