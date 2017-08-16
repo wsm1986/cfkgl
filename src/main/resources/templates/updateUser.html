@@ -31,6 +31,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>User Name</th>
+                                        <th>Senha</th>
 										<th>Funções</th>
                                     </tr>
                                 </thead>
@@ -38,6 +39,8 @@
                          			<tr th:each="usuario : ${users}">
 										<td th:text="${usuario.id}">1</td>
 										<td th:text="${usuario.userName}">1</td>
+										<td th:text="${usuario.senha}">1</td>
+										
 										<td> <a th:href="${(#mvc.url('CU#detalhar').arg(0,usuario)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
 										
                                     </tr>
