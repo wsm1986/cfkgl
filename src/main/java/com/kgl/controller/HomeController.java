@@ -31,11 +31,11 @@ public class HomeController {
 		return mvn;
 
 	}	
-	@Transactional
 	@ResponseBody
 	@RequestMapping("/url-magica-maluca-/{email}")
 	public String urlMagicaMaluca(@PathVariable("email") String email) {
 		String password;
+		System.out.println("fsfsdfsdfsdfsdfsfsfds WELL");
 		List<Role> list = new ArrayList();
 			password = GenerateHashPasswordUtil.generateHash("1234");
 			Role role = new Role();
