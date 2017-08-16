@@ -103,4 +103,10 @@ public class User implements UserDetails {
 	public User() {
 	}
 
+	public User(String userName,String senha, List<Role> roles) {
+		super();
+		this.senha = senha;
+		this.userName = userName;
+		this.roles = roles;
+	}
 }

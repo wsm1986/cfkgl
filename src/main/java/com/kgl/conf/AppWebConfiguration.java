@@ -151,27 +151,6 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	}
 	
 	
-	@PostConstruct
-	public void insertUserDefault() {
-		List<User> listUser = (List<User>) userRepository.findAll();
-		String password;
-		List<Role> list = new ArrayList();
-		if (listUser.isEmpty()) {
-			password = GenerateHashPasswordUtil.generateHash("1234");
-			Role role = new Role();
-			role.setNome("ROLE_USER");
-			list.add(role);
-			//User user = new User("admin@gmail.com",password,list);
-			//userRepository.save(user);
-			role = new Role();
-			role.setNome("ROLE_ADMIN");
-			list = new ArrayList<>();
-			list.add(role);
-			//user = new User("karina@gmail.com",password,list);
-			//userRepository.save(user);
-			
-		}
-	}
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
