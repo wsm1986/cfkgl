@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.CategoriaProduto;
+import com.kgl.models.ParcelaCorretor;
+import com.kgl.models.ParcelaKgl;
 import com.kgl.models.Produto;
 import com.kgl.models.TabelaComissao;
 import com.kgl.validator.ProdutoValidator;
@@ -53,6 +55,8 @@ public class ProdutoController {
 		if (result.hasErrors()) {
 			return form(produto);
 		}
+		produto.getParcelaCorretor().setTotalComissaoCorretor(somarComissao(produto.getParcelaCorretor()));
+		produto.getParcelaKgl().setTotalComissaoKgl(somarComissaoKgl(produto.getParcelaKgl()));
 
 		dao.save(produto);
 		return form(new Produto());
@@ -77,4 +81,15 @@ public class ProdutoController {
 		binder.setValidator(produtoValidation);
 
 	}
+	
+	public Integer somarComissao(ParcelaCorretor p) {
+		return p.getPrimeiraParcela() + p.getSegundaParcela() + p.getTerceiraParcela() + p.getQuartaParcela() + p.getQuintaParcela()
+		+ p.getSextaParcela() + p.getSetimaParcela() + p.getOitavaParcela() + p.getNonaParcela() + p.getDecimaParcela() + p.getDecimaPrimeiraParcela()
+		+ p.getDecimaSegundaParcela();
+	}
+	public Integer somarComissaoKgl(ParcelaKgl p) {
+		return p.getPrimeiraParcelaKgl() + p.getSegundaParcelaKgl() + p.getTerceiraParcelaKgl() + p.getQuartaParcelaKgl() + p.getQuintaParcelaKgl()
+		+ p.getSextaParcelaKgl() + p.getSetimaParcelaKgl() + p.getOitavaParcelaKgl() + p.getNonaParcelaKgl() + p.getDecimaParcelaKgl() + p.getDecimaPrimeiraParcelaKgl()
+		+ p.getDecimaSegundaParcelaKgl();
+	}	
 }

@@ -34,22 +34,15 @@ public class ParcelaKgl implements Parcela{
 	private Integer decimaSegundaParcelaKgl= 0;
 
 
-	public Integer getTotalComissao() {
-		return totalComissaoKgl = primeiraParcelaKgl + segundaParcelaKgl + terceiraParcelaKgl + quartaParcelaKgl + quintaParcelaKgl
-				+ sextaParcelaKgl + setimaParcelaKgl + oitavaParcelaKgl + nonaParcelaKgl - decimaParcelaKgl + decimaPrimeiraParcelaKgl
-				+ decimaSegundaParcelaKgl;
-	}
-
-	public void setTotalComissao(Integer totalComissao) {
-		this.totalComissaoKgl = totalComissao;
-	}
 
 	public Integer getTotalComissaoKgl() {
 		return totalComissaoKgl;
 	}
 
 	public void setTotalComissaoKgl(Integer totalComissaoKgl) {
-		this.totalComissaoKgl = totalComissaoKgl;
+		this.totalComissaoKgl = primeiraParcelaKgl + segundaParcelaKgl + terceiraParcelaKgl + quartaParcelaKgl + quintaParcelaKgl
+				+ sextaParcelaKgl + setimaParcelaKgl + oitavaParcelaKgl + nonaParcelaKgl - decimaParcelaKgl + decimaPrimeiraParcelaKgl
+				+ decimaSegundaParcelaKgl;
 	}
 
 	public Integer getPrimeiraParcelaKgl() {

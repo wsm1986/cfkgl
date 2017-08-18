@@ -37,5 +37,10 @@ public class ConfigurarUser {
 	public ModelAndView detalhar(@PathVariable("usuario") User usuario) throws Exception {
 		return updatePassword(usuario);
 	}
+	@RequestMapping(value = "/remover/{usuario}", method = RequestMethod.GET)
+	public ModelAndView remover(@PathVariable("usuario") User usuario) throws Exception {
+		repository.delete(usuario);
+		return updatePassword(new User());
+	}	
 	
 }

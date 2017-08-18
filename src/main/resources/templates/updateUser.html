@@ -42,6 +42,7 @@
 										<td th:text="${usuario.senha}">1</td>
 										
 										<td> <a th:href="${(#mvc.url('CU#detalhar').arg(0,usuario)).build()}" class="fa  fa-arrow-down   fa-fw  " ></a>
+										<a th:href="${(#mvc.url('CU#remover').arg(0,usuario)).build()}" class="fa fa-trash-o fa-fw " ></a>
 										
                                     </tr>
                                 </tbody>

@@ -1,13 +1,9 @@
 package com.kgl.conf;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 
 import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +31,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
-import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.Operadora;
-import com.kgl.models.Role;
-import com.kgl.models.User;
 import com.kgl.repository.UserRepository;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -55,6 +47,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("/", "/index");
+
 	}
 
 	@Bean

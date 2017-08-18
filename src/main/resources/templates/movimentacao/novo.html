@@ -31,31 +31,55 @@
 			                        </div>
 			                        <!-- /.panel-heading -->
 			                        <div class="panel-body">
-			                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+			                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-mov">
 			                                <thead>
 			                                    <tr>
+			                                    	<th>Corretorn</th>
+			                                    
 			                                        <th>Data Pagamento</th>
 			                                        <th>Num. Proposta</th>
 			                                        <th>$ Contrato</th>
-			                                        <th>Descricao Contrato</th>
-			                                        <th>Tipo</th>
-			                                        <th>Valor</th>
+			                                        <th>Valor Kgl</th>
+			                                        <th>Valor Corretor</th>
+			                                        <th>Lucro</th>
 			                                        <th>Status</th>
-			                                        <th>Detalhe</th>
+			                                        
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
-			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}">
+			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'PAGO')}" class= "success">
+													<td th:text="${movimentacao.contrato.corretor.nome}">1</td>
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
-													<td th:text="${movimentacao.contrato.statusContrato}">1</td>
-													<td th:text="${movimentacao.tipoMovimentacao}">1</td>
-													<td th:text="${movimentacao.valor}">1</td>
+													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.valorCorretor}">1</td>
+													<td th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
-													<td >	</td>
+													
 			                                    </tr>
-			                                    
+			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'RECUSADO')}" class= "danger">
+			                                    <td th:text="${movimentacao.contrato.corretor.nome}">1</td>
+													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
+													<td th:text="${movimentacao.contrato.valor}">1</td>
+													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.valorCorretor}">1</td>
+													<td th:text="${movimentacao.lucro}">1</td>
+													<td th:text="${movimentacao.status}">1</td>
+													
+			                                    </tr>			                                    
+			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'AGUARDADO_PAGAMENTO')}" >
+			                                    <td th:text="${movimentacao.contrato.corretor.nome}">1</td>
+													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
+													<td th:text="${movimentacao.contrato.valor}">1</td>
+													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.valorCorretor}">1</td>
+													<td th:text="${movimentacao.lucro}">1</td>
+													<td th:text="${movimentacao.status}">1</td>
+													
+			                                    </tr>			                                    
 			                                </tbody>
 			                            </table>
 			                            <!-- /.table-responsive -->

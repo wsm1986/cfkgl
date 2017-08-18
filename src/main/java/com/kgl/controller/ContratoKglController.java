@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import com.kgl.models.Role;
 import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
 import com.kgl.repository.CorretorRepository;
+import com.kgl.services.HomeBean;
 import com.kgl.validator.ContratoValidator;
 import com.kgl.webservices.ContratoRepository;
 import com.kgl.webservices.MovimentacaoRepository;
@@ -55,6 +57,8 @@ public class ContratoKglController {
 	@Autowired
 	private ContratoValidator contratoValidation;
 	
+	@Autowired
+	private HomeBean home;
 	
 	@RequestMapping({ "/", "/form" })
 	private ModelAndView form(Contrato contrato) {
@@ -68,7 +72,7 @@ public class ContratoKglController {
 	@RequestMapping({ "/listar" })
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		com.kgl.models.User user = (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		/*com.kgl.models.User user = (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		for (Role role : user.getRoles()) {
 			if(role.getAuthority().equals("ROLE_ADMIN")) {
 				mvn.addObject("contratos", contratoRepository.findAll());
@@ -76,6 +80,13 @@ public class ContratoKglController {
 				mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(user.getUsername())));
 			}
 			System.out.println(role.getAuthority());
+		}*/
+		
+		if(home.permissaoUsuario()) {
+			mvn.addObject("contratos", contratoRepository.findAll());
+		}else {
+			String email = home.emailLogado();
+			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(email)));
 		}
 		return mvn;
 

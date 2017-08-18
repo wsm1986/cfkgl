@@ -23,6 +23,7 @@ public class OperadoraController {
 	public ModelAndView form(Operadora operadora) {
 		ModelAndView mvn = new ModelAndView("operadora/novo");
 		mvn.addObject("operadora", operadora);
+		mvn.addObject("operadoras", dao.findAll());
 		return mvn;
 	}
 	

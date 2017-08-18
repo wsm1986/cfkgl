@@ -43,7 +43,7 @@
 							<label for="nome" class="control-label">Convenio</label> 
 							<select class="form-control" th:field="*{subProduto}">
 								<option th:each="subProduto : ${subProdutos}"
-									th:text="${subProduto.descricao}" th:value="${subProduto.id}">
+									th:text="${subProduto}" th:value="${subProduto.id}">
 								</option>
 							</select>
 						</div>

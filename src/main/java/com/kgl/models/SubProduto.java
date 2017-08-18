@@ -1,5 +1,6 @@
 package com.kgl.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class SubProduto {
 	private Produto produto;
 	
 	@NotBlank(message = "Favor Informar a Descricao")
+	@Column(unique=true)
 	private String descricao;
 
 	public Long getId() {
@@ -42,12 +44,12 @@ public class SubProduto {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 
 	@Override
 	public String toString() {
-		return "SubProduto :"+descricao + "";
+		return descricao + " Produto:" + produto.toString();
 	}
 	
 }

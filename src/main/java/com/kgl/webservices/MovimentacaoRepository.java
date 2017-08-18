@@ -11,5 +11,8 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "movimentacao", path = "movimentacao")
 public interface MovimentacaoRepository extends PagingAndSortingRepository<Movimentacao, Long> {
 	List<Movimentacao> findByContrato(Contrato contrato);
+	List<Movimentacao> findByContratoCorretorId(Long id);
+	List<Movimentacao> findByContratoCorretorEmail(String email);
+	List<Movimentacao> findByContratoId(Long id);
 
 }

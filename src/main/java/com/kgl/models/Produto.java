@@ -113,5 +113,12 @@ public class Produto{
 		this.parcelaCorretor = parcelaCorretor;
 	}
 
+	@Override
+	public String toString() {
+		return operadora.getNome()+"  - KGL:  "+ parcelaKgl.getTotalComissaoKgl() + "% - CORRETOR " + parcelaCorretor.getTotalComissaoCorretor() + 
+				"%";
+	}
+
+	
 
 }
