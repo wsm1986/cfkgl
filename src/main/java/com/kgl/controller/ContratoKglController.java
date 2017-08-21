@@ -22,15 +22,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.Contrato;
-import com.kgl.models.Role;
 import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
+import com.kgl.models.SubProduto;
 import com.kgl.repository.CorretorRepository;
 import com.kgl.services.HomeBean;
 import com.kgl.validator.ContratoValidator;
 import com.kgl.webservices.ContratoRepository;
 import com.kgl.webservices.MovimentacaoRepository;
+import com.kgl.webservices.ProdutoRepository;
 import com.kgl.webservices.SubProdutoRepository;
+
+
 
 @Controller
 @RequestMapping("/contrato")
@@ -60,11 +63,21 @@ public class ContratoKglController {
 	@Autowired
 	private HomeBean home;
 	
+	@Autowired
+	ProdutoRepository dao;
+	
+	@Autowired
+	SubProdutoRepository daoSubProduto;
+
+	
 	@RequestMapping({ "/", "/form" })
 	private ModelAndView form(Contrato contrato) {
 		ModelAndView mvn = new ModelAndView("contrato/novo");
 		mvn.addObject("corretores", corretorDao.findAll());
 		mvn.addObject("subProdutos", produtoDao.findAll());
+		mvn.addObject("produtos", dao.findAll());
+		mvn.addObject("novoSubProduto", new SubProduto());
+
 		return mvn;
 
 	}
@@ -101,6 +114,16 @@ public class ContratoKglController {
 		contratoNovo.implantarContrato(contrato);
 
 		return mvn;
+	}
+	
+	@RequestMapping({ "/salvarSubProduto" })
+	public ModelAndView salvar(@Valid SubProduto subProduto, BindingResult result) {
+		if (result.hasErrors()) {
+			return form(new Contrato());
+		}
+
+		daoSubProduto.save(subProduto);
+		return new ModelAndView("redirect:/contrato/form");
 	}
 
 	@InitBinder

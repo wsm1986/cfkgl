@@ -48,6 +48,8 @@
 													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
 													<td th:text="COMISSAO_KGL">1</td>
+													<!-- 													<td th:text="${produto.parcelaKgl.primeiraParcelaKgl} >0 ? ${produto.parcelaKgl.primeiraParcelaKgl} +'%': 0">1</td>
+													 -->
 													<td th:text="|${produto.parcelaKgl.totalComissaoKgl}|+'%'">1</td>
 													<td th:text="${produto.parcelaKgl.primeiraParcelaKgl}+'%'">1</td>
 													<td th:text="${produto.parcelaKgl.segundaParcelaKgl}+'%'">1</td>

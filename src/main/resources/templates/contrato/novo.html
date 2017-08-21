@@ -7,10 +7,6 @@
 </head>
 <body>
 	<div th:fragment="content">
-
-
-
-
 		<form method="POST" th:object="${contrato}" th:action="@{/contrato/salvar}" action="#" id="form">
 			<div class="row">
 				<div class="col-lg-142">
@@ -47,8 +43,11 @@
 								</option>
 							</select>
 						</div>
+						<div class="col-sm-1  form-group">
+							<label for="nome" class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
 						
-						
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSession">Adicionar</button>
+						</div>
 
 					</div>
 					
@@ -150,13 +149,68 @@
 			                    </div>
 		                </div> -->
 						
+				</div>
 			</div>
-		</div>
-		<!-- <button onclick="AddTableRow()"  class="btn btn-primary" type="button"  >Adicionar</button> -->				
-		<button type="submit" class="btn btn-primary">Salvar</button>
+			
+			<!-- <button onclick="AddTableRow()"  class="btn btn-primary" type="button"  >Adicionar</button> -->				
+			<button type="submit" class="btn btn-primary">Salvar</button>
 		</form>
+		
+		
+		
+		
+		
+				<!-- Modal -->
+			<div id="newSession" class="modal fade" role="dialog" >
+			  	<div class="modal-dialog">
+			
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-body">
+				      		<form class="form-group" id="formNewField"  th:object="${novoSubProduto}" th:action="@{/contrato/salvarSubProduto}"	 method="POST">
+							<div id="msg"/>
+							<div class="row">
+									<div class="form-group" >
+									<div class="col-sm-10  form-group" >
+											<label for="nome" class="control-label">PRODUTO</label> 
+											<select class="form-control" th:field="*{produto}">
+												<option th:each="produto : ${produtos}"
+													th:text="${produto} +' | ' + |${produto.tabelaComissao}  " th:value="${produto.id}"	>
+												</option>
+											</select>
+									</div>
+										
+									<div class="col-sm-5  form-group" >
+										<label for="nome" class="control-label">Descrição</label> <input
+										id="nome" type="text" class="form-control"	th:field="*{descricao}" />
+									</div>
+	
+										<div class="col-sm-3  form-group">
+										  
+										</div>
+									</div>
+							</div>
+							</form>
+							<div class="col-lg-12 col-md-12">								
+									<button class="btn btn-primary" id="addField"	type="submit" th:text="Adicionar">Adiconar Campo</button>
+							</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+			  </div>
+			</div>
+		
+		
+		
+		
 				<script type="text/javascript">
         /*<![CDATA[*/
+			
+        	
+        	
+        	
 	        $(document).ready(function() {
 	        
              	$('#dataCadastro').datetimepicker({
@@ -180,6 +234,8 @@
 			 });
 
 			
+			
+
 			
 			(function($) {
 				  AddTableRow = function() {
