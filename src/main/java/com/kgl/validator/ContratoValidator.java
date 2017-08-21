@@ -1,7 +1,5 @@
 package com.kgl.validator;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
