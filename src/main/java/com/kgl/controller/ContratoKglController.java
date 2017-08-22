@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.Contrato;
+import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
 import com.kgl.models.SubProduto;
@@ -43,7 +44,7 @@ public class ContratoKglController {
 	private CorretorRepository corretorDao;
 
 	@Autowired
-	private SubProdutoRepository produtoDao;
+	private SubProdutoRepository subProdutoDao;
 
 	@Autowired
 	CriadorDeContrato contratoNovo;
@@ -74,7 +75,7 @@ public class ContratoKglController {
 	private ModelAndView form(Contrato contrato) {
 		ModelAndView mvn = new ModelAndView("contrato/novo");
 		mvn.addObject("corretores", corretorDao.findAll());
-		mvn.addObject("subProdutos", produtoDao.findAll());
+		mvn.addObject("subProdutos", subProdutoDao.findAll());
 		mvn.addObject("produtos", dao.findAll());
 		mvn.addObject("novoSubProduto", new SubProduto());
 
@@ -116,13 +117,14 @@ public class ContratoKglController {
 		return mvn;
 	}
 	
-	@RequestMapping({ "/salvarSubProduto" })
-	public ModelAndView salvar(@Valid SubProduto subProduto, BindingResult result) {
-		if (result.hasErrors()) {
-			return form(new Contrato());
-		}
-
-		daoSubProduto.save(subProduto);
+	@RequestMapping({ "/salvarSubProduto/{produto}/{descricao}" })
+	public ModelAndView salvar(@PathVariable("produto") Long id, @PathVariable("descricao") String desc) {
+		SubProduto subProduto = new SubProduto();
+		Produto p = new Produto();
+		p.setId(id);
+		subProduto.setProduto(p);
+		subProduto.setDescricao(desc);
+		subProdutoDao.save(subProduto);
 		return new ModelAndView("redirect:/contrato/form");
 	}
 

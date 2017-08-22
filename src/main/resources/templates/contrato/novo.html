@@ -163,12 +163,14 @@
 				<!-- Modal -->
 			<div id="newSession" class="modal fade" role="dialog" >
 			  	<div class="modal-dialog">
-			
+			<div class="row">
+				<div class="panel panel-default" id="msg">
+				</div>
+			</div>			
 				    <!-- Modal content-->
 				    <div class="modal-content">
 				      <div class="modal-body">
 				      		<form class="form-group" id="formNewField"  th:object="${novoSubProduto}" th:action="@{/contrato/salvarSubProduto}"	 method="POST">
-							<div id="msg"/>
 							<div class="row">
 									<div class="form-group" >
 									<div class="col-sm-10  form-group" >
@@ -180,9 +182,9 @@
 											</select>
 									</div>
 										
-									<div class="col-sm-5  form-group" >
-										<label for="nome" class="control-label">Descrição</label> <input
-										id="nome" type="text" class="form-control"	th:field="*{descricao}" />
+									<div class="col-sm-5  form-group"   th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+										<label for="nome" class="control-label">Descrição</label> 
+										<input id="descricao" type="text" class="form-control"	th:field="*{descricao}" />
 									</div>
 	
 										<div class="col-sm-3  form-group">
@@ -191,8 +193,8 @@
 									</div>
 							</div>
 							</form>
-							<div class="col-lg-12 col-md-12">								
-									<button class="btn btn-primary" id="addField"	type="submit" th:text="Adicionar">Adiconar Campo</button>
+							<div class="col-lg-12 col-md-12">		
+								 <a class="btn btn-primary" id="testarImpressora" th:text="Adicionar"></a> 						
 							</div>
 				      </div>
 				      <div class="modal-footer">
@@ -230,7 +232,26 @@
 			  } );  
         
 			$('#testarImpressora').click(function() {
-			    $('#form').attr('action', "/contrato/addSegurado/"+$('#segurado').val()).submit();
+				var produto =$('#produto').val();	
+				var desc =$('#descricao').val();
+				alert(produto);
+	         	$.ajax({ 
+		        	 
+		        	 success: function (data) {
+		        		 if(produto == null){
+		        				 $('#msg').attr("style","").text('Produto não pode estar vazio').addClass("alert alert-danger"); 		
+	   							$('#produto').css({"border" : "1px solid #F00", "padding": "2px"});
+		        		 }
+		        		 else if(desc == ""){
+		 	          		$('#msg').attr("style","").text('Descrição não pode estar vazio').addClass("alert alert-danger"); 		
+   							$('#descricao').css({"border" : "1px solid #F00", "padding": "2px"});
+				    	}else{
+						    $('#form').attr('action', "/contrato/salvarSubProduto/"+$('#produto').val()+"/"+$('#descricao').val()).submit();
+					    }
+				    	  
+		        	 }
+		                
+		         });
 			 });
 
 			

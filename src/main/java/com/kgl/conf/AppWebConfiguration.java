@@ -100,9 +100,10 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
-		return (container -> container.addErrorPages(new ErrorPage(
-				HttpStatus.NOT_FOUND, "/404"), new ErrorPage(
-				HttpStatus.FORBIDDEN, "/403")));
+		return (container -> container.addErrorPages(
+				new ErrorPage(HttpStatus.NOT_FOUND, "/404"), 
+				new ErrorPage(HttpStatus.FORBIDDEN, "/403"),
+				new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/404")));
 	}
 
 	@Bean
