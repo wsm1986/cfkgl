@@ -20,6 +20,7 @@ import com.kgl.models.Contrato;
 import com.kgl.models.Corretor;
 import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.Movimentacao;
+import com.kgl.models.Operadora;
 import com.kgl.models.Role;
 import com.kgl.models.StatusMovimentacao;
 import com.kgl.models.User;
@@ -27,6 +28,7 @@ import com.kgl.repository.CorretorRepository;
 import com.kgl.repository.UserRepository;
 import com.kgl.webservices.ContratoRepository;
 import com.kgl.webservices.MovimentacaoRepository;
+import com.kgl.webservices.OperadoraRepository;
 
 @Controller
 @Scope("session")
@@ -46,6 +48,9 @@ public class HomeController {
 
 	@Autowired
 	private CorretorRepository corretorRep;
+	
+	@Autowired
+	private OperadoraRepository operadoraRepository; 
 
 	@ResponseBody
 	@RequestMapping("/index")
@@ -113,38 +118,64 @@ public class HomeController {
 		} else {
 			return conf.updatePassword(new User());
 		}
+		
+	}
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/prepararAmbiente")
+	public ModelAndView prepararAmbiente() {
+		operadoraRepository.save(new Operadora("ALLIAZ SEGUROS"));
+		operadoraRepository.save(new Operadora("AMEPLAN"));
+		operadoraRepository.save(new Operadora("AMIL"));
+		operadoraRepository.save(new Operadora("BIO SAÚDE"));
+		operadoraRepository.save(new Operadora("BIO VIDA"));
+		operadoraRepository.save(new Operadora("BRADESCO SAÚDE"));
+		operadoraRepository.save(new Operadora("CAIXA SEGURO SAÚDE"));
+		operadoraRepository.save(new Operadora("CAIXA/ADMIX"));
+		operadoraRepository.save(new Operadora("CORPORE GNDI"));
+		operadoraRepository.save(new Operadora("GARANTIA SAÚDE"));
+		operadoraRepository.save(new Operadora("GARANTIA SAÚDE ADVENTISTA"));
+		operadoraRepository.save(new Operadora("GNDI - NOTREDAME INTERMEDICA"));
+		operadoraRepository.save(new Operadora("GREEN LINE"));
+		operadoraRepository.save(new Operadora("GREEN LINE"));
+		operadoraRepository.save(new Operadora("MARITIMA"));
+		operadoraRepository.save(new Operadora("MEDICAL HEALTH"));
+		operadoraRepository.save(new Operadora("NEXT SEISA"));
+		operadoraRepository.save(new Operadora("NEXT SEISA"));
+		operadoraRepository.save(new Operadora("OESTE"));
+		operadoraRepository.save(new Operadora("PLENA"));
+		operadoraRepository.save(new Operadora("PORTO SEGURO"));
+		operadoraRepository.save(new Operadora("SANTA HELENA"));
+		operadoraRepository.save(new Operadora("SÃO CRISTOVÃO"));
+		operadoraRepository.save(new Operadora("SÃO ICHEL SAÚDE"));
+		operadoraRepository.save(new Operadora("SUL AMÉRICA"));
+		operadoraRepository.save(new Operadora("TRASMONTANO"));
+		operadoraRepository.save(new Operadora("AMIL DENTAL"));
+		operadoraRepository.save(new Operadora("BRADESCO DENTAL"));
+		operadoraRepository.save(new Operadora("DENTALPAR"));
+		operadoraRepository.save(new Operadora("DENTALPLUS"));
+		operadoraRepository.save(new Operadora("ODONTOPREV"));
+		operadoraRepository.save(new Operadora("PREVIDENT"));
+		operadoraRepository.save(new Operadora("SUL AMÉRICA"));
+		operadoraRepository.save(new Operadora("UNIODONTO"));
+		operadoraRepository.save(new Operadora("CORPORE AMEPLAN"));
+		operadoraRepository.save(new Operadora("CORPORE AMEPLAN MIDDLE"));
+		operadoraRepository.save(new Operadora("CORPORE DEMAIS PRODUTOS"));
+		operadoraRepository.save(new Operadora("QUALICORP"));
+		operadoraRepository.save(new Operadora("AMEPLAN"));
+		operadoraRepository.save(new Operadora("AMIL DENTAL"));
+		operadoraRepository.save(new Operadora("BIOVIDA / BIOVIDA SENIOR"));
+		operadoraRepository.save(new Operadora("GARANTIA SAÚDE")); 
+		operadoraRepository.save(new Operadora("GARANTIA SAÚDE ADVENTISTA"));
+		operadoraRepository.save(new Operadora("GREENLINE SENIOR"));
+		operadoraRepository.save(new Operadora("MEDIAL HEALTH"));
+		operadoraRepository.save(new Operadora("NEXT SAÚDE"));
+		operadoraRepository.save(new Operadora("OESTE SAÚDE"));
+		operadoraRepository.save(new Operadora("PLENA"));
+		operadoraRepository.save(new Operadora("PREVIDENT"));
+		operadoraRepository.save(new Operadora("SÃO CRISTÓVÃO (ATÉ 58 ANOS) C/ COPARTICIPAÇÃO"));
+		operadoraRepository.save(new Operadora("SÃO MICHEL SAÚDE"));
+		return new ModelAndView("/index");
 	}
 
 }
-
-/*
- * 
- * 
- * INSERT INTO employee(name, last_name, email, phone, active) values ('Gustavo VIADO','Ponce','test@test.com','1234567890',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Bob','Marley','one@love.com','6483748590',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('David','Gilmour','high@hopes.com','7648909831',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('John','Lennon','standby@me.com','7689485620',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Ozzy','Osbourne','children@grave.com','6483748590',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Jimmy','Page','stairway@heaven.com','7648909831',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Jimi','Hendrix','purple@haze.com','8754091236',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Sex','Pistols','save@queen.com','6729098761',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Jim','Morrison','riders@storm.com','8754091236',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Richard','Blackmore','highway@star.com','8754091236',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Jay','Kay','cosmic@girl.com','0926389871',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('David','Bowie','heroes@oneday.com','4338490981',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Bob','Dylan','knocking@doors.com','4338490981',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Manu','Chao','mala@vida.com','8923098753',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('The','Specials','ghost@thown.com','7590498573',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Jymmy','Cliff','see@clearly.com','4338490981',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('The','Temptations','my@girl.com','7639864096',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Simon','Garfunkel','mr@robinson.com','8750987531',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('catch','22','takes@sometime.com','7098653427',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Janis','Joplin','cry@baby.com','6739087641',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Lou','Red','wild@side.com','6789045678',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Iggy','Pop','the@passenger.com','6934980751',true);
-INSERT INTO employee(name, last_name, email, phone, active) values ('Dead','Kennedys','holiday@cambodia.com','2389096457',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('The','Cure','dont@cry.com','8749340987',false);
-INSERT INTO employee(name, last_name, email, phone, active) values ('WELL','Cure','dont@cry.com','8749340987',false);
-INSERT INTO usuario (senha, user_name) values ('$2a$10$ROak1.PTNN2Nl/qL27d/uumTKtRa844KO9TDxqDsGSt31ZUKo0fbe', 'wsm1986@gmail.com');
-INSERT INTO role (nome) values ('ROLE_ADMIN');
-INSERT INTO usuario_roles (user_id, roles_id) values (1, 1);*/

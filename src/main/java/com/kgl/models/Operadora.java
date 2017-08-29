@@ -43,6 +43,8 @@ public class Operadora implements Serializable {
 		return nome;
 	}
 
+	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -66,5 +68,8 @@ public class Operadora implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	public Operadora(String nome) {
+		super();
+		this.nome = nome;
+	}
 }

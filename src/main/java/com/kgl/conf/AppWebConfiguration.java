@@ -9,6 +9,7 @@ import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -151,5 +152,15 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		return bCryptPasswordEncoder;
 	}
 	
+	@Bean
+	public FilterRegistrationBean myFilterBean() {
+	  final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
+	  filterRegBean.setFilter(new MyFilter());
+	  filterRegBean.addUrlPatterns("/*");
+	  filterRegBean.setEnabled(Boolean.TRUE);
+	  filterRegBean.setName("Meu Filter");
+	  filterRegBean.setAsyncSupported(Boolean.TRUE);
+	  return filterRegBean;
+	}
 
 }
