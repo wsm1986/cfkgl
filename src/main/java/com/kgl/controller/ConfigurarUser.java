@@ -10,20 +10,31 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.User;
 import com.kgl.repository.UserRepository;
+import com.kgl.services.HomeBean;
 
 @Controller
 public class ConfigurarUser {
 
 	@Autowired
 	private UserRepository repository;
+	
+	
+	@Autowired
+	private HomeBean home;
 
 	@RequestMapping(value = "/confUser", method = RequestMethod.GET)
 	public ModelAndView updatePassword(User user) throws Exception {
-		ModelAndView mav = new ModelAndView("updateUser");
-		mav.addObject("users", repository.findAll());
-		mav.addObject("user", user);
+		ModelAndView mvn = new ModelAndView("updateUser");
+		if(home.permissaoUsuario()) {
+			mvn.addObject("users", repository.findAll());
+		}else {
+			String email = home.emailLogado();
+			mvn.addObject("users", repository.findByUserName(email));
+		}
+		
+		mvn.addObject("user", user);
 
-		return mav;
+		return mvn;
 	}
 
 	@RequestMapping(value = "/update/user", method = RequestMethod.POST)
