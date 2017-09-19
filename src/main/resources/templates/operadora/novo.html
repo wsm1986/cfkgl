@@ -66,7 +66,7 @@
                          			<tr th:each="operadora : ${operadoras}">
 										<td th:text="${operadora.nome}">1</td>
 										<td th:text="${operadora.cnpj}">1</td>
-										<td> <a th:href="${(#mvc.url('OC#remover').arg(0,operadora)).build()}" class="fa fa-trash-o fa-fw  " title="Alterar"></a>
+										<td> <a th:href="${(#mvc.url('OC#remover').arg(0,operadora.id)).build()}" class="fa fa-trash-o fa-fw  " title="Remover"></a>
 										
 										</td>
 										

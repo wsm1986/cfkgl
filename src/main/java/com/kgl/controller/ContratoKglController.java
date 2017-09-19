@@ -3,25 +3,25 @@ package com.kgl.controller;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.Contrato;
+import com.kgl.models.Corretor;
 import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
@@ -33,8 +33,6 @@ import com.kgl.webservices.ContratoRepository;
 import com.kgl.webservices.MovimentacaoRepository;
 import com.kgl.webservices.ProdutoRepository;
 import com.kgl.webservices.SubProdutoRepository;
-
-
 
 @Controller
 @RequestMapping("/contrato")
@@ -57,28 +55,23 @@ public class ContratoKglController {
 
 	@Autowired
 	CorretorRepository corretorRepository;
-	
+
 	@Autowired
 	private ContratoValidator contratoValidation;
-	
+
 	@Autowired
 	private HomeBean home;
-	
+
 	@Autowired
 	ProdutoRepository dao;
-	
+
 	@Autowired
 	SubProdutoRepository daoSubProduto;
 
-	
 	@RequestMapping({ "/", "/form" })
 	private ModelAndView form(Contrato contrato) {
 		ModelAndView mvn = new ModelAndView("contrato/novo");
-		mvn.addObject("corretores", corretorDao.findAll());
-		mvn.addObject("subProdutos", subProdutoDao.findAll());
-		mvn.addObject("produtos", dao.findAll());
 		mvn.addObject("novoSubProduto", new SubProduto());
-
 		return mvn;
 
 	}
@@ -86,19 +79,19 @@ public class ContratoKglController {
 	@RequestMapping({ "/listar" })
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		/*com.kgl.models.User user = (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		for (Role role : user.getRoles()) {
-			if(role.getAuthority().equals("ROLE_ADMIN")) {
-				mvn.addObject("contratos", contratoRepository.findAll());
-			}else {
-				mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(user.getUsername())));
-			}
-			System.out.println(role.getAuthority());
-		}*/
-		
-		if(home.permissaoUsuario()) {
+		/*
+		 * com.kgl.models.User user =
+		 * (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().
+		 * getPrincipal(); for (Role role : user.getRoles()) {
+		 * if(role.getAuthority().equals("ROLE_ADMIN")) { mvn.addObject("contratos",
+		 * contratoRepository.findAll()); }else { mvn.addObject("contratos",
+		 * contratoRepository.findByCorretor(corretorRepository.findByEmail(user.
+		 * getUsername()))); } System.out.println(role.getAuthority()); }
+		 */
+
+		if (home.permissaoUsuario()) {
 			mvn.addObject("contratos", contratoRepository.findAll());
-		}else {
+		} else {
 			String email = home.emailLogado();
 			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(email)));
 		}
@@ -116,7 +109,7 @@ public class ContratoKglController {
 
 		return mvn;
 	}
-	
+
 	@RequestMapping({ "/salvarSubProduto/{produto}/{descricao}" })
 	public ModelAndView salvar(@PathVariable("produto") Long id, @PathVariable("descricao") String desc) {
 		SubProduto subProduto = new SubProduto();
@@ -166,14 +159,14 @@ public class ContratoKglController {
 		contratoRepository.delete(contrato);
 		return listar();
 	}
-	
+
 	@RequestMapping(value = "/update/recusar/{contrato}", method = RequestMethod.GET)
 	public ModelAndView recusar(@PathVariable("contrato") Contrato contrato) {
 		contrato.setStatusContrato(StatusContrato.RECUSADO);
 		contratoRepository.save(contrato);
 		return listar();
 	}
-	
+
 	@RequestMapping(value = "/update/implantar/{contrato}", method = RequestMethod.GET)
 	public ModelAndView implantar(@PathVariable("contrato") Contrato contrato) {
 		contrato.setStatusContrato(StatusContrato.IMPLANTADO);
@@ -181,4 +174,23 @@ public class ContratoKglController {
 		return listar();
 	}
 
+	@ModelAttribute("corretores")
+	public List<Corretor> listaCorretores() {
+		return (List<Corretor>) corretorDao.findAll();
+	}
+
+	@ModelAttribute("subProdutos")
+	public List<SubProduto> listaSubProdutos() {
+		return (List<SubProduto>) subProdutoDao.findAll();
+	}
+
+	@ModelAttribute("produtos")
+	public List<Produto> listaProdutos() {
+		return (List<Produto>) dao.findAll();
+	}
+
+	@ModelAttribute("novoSubProduto")
+	public SubProduto novoSubProduto() {
+		return new SubProduto();
+	}
 }
