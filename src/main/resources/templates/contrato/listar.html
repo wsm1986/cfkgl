@@ -115,9 +115,9 @@
 			                                        <th>Data Pagamento</th>
 			                                        <th>Num. Proposta</th>
 			                                        <th>$ Contrato</th>
-			                                        <th>Valor Kgl</th>
+			                                        <th sec:authorize="hasRole('ROLE_ADMIN')" >Valor Kgl</th>
 			                                        <th>Valor Corretor</th>
-			                                        <th>Lucro</th>
+			                                        <th sec:authorize="hasRole('ROLE_ADMIN')" >Lucro</th>
 			                                        <th>Status</th>
 			                                        <th></th>
 			                                        
@@ -128,9 +128,9 @@
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
-													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"   th:text="${movimentacao.valorKgl}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
-													<td th:text="${movimentacao.lucro}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													<td> 
 													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
@@ -143,9 +143,9 @@
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
-													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.valorKgl}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
-													<td th:text="${movimentacao.lucro}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													<td>
 													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
@@ -158,9 +158,9 @@
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
-													<td th:text="${movimentacao.valorKgl}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.valorKgl}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
-													<td th:text="${movimentacao.lucro}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													<td> <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
 													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>

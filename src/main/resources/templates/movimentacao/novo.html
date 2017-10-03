@@ -41,7 +41,7 @@
 			                                        <th>$ Contrato</th>
 			                                        <th  sec:authorize="hasRole('ROLE_ADMIN')" ></th>
 			                                        <th>Valor Corretor</th>
-			                                        <th>Lucro</th>
+			                                        <th sec:authorize="hasRole('ROLE_ADMIN')" >Lucro</th>
 			                                        <th>Status</th>
 			                                        
 			                                    </tr>
@@ -54,7 +54,7 @@
 													<td th:text="${movimentacao.contrato.valor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.valorKgl}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
-													<td th:text="${movimentacao.lucro}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													
 			                                    </tr>
@@ -65,7 +65,7 @@
 													<td th:text="${movimentacao.contrato.valor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${movimentacao.valorKgl}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
-													<td th:text="${movimentacao.lucro}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													
 			                                    </tr>			                                    
@@ -76,7 +76,7 @@
 													<td th:text="${movimentacao.contrato.valor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${movimentacao.valorKgl}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
-													<td th:text="${movimentacao.lucro}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													
 			                                    </tr>			                                    
