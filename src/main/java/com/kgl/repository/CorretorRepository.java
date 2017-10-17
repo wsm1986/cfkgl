@@ -1,5 +1,6 @@
 package com.kgl.repository;
 
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.kgl.models.Corretor;

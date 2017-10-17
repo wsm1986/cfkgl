@@ -92,9 +92,9 @@ public class CriadorDeContrato {
 			mov.setContrato(contrato);
 			mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
 
-			mov.setValorCorretor(contrato.getSubProduto().getProduto().getParcelaCorretor()
+			mov.setValorCorretor(contrato.getProduto().getParcelaCorretor()
 					.calcularValorLucro(contrato.getValor(), mesPagamento));
-			mov.setValorKgl(contrato.getSubProduto().getProduto().getParcelaKgl()
+			mov.setValorKgl(contrato.getProduto().getParcelaKgl()
 					.calcularValorLucro(contrato.getValor(), mesPagamento));
 			mov.setLucro(mov.getValorKgl().subtract(mov.getValorCorretor()));
 			mov.setDtPagamento(contrato.getDtCadastro().plusMonths(mesPagamento));

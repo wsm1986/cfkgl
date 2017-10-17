@@ -114,7 +114,7 @@ public class HomeController {
 			list.add(role);
 			user = new User("kglbergamini@gmail.com", password, list);
 			userRepository.save(user);
-			return conf.updatePassword(user);
+			return new ModelAndView("index");
 		} else {
 			return conf.updatePassword(new User());
 		}

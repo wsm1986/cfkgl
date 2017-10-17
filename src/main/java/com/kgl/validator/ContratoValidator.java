@@ -43,7 +43,7 @@ public class ContratoValidator implements Validator {
 	        	errors.rejectValue("corretor", "corretor.obrigatorio");
 	        }
 	        
-	        if(contrato.getSubProduto() == null) {
+	        if(contrato.getProduto() == null) {
 	        	errors.rejectValue("subProduto", "subProduto.obrigatorio");
 	        }
     	}
