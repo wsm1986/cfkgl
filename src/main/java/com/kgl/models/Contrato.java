@@ -47,21 +47,18 @@ public class Contrato implements Serializable {
 
 	@NotNull(message = "valor é obrigatório")
 	private BigDecimal valor;
-	
-	@NotNull(message = "valor Corretora é obrigatório")
+
 	private BigDecimal valorCorretora;
 
-	@NotNull(message = "valor taxa é obrigatório")
 	private Double taxa;
 	@OneToOne
 	private Produto Produto;
 
 	@Enumerated(EnumType.STRING)
 	private StatusContrato statusContrato;
-	
+
 	@OneToOne
 	private SubProduto subProduto;
-
 
 	public Long getId() {
 		return id;
@@ -119,7 +116,6 @@ public class Contrato implements Serializable {
 		this.valor = valor;
 	}
 
-
 	public Contrato() {
 	}
 
@@ -130,7 +126,6 @@ public class Contrato implements Serializable {
 	public void setSegurado(Segurado segurado) {
 		this.segurado = segurado;
 	}
-
 
 	public StatusContrato getStatusContrato() {
 		return statusContrato;
