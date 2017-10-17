@@ -57,8 +57,6 @@ public class Contrato implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusContrato statusContrato;
 
-	@OneToOne
-	private SubProduto subProduto;
 
 	public Long getId() {
 		return id;
@@ -159,12 +157,5 @@ public class Contrato implements Serializable {
 		Produto = produto;
 	}
 
-	public SubProduto getSubProduto() {
-		return subProduto;
-	}
-
-	public void setSubProduto(SubProduto subProduto) {
-		this.subProduto = subProduto;
-	}
 
 }
