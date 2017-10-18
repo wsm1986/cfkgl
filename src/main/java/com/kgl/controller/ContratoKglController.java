@@ -71,7 +71,6 @@ public class ContratoKglController {
 	@RequestMapping({ "/", "/form" })
 	private ModelAndView form(Contrato contrato) {
 		ModelAndView mvn = new ModelAndView("contrato/novo");
-		mvn.addObject("novoSubProduto", new SubProduto());
 		return mvn;
 
 	}

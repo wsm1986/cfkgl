@@ -35,18 +35,18 @@
 							</select>
 						</div>
 						
-						<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('subProduto')} ? has-error">
+						<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('produto')} ? has-error">
 							<label for="nome" class="control-label">Convenio</label> 
-							<select class="form-control" th:field="*{subProduto}">
-								<option th:each="subProduto : ${subProdutos}"
-									th:text="${subProduto}" th:value="${subProduto.id}">
-								</option>
-							</select>
+								<select class="form-control" th:field="*{produto}">
+									<option th:each="produto : ${produtos}"
+										th:text="${produto} +' | ' + |${produto.tabelaComissao}  " th:value="${produto.id}"	>
+									</option>
+								</select>
 						</div>
 						<div class="col-sm-1  form-group">
 							<label for="nome" class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
 						
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSession">Adicionar</button>
+							<!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSession">Adicionar</button>-->
 						</div>
 
 					</div>
@@ -98,6 +98,13 @@
 							<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
 								<label for="nome" class="control-label">Valor</label> 
 								<input id="valor" type="text" class="form-control money" th:field="*{valor}"/>
+							</div>
+						</div>
+						
+						<div class="col-sm-2  form-group">
+							<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+								<label for="nome" class="control-label">Tarifa</label> 
+								<input id="valor" type="text" class="form-control money" th:field="*{tarifa}"/>
 							</div>
 						</div>
 						

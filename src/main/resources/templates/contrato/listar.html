@@ -42,7 +42,7 @@
                                 <tbody>
                          			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'RECUSADO')}"  class="danger">
 										<td th:text="${contrato.codigoContrato}">1</td>
-										<td th:text="${contrato.subProduto.descricao}">1</td>
+										<td th:text="${contrato.produto}">1</td>
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
@@ -60,7 +60,7 @@
                                     </tr>
                          			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'IMPLANTADO')}"  class="success">
 										<td th:text="${contrato.codigoContrato}">1</td>
-										<td th:text="${contrato.subProduto.descricao}">1</td>
+										<td th:text="${contrato.produto}">1</td>
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
@@ -78,7 +78,7 @@
                                     </tr>
                          			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'AGUARDANDO_IMPLANTACAO')}"  >
 										<td th:text="${contrato.codigoContrato}">1</td>
-										<td th:text="${contrato.subProduto.descricao}">1</td>
+										<td th:text="${contrato.produto}">1</td>
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
@@ -122,6 +122,9 @@
 			                                        <th>Num. Proposta</th>
 			                                        <th>$ Contrato</th>
 			                                        <th sec:authorize="hasRole('ROLE_ADMIN')" >Valor Kgl</th>
+			                                        <th>Tarifa</th>
+			                                        <th>Taxa</th>
+			                                         <th>Total Desconto</th>
 			                                        <th>Valor Corretor</th>
 			                                        <th sec:authorize="hasRole('ROLE_ADMIN')" >Lucro</th>
 			                                        <th>Status</th>
@@ -135,7 +138,11 @@
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')"   th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.tarifa}">1</td>
+													<td th:text="${movimentacao.taxa}">1</td>
+													<td th:text="${movimentacao.totalDesconto}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
+													
 													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
 													<td> 
@@ -150,6 +157,9 @@
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.tarifa}">1</td>
+													<td th:text="${movimentacao.taxa}">1</td>
+													<td th:text="${movimentacao.totalDesconto}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>
@@ -165,6 +175,9 @@
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.tarifa}">1</td>
+													<td th:text="${movimentacao.taxa}">1</td>
+													<td th:text="${movimentacao.totalDesconto}">1</td>
 													<td th:text="${movimentacao.valorCorretor}">1</td>
 													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
 													<td th:text="${movimentacao.status}">1</td>

@@ -39,6 +39,12 @@ public class Movimentacao implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusMovimentacao status;
 
+	private BigDecimal tarifa;
+
+	private Double taxa;
+
+	private BigDecimal totalDesconto;
+
 	public Contrato getContrato() {
 		return contrato;
 	}
@@ -68,7 +74,9 @@ public class Movimentacao implements Serializable {
 	}
 
 	public void setValorKgl(BigDecimal valorKgl) {
-		this.valorKgl = valorKgl;
+		BigDecimal porcentagem = new BigDecimal( getTaxa() /100);
+		BigDecimal desconto = valorKgl.multiply(porcentagem);
+		this.valorKgl = valorKgl.subtract(desconto);
 	}
 
 	public Long getId() {
@@ -92,7 +100,9 @@ public class Movimentacao implements Serializable {
 	}
 
 	public void setValorCorretor(BigDecimal valorCorretor) {
-		this.valorCorretor = valorCorretor;
+		BigDecimal porcentagem = new BigDecimal( getTaxa() /100);
+		BigDecimal desconto = valorCorretor.multiply(porcentagem);
+		this.valorCorretor = valorCorretor.subtract(desconto).subtract(getTarifa());
 	}
 
 	public BigDecimal getLucro() {
@@ -103,4 +113,29 @@ public class Movimentacao implements Serializable {
 		this.lucro = lucro;
 	}
 
+
+
+	public Double getTaxa() {
+		return taxa;
+	}
+
+	public void setTaxa(Double taxa) {
+		this.taxa = taxa;
+	}
+
+	public BigDecimal getTotalDesconto() {
+		return totalDesconto;
+	}
+
+	public void setTotalDesconto(BigDecimal totalDesconto) {
+		this.totalDesconto = new BigDecimal(taxa).add(tarifa);
+	}
+
+	public BigDecimal getTarifa() {
+		return tarifa == null? new BigDecimal("0"):tarifa;
+	}
+
+	public void setTarifa(BigDecimal tarifa) {
+		this.tarifa = tarifa;
+	}
 }

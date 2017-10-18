@@ -92,12 +92,30 @@ public class CriadorDeContrato {
 			mov.setContrato(contrato);
 			mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
 
-			mov.setValorCorretor(contrato.getProduto().getParcelaCorretor()
+			
+			if(mesPagamento == 0) {
+				mov.setTaxa(new Double(0));
+				
+			}else {
+				mov.setTaxa(new Double(8.5));
+			}
+			
+			//Caso seja a segunda parcela cobrar tarifa
+			if(mesPagamento == 1) {
+				mov.setTarifa(contrato.getTarifa());
+				mov.setValorCorretor(contrato.getProduto().getParcelaCorretor()
 					.calcularValorLucro(contrato.getValor(), mesPagamento));
+				
+			}else {
+				mov.setTarifa(new BigDecimal(0));;
+				mov.setValorCorretor(contrato.getProduto().getParcelaCorretor()
+						.calcularValorLucro(contrato.getValor(), mesPagamento));
+			}
 			mov.setValorKgl(contrato.getProduto().getParcelaKgl()
 					.calcularValorLucro(contrato.getValor(), mesPagamento));
 			mov.setLucro(mov.getValorKgl().subtract(mov.getValorCorretor()));
 			mov.setDtPagamento(contrato.getDtCadastro().plusMonths(mesPagamento));
+			
 			if (mov.getValorKgl().compareTo(BigDecimal.ZERO) == 1) {
 				movimentacaoRepository.save(mov);
 			}
