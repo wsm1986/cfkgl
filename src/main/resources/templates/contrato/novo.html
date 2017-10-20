@@ -117,7 +117,7 @@
 						<div class="col-sm-2  form-group">
 							<div class="form-group" th:classappend="${#fields.hasErrors('segurado.cpfCnpj')} ? has-error">
 								<label for="nome" class="control-label">C.P.F</label> 
-								<input id="cpf" type="text" class="form-control cpf" th:field="*{segurado.cpfCnpj}"/>
+								<input id="cpf_" type="text" class="form-control cpf" th:field="*{segurado.cpfCnpj}"/>
 							</div>
 						</div>
 
@@ -217,10 +217,22 @@
 				<script type="text/javascript">
         /*<![CDATA[*/
 			
-        	
-        	
-        	
 	        $(document).ready(function() {
+        	
+        	$("#cpf2").keydown(function(){
+			    try {
+			        $("#cpf").unmask();
+			    } catch (e) {}
+			
+			    var tamanho = $("#cpf").val().length;
+			
+			    if(tamanho < 11){
+			        $("#cpf").mask("999.999.999-99");
+			    } else {
+			        $("#cpf").mask("99.999.999/9999-99");
+			    }                   
+			});
+        	
 	        
              	$('#dataCadastro').datetimepicker({
                     locale: 'pt-br',
