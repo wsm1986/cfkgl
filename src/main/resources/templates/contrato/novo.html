@@ -117,7 +117,7 @@
 						<div class="col-sm-2  form-group">
 							<div class="form-group" th:classappend="${#fields.hasErrors('segurado.cpfCnpj')} ? has-error">
 								<label for="nome" class="control-label">C.P.F</label> 
-								<input id="cpf_" type="text" class="form-control cpf" th:field="*{segurado.cpfCnpj}"/>
+								<input id="cpf_2" type="text" class="form-control" th:field="*{segurado.cpfCnpj}"/>
 							</div>
 						</div>
 
@@ -219,7 +219,7 @@
 			
 	        $(document).ready(function() {
         	
-        	$("#cpf2").keydown(function(){
+        	$("#cpf").keydown(function(){
 			    try {
 			        $("#cpf").unmask();
 			    } catch (e) {}
