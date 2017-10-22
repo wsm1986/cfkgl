@@ -1,6 +1,8 @@
 package com.kgl.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,13 +30,16 @@ public class MovimentacaoController {
 	private HomeBean home;
 	
 	@RequestMapping({ "/form" })
-	public ModelAndView form(Movimentacao movimentacao) {
+	public ModelAndView form(Movimentacao movimentacao, HttpSession session) {
 		ModelAndView mvn = new ModelAndView("movimentacao/novo");
+		List<Movimentacao> mov = new ArrayList<>();
 		if(home.permissaoUsuario()) {
-			mvn.addObject("movimentacoes", dao.findAll());
+			mov = (List<Movimentacao>) dao.findAll();
+			financeiro(mov,  session);
 		}else {
-			mvn.addObject("movimentacoes", dao.findByContratoCorretorEmail(home.emailLogado()));
+			mov = dao.findByContratoCorretorEmail(home.emailLogado());
 		}
+		mvn.addObject("movimentacoes", mov);
 		return mvn;
 	}
 	
@@ -62,6 +67,26 @@ public class MovimentacaoController {
 		dao.save(mov);
 		return new ModelAndView("redirect:/contrato/detalharContr/"+mov.getContrato().getId()+"");
 
+	}
+	public void financeiro(List<Movimentacao> movs, HttpSession session) {
+		BigDecimal vlrLucro = new BigDecimal(0);
+		BigDecimal vlrCorretor = new BigDecimal(0);
+		BigDecimal vlrKgl = new BigDecimal(0);
+		BigDecimal vlrContrato = new BigDecimal(0);
+
+
+		for (Movimentacao movimentacao : movs) {
+			vlrLucro = vlrLucro.add(movimentacao.getLucro());
+			vlrCorretor = vlrCorretor.add(movimentacao.getValorCorretor());
+			vlrKgl = vlrKgl.add(movimentacao.getValorKgl());
+			vlrContrato = vlrContrato.add(movimentacao.getContrato().getValor());
+
+		}
+		session.setAttribute("vlrCorretor",  vlrCorretor);
+		session.setAttribute("vlrLucro",  vlrLucro);
+		session.setAttribute("vlrKgl",  vlrKgl);
+		session.setAttribute("vlrContrato",  vlrContrato);
+	
 	}
 
 }
