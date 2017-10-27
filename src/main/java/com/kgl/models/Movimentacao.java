@@ -2,6 +2,8 @@ package com.kgl.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,6 +36,7 @@ public class Movimentacao implements Serializable {
 	private Contrato contrato;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@CreatedDate
 	private DateTime dtPagamento;
 
 	private BigDecimal lucro;
@@ -137,5 +141,8 @@ public class Movimentacao implements Serializable {
 
 	public void setTarifa(BigDecimal tarifa) {
 		this.tarifa = tarifa;
+	}
+	public String getDtConverter() {
+		return  String.valueOf(dtPagamento.getMonthOfYear());
 	}
 }

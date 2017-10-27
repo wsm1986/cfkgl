@@ -168,6 +168,10 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>artemis-server</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>

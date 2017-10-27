@@ -1,5 +1,7 @@
 package com.kgl.models;
 
-public enum StatusMovimentacao {
+import java.io.Serializable;
+
+public enum StatusMovimentacao  implements Serializable {
 	PAGO,AGUARDADO_PAGAMENTO,RECEBI, RECUSADO;
 }

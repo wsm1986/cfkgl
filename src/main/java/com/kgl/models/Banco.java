@@ -1,6 +1,8 @@
 package com.kgl.models;
 
-public enum Banco {
+import java.io.Serializable;
+
+public enum Banco  implements Serializable {
 
 	Santander("Santander", "033"), 
 	Itau("Itau", "341"), 

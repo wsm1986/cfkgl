@@ -70,9 +70,184 @@
 			placeholder : " "
 		});
 
-		$(".cpf").mask("999.999.999-99", {
+		$(".cpf1").mask("999.999.999-99", {
 			placeholder : " "
 		});
+
+		$(".js-listar-movimentacoes").on('click', function (e) {
+			e.preventDefault();
+			var botao =  $(e.currentTarget);
+			var url = botao.attr('href');
+			console.log(url);
+			
+			var data = $('#dateTime').val();
+			console.log(data);
+			
+			$.ajax({  
+                url: url,  
+                data : {name : data},  
+				contentType: "application/json; charset=utf-8",
+				type: 'POST',
+                success: function(data, status) {
+              			var resultado =data ;
+              			$('#employeesTable1').dataTable({
+              				  "aaData": data,
+              				  "aoColumns": [
+                				    { "mData": "contrato.corretor.nome" },
+              				    { "mData": "dtConverter" },
+              				    { "mData": "contrato.codigoContrato" },
+              				    { "mData": "contrato.valor" },
+              				    { "mData": "valorKgl" },
+              				    { "mData": "valorCorretor" },
+              				    { "mData": "lucro" },
+              				    { "mData": "status" }
+              				  ],
+              				    "bDestroy": true,
+              				  "footerCallback": function ( row, data, start, end, display ) {
+              		            var api = this.api(), data;
+              		 
+              		            // Remove the formatting to get integer data for summation
+              		            var intVal = function ( i ) {
+              		                return typeof i === 'string' ?
+              		                    i.replace(/[\$,]/g, '')*1 :
+              		                    typeof i === 'number' ?
+              		                        i : 0;
+              		            };
+              		 
+              		            // Valor Contrato
+              		            
+              		            total = api
+              		                .column( 3 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+
+              		            pageTotal = api
+              		                .column(3 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 3 ).footer() ).html(
+              		                '$'+pageTotal +' ( $'+ total +' total)'
+              		            );
+              		            
+              		            
+
+								// /valor KGL
+              		            total = api
+              		                .column( 4 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+
+								pageTotal = api
+              		                .column(4 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 4 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( $'+ total +' total)'
+              		            );
+              		            
+              		            
+								// Valor Corretor '$'+pageTotal +' ( $'+ total +' total)'
+              		            total = api
+              		                .column( 5 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+
+								pageTotal = api
+              		                .column(5 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 5 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( $'+ total +' total)'
+              		            );
+              		            
+              		            // Total over all pages
+              		            total = api
+              		                .column( 6 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		            // Total over this page
+              		            // Total over this page
+              		            pageTotal = api
+              		                .column(6 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 6 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( $'+ total +' total)'
+              		            );
+              		        }
+              				});
+                 }  
+          });  
+
+		     /*
+				$('#movimentacoes').dataTable({
+				    destroy: true,
+				    aaData: resultado
+				});
+				
+				var table = $('#movimentacoes').dataTable().api();
+				table.clear();
+				table.rows.add(data);
+				table.draw();
+				var table = $('#movimentacoes').DataTable();
+				table.rows.add(data);
+				table.ajax.reload();*/
+			/*
+			
+			var response = $.ajax({
+				url: url,
+				type: 'POST',
+				contentType: "application/json; charset=utf-8",
+				data: $('#dateTime').val()
+				
+			});
+			
+			
+			response.done(function(e) {
+				console.log(e);
+			});
+			
+			response.fail(function(e) {
+				console.log(e);
+				alert('Erro recebendo cobrança');
+			})
+			
+			;*/
+		});
+     	$('#dtPagamento').datetimepicker({
+            locale: 'pt-br',
+            format: 'DD-MM-YYYY'
+        });    
+		
+		$(".cpf2").inputmask({mask: ['999.999.999-99', '99.999.999/9999-99'], keepStatic: true });
+		
+	
+		 
+		    $("#doc").inputmask({
+		        mask: ["999.999.999-99", "99.999.999/9999-99" ],
+		        keepStatic: true
+		    });
+
 
 	});
 

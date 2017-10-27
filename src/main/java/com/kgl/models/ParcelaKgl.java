@@ -1,11 +1,12 @@
 package com.kgl.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ParcelaKgl implements Parcela{
+public class ParcelaKgl implements Parcela ,Serializable{
 
 	private Integer totalComissaoKgl;
 	

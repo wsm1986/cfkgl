@@ -1,9 +1,11 @@
 package com.kgl.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Endereco {
+public class Endereco implements Serializable {
 
 	
 	private String rua;

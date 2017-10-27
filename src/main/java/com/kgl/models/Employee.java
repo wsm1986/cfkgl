@@ -1,12 +1,14 @@
 package com.kgl.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable{
 	
 	@Id
 	@GeneratedValue

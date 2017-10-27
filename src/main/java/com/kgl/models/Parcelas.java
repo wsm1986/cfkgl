@@ -1,5 +1,7 @@
 package com.kgl.models;
 
-public class Parcelas {
+import java.io.Serializable;
+
+public class Parcelas  implements Serializable {
 
 }

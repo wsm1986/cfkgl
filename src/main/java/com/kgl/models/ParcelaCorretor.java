@@ -1,11 +1,12 @@
 package com.kgl.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ParcelaCorretor implements Parcela {
+public class ParcelaCorretor implements Parcela, Serializable {
 
 
 	private Integer primeiraParcela = 0;
