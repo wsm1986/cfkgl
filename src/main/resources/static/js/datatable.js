@@ -16,7 +16,7 @@ $(document).ready( function () {
 
 
 $(document).ready(function() {
-    $('#employeesTable1').DataTable( {
+    $('#employeesTable12').DataTable( {
     	 "footerCallback": function ( row, data, start, end, display ) {
 	            var api = this.api(), data;
 	 
