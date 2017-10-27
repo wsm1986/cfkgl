@@ -66,6 +66,12 @@
 			responsive : true
 		});
 
+
+		$('#list-mov').DataTable({
+			responsive : true
+		});
+		
+		
 		$(".rg").mask("99.999.999-9", {
 			placeholder : " "
 		});
@@ -90,7 +96,7 @@
 				type: 'POST',
                 success: function(data, status) {
               			var resultado =data ;
-              			$('#employeesTable1').dataTable({
+              			$('#list-mov').dataTable({
               				  "aaData": data,
               				  "aoColumns": [
                 				    { "mData": "contrato.corretor.nome" },
