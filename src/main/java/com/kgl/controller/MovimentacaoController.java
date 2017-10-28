@@ -2,22 +2,19 @@ package com.kgl.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import org.h2.util.New;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kgl.models.Contrato;
-import com.kgl.models.Employee;
+import com.kgl.models.Corretor;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
 import com.kgl.models.StatusMovimentacao;
+import com.kgl.repository.CorretorRepository;
 import com.kgl.repository.EmployeeRepository;
 import com.kgl.services.HomeBean;
 import com.kgl.webservices.MovimentacaoRepository;
@@ -51,19 +48,20 @@ public class MovimentacaoController {
 	@Autowired
 	HttpSession sessao;
 	
+	@Autowired
+	private CorretorRepository corretorDao;
+	
 	@RequestMapping({ "/form" })
 	public ModelAndView form(Movimentacao movimentacao, HttpSession session) {
 		ModelAndView mvn = new ModelAndView("movimentacao/novo");
 		List<Movimentacao> mov = new ArrayList<>();
 		if(home.permissaoUsuario()) {
 			mov = (List<Movimentacao>) dao.findAll();
-			financeiro(dao.findByDtPagamentoBefore(new DateTime()),  session);
+			//financeiro(dao.findByDtPagamentoBefore(new DateTime()),  session);
 		}else {
 			mov = dao.findByContratoCorretorEmail(home.emailLogado());
 		}
 		mvn.addObject("movimentacoes", mov);
-		
-		mvn.addObject("dtPagamento", "");;
 		return mvn;
 	}
 	
@@ -104,7 +102,7 @@ public class MovimentacaoController {
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 			DateTime dt = formatter.parseDateTime(response.getDtInicial());
 			DateTime dtF = formatter.parseDateTime(response.getDtFinal());
-			mov = (List<Movimentacao>) dao.findByDtPagamentoBetween(dt, dtF);
+			mov = (List<Movimentacao>) dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
 			if (mov.size() == 0) {
 				mov = new ArrayList<>();
 			}
@@ -154,6 +152,10 @@ public class MovimentacaoController {
 		session.setAttribute("vlrKgl",  vlrKgl);
 		session.setAttribute("vlrContrato",  vlrContrato);
 	
+	}
+	@ModelAttribute("corretores")
+	public List<Corretor> listaCorretores() {
+		return (List<Corretor>) corretorDao.findAll();
 	}
 
 }

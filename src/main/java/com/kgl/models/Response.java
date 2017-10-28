@@ -21,6 +21,7 @@ public class Response implements Serializable {
 
 	private String dtInicial;
 	private String dtFinal;
+	private String corretor;
 
 	public String getDtInicial() {
 		return dtInicial;
@@ -36,5 +37,13 @@ public class Response implements Serializable {
 
 	public void setDtFinal(String dtFinal) {
 		this.dtFinal = dtFinal;
+	}
+
+	public String getCorretor() {
+		return corretor;
+	}
+
+	public void setCorretor(String corretor) {
+		this.corretor = corretor;
 	}
 }

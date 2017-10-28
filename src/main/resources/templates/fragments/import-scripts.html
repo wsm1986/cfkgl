@@ -88,7 +88,8 @@
 			
 			var dataInicial = $('#dateTimeInicial').val();
 			var dataFinal = $('#dateTimeFinal').val();
-				var request = JSON.parse('{ "dtInicial":"'+dataInicial+'", "dtFinal":"'+dataFinal+'"}');
+			var corretor = $('#corretor').val();
+			var request = JSON.parse('{ "dtInicial":"'+dataInicial+'", "dtFinal":"'+dataFinal+'", "corretor":"'+corretor+'"}');
 			$.ajax({  
                 url: url,  
                 dataType: 'json',

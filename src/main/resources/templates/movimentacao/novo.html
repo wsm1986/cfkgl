@@ -14,7 +14,9 @@
 			
 			
 						
-			<div">
+			<div>
+				<div class="col-lg-12">
+			
 			    <div class='col-md-2'>
 				<div class=" input-group date" id='dtPagamento'	>
 				   <input id="dateTimeInicial" type='text' class="form-control "   th:value="${dtPagamento}" placeholder="ddmmyyyy" /> 
@@ -32,9 +34,17 @@
 									
 								</div>
 			    </div>
-								<a  class="btn btn-primary  js-listar-movimentacoes " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" >CONSULTAR</a>
-		</div>
-		
+			    <div class='col-md-4'>
+						<select class="form-control" id="corretor">
+							<option th:each="corretor : ${corretores}"
+								th:text="${corretor.nome} +' | CPF: ' + |${corretor.cpfCnpj} " th:value="${corretor.id}" >
+						</option>
+						</select>
+				</div>
+				
+				<a  class="btn btn-primary  js-listar-movimentacoes " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" >CONSULTAR</a>
+			
+</div>
 			
 		
 			   
