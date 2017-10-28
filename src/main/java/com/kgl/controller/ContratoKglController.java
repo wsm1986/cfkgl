@@ -148,7 +148,12 @@ public class ContratoKglController {
 	@RequestMapping(value = "/detalharContr/{id}", method = RequestMethod.GET)
 	public ModelAndView detalharContr(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		mvn.addObject("contratos", contratoRepository.findAll());
+		if (home.permissaoUsuario()) {
+			mvn.addObject("contratos", contratoRepository.findAll());
+		} else {
+			String email = home.emailLogado();
+			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(email)));
+		}
 		mvn.addObject("movimentacoes", movRepository.findByContrato(contratoRepository.findOne(id)));
 		return mvn;
 	}
