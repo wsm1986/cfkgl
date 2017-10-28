@@ -86,12 +86,13 @@
 			var url = botao.attr('href');
 			console.log(url);
 			
-			var data = $('#dateTime').val();
-			console.log(data);
-			
+			var dataInicial = $('#dateTimeInicial').val();
+			var dataFinal = $('#dateTimeFinal').val();
+				var request = JSON.parse('{ "dtInicial":"'+dataInicial+'", "dtFinal":"'+dataFinal+'"}');
 			$.ajax({  
                 url: url,  
-                data : {name : data},  
+                dataType: 'json',
+                data : JSON.stringify(request),  
 				contentType: "application/json; charset=utf-8",
 				type: 'POST',
                 success: function(data, status) {
@@ -242,8 +243,14 @@
 		});
      	$('#dtPagamento').datetimepicker({
             locale: 'pt-br',
-            format: 'DD-MM-YYYY'
-        });    
+            format: 'DD/MM/YYYY'
+        }); 
+     	
+     	$('#dtPagamentoFinal').datetimepicker({
+            locale: 'pt-br',
+            format: 'DD/MM/YYYY'
+        }); 
+     
 		
 		$(".cpf2").inputmask({mask: ['999.999.999-99', '99.999.999/9999-99'], keepStatic: true });
 		

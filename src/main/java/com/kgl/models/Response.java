@@ -19,13 +19,22 @@ public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String nome;
+	private String dtInicial;
+	private String dtFinal;
 
-	public String getNome() {
-		return nome;
+	public String getDtInicial() {
+		return dtInicial;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDtInicial(String dtInicial) {
+		this.dtInicial = dtInicial;
+	}
+
+	public String getDtFinal() {
+		return dtFinal;
+	}
+
+	public void setDtFinal(String dtFinal) {
+		this.dtFinal = dtFinal;
 	}
 }

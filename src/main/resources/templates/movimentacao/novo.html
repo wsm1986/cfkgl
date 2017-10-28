@@ -13,20 +13,32 @@
 			<div class="col-lg-12">
 			
 			
-					<div class="form-group input-group col-lg-2">
-						<div class="col-sm-12  form-group">
-							<label for="dtVencimentoConverter" class="control-label">Data Cadastro </label>
-							<div class='input-group date' id='dtPagamento'>
-								<input id="dateTime" type='text' class="form-control " th:value="${dtPagamento}" placeholder="ddmmyyyy" /> 
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-							</div>
-						</div>
-						<a  class="fa  fa-arrow-down   fa-fw js-listar-movimentacoes " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" >AQUI</a>
-					</div>
-					
+						
+			<div">
+			    <div class='col-md-2'>
+				<div class=" input-group date" id='dtPagamento'	>
+				   <input id="dateTimeInicial" type='text' class="form-control "   th:value="${dtPagamento}" placeholder="ddmmyyyy" /> 
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+			    </div>
+			    </div>
+			    <div class='col-md-2'>
+			        <div class='input-group date' id='dtPagamentoFinal'>
+								<input id="dateTimeFinal" type='text' class="form-control " th:value="${dtPagamentoFinal}" placeholder="ddmmyyyy" /> 
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+									
+								</div>
+			    </div>
+								<a  class="btn btn-primary  js-listar-movimentacoes " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" >CONSULTAR</a>
+		</div>
+		
 			
+		
+			   
+					
 					<form method="POST" th:object="${movimentacao}"  th:action="@{/movimentacao/find}"  >
 					
 						<h1 class="page-header">MOVIMENTAÇÃO KGL</h1>
@@ -55,18 +67,18 @@
 			                                        
 			                                    </tr>
 			                                </thead>
-			                                        <tfoot>
-            <tr>
-                <th colspan="1" style="text-left">Total:</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </tfoot>
+			                                <tfoot>
+									            <tr>
+									                <th colspan="1" style="text-left">Total:</th>
+									                <th></th>
+									                <th></th>
+									                <th></th>
+									                <th></th>
+									                <th></th>
+									                <th></th>
+									                <th></th>
+									            </tr>
+									        </tfoot>
 			                                <tbody>
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'PAGO')}" class= "success">
 													<td th:text="${movimentacao.contrato.corretor.nome}">1</td>

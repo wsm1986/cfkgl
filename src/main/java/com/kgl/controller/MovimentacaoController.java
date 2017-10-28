@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kgl.models.Contrato;
 import com.kgl.models.Employee;
 import com.kgl.models.Movimentacao;
@@ -96,18 +97,18 @@ public class MovimentacaoController {
 			produces =MediaType.APPLICATION_JSON)
 	@ResponseBody 
 	public ResponseEntity<List<Movimentacao>>  atualizarLista(@RequestBody String data) {
+		Gson gson = new Gson();
+		Response response = gson.fromJson(data, Response.class);
 		List<Movimentacao> mov = new ArrayList<>();
 		try {
-			String novaDt = data.substring(5);
-			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-			DateTime dt = formatter.parseDateTime(novaDt);
-			DateTime dtF = formatter.parseDateTime("30" + novaDt.substring(2));
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+			DateTime dt = formatter.parseDateTime(response.getDtInicial());
+			DateTime dtF = formatter.parseDateTime(response.getDtFinal());
 			mov = (List<Movimentacao>) dao.findByDtPagamentoBetween(dt, dtF);
 			if (mov.size() == 0) {
 				mov = new ArrayList<>();
 			}
 			financeiro(mov, sessao);
-			sessao.setAttribute("vlrCorretor", "123");
 		} catch (Exception e) {
 			System.out.println(data);
 			System.out.println(e.getMessage());
