@@ -34,7 +34,7 @@
                                         <th>Data Assinatura</th>
                                         <th>Data Vigencia</th>
                                         <th>Segurado</th>
-                                        <th  sec:authorize="hasRole('ROLE_USER')">Corretor</th>
+                                        <th  sec:authorize="hasRole('ROLE_ADMIN')">Corretor</th>
 										<th>Status</th>
                                         <th></th>
                                     </tr>
@@ -49,7 +49,7 @@
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${contrato.segurado.nome}">1</td>
-										<td sec:authorize="hasRole('ROLE_USER')"  th:text="${contrato.corretor.nome}">1</td>
+										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.corretor.nome}">1</td>
 										<td th:text="${contrato.statusContrato}">1</td>
 										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " title="Alterar"></a>
 										
@@ -69,7 +69,7 @@
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${contrato.segurado.nome}">1</td>
-										<td sec:authorize="hasRole('ROLE_USER')"  th:text="${contrato.corretor.nome}">1</td>
+										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.corretor.nome}">1</td>
 										<td th:text="${contrato.statusContrato}">1</td>
 										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  " title="Alterar"></a>
 										
@@ -89,7 +89,7 @@
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtVigencia, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${contrato.segurado.nome}">1</td>
-										<td sec:authorize="hasRole('ROLE_USER')"  th:text="${contrato.corretor.nome}">1</td>
+										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.corretor.nome}">1</td>
 										<td th:text="${contrato.statusContrato}">1</td>
 										<td> <a th:href="${(#mvc.url('CKC#detalharContr').arg(0,contrato.id)).build()}" class="fa  fa-arrow-down   fa-fw  "  title="Alterar"></a>
 										
