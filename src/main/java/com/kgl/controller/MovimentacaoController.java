@@ -114,8 +114,13 @@ public class MovimentacaoController {
 			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.APARTIR)) {
 				DateTime dt = formatter.parseDateTime(response.getDtInicial());
 				mov = (List<Movimentacao>) dao.findByDtPagamentoAfter(dt);
+			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.FILTRO_COMPLETO)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
+				mov = (List<Movimentacao>) dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
 			}else {
 				mov = (List<Movimentacao>) dao.findAll();
+				
 			}
 			if (mov.size() == 0) {
 				mov = new ArrayList<>();
