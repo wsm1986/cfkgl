@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class Response implements Serializable {
 	private String dtInicial;
 	private String dtFinal;
 	private String corretor;
+	
 
 	public String getDtInicial() {
 		return dtInicial;
@@ -40,10 +42,21 @@ public class Response implements Serializable {
 	}
 
 	public String getCorretor() {
-		return corretor;
+		return corretor.equals("-1") ? null : corretor;
 	}
 
 	public void setCorretor(String corretor) {
 		this.corretor = corretor;
+	}
+	public TipoPesquisaMovimentacao tipoPesquisa() {
+		if(StringUtils.isBlank(getDtInicial()) && StringUtils.isBlank(getDtFinal()) && StringUtils.isBlank(getCorretor())) {
+			return TipoPesquisaMovimentacao.TODAS;
+		}else if(StringUtils.isNotBlank(getDtInicial()) && StringUtils.isBlank(getDtFinal()) && StringUtils.isBlank(getCorretor())) {
+			return TipoPesquisaMovimentacao.APARTIR;
+		}else if(StringUtils.isNotBlank(getDtInicial()) && StringUtils.isNotBlank(getDtFinal()) && StringUtils.isBlank(getCorretor())) {
+			return TipoPesquisaMovimentacao.ENTRE;
+		}else {
+			return TipoPesquisaMovimentacao.CORRETOR;
+		}
 	}
 }

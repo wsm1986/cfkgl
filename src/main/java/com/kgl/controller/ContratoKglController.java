@@ -27,6 +27,7 @@ import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
 import com.kgl.models.SubProduto;
 import com.kgl.repository.CorretorRepository;
+import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;
 import com.kgl.validator.ContratoValidator;
 import com.kgl.webservices.ContratoRepository;
@@ -39,7 +40,7 @@ import com.kgl.webservices.SubProdutoRepository;
 public class ContratoKglController {
 
 	@Autowired
-	private CorretorRepository corretorDao;
+	CorretorService corretorService;
 
 	@Autowired
 	private SubProdutoRepository subProdutoDao;
@@ -180,7 +181,7 @@ public class ContratoKglController {
 
 	@ModelAttribute("corretores")
 	public List<Corretor> listaCorretores() {
-		return (List<Corretor>) corretorDao.findAll();
+		return corretorService.todosCorretores();
 	}
 
 	@ModelAttribute("subProdutos")

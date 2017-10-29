@@ -3,6 +3,8 @@ package com.kgl.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
@@ -27,8 +29,10 @@ import com.kgl.models.Corretor;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
 import com.kgl.models.StatusMovimentacao;
+import com.kgl.models.TipoPesquisaMovimentacao;
 import com.kgl.repository.CorretorRepository;
 import com.kgl.repository.EmployeeRepository;
+import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;
 import com.kgl.webservices.MovimentacaoRepository;
 
@@ -49,7 +53,7 @@ public class MovimentacaoController {
 	HttpSession sessao;
 	
 	@Autowired
-	private CorretorRepository corretorDao;
+	CorretorService corretorService;
 	
 	@RequestMapping({ "/form" })
 	public ModelAndView form(Movimentacao movimentacao, HttpSession session) {
@@ -97,12 +101,22 @@ public class MovimentacaoController {
 	public ResponseEntity<List<Movimentacao>>  atualizarLista(@RequestBody String data) {
 		Gson gson = new Gson();
 		Response response = gson.fromJson(data, Response.class);
-		List<Movimentacao> mov = new ArrayList<>();
+		List<Movimentacao> mov = new ArrayList<>();	
 		try {
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-			DateTime dt = formatter.parseDateTime(response.getDtInicial());
-			DateTime dtF = formatter.parseDateTime(response.getDtFinal());
-			mov = (List<Movimentacao>) dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
+			if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.ENTRE)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
+				mov = (List<Movimentacao>) dao.findByDtPagamentoBetween(dt, dtF);
+			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.CORRETOR)) {
+				mov = dao.findByContratoCorretorId(Long.valueOf(response.getCorretor()));
+				//mov = (List<Movimentacao>) dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
+			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.APARTIR)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				mov = (List<Movimentacao>) dao.findByDtPagamentoAfter(dt);
+			}else {
+				mov = (List<Movimentacao>) dao.findAll();
+			}
 			if (mov.size() == 0) {
 				mov = new ArrayList<>();
 			}
@@ -155,7 +169,7 @@ public class MovimentacaoController {
 	}
 	@ModelAttribute("corretores")
 	public List<Corretor> listaCorretores() {
-		return (List<Corretor>) corretorDao.findAll();
+		return corretorService.todosCorretores();
 	}
 
 }

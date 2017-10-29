@@ -36,6 +36,8 @@
 			    </div>
 			    <div class='col-md-4'>
 						<select class="form-control" id="corretor">
+						  	<option th:text="SELECIONE" th:value="-1" ></option>
+						
 							<option th:each="corretor : ${corretores}"
 								th:text="${corretor.nome} +' | CPF: ' + |${corretor.cpfCnpj} " th:value="${corretor.id}" >
 						</option>
