@@ -117,8 +117,7 @@ public class Produto implements Serializable{
 
 	@Override
 	public String toString() {
-		return operadora.getNome()+"  - KGL:  "+ parcelaKgl.getTotalComissaoKgl() + "% - CORRETOR " + parcelaCorretor.getTotalComissaoCorretor() + 
-				"%";
+		return operadora.getNome();
 	}
 
 	
