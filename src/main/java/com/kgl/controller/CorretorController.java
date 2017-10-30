@@ -21,8 +21,8 @@ import com.kgl.models.Corretor;
 import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.Role;
 import com.kgl.models.User;
-import com.kgl.repository.CorretorRepository;
 import com.kgl.repository.UserRepository;
+import com.kgl.services.CorretorService;
 import com.kgl.validator.CorretorValidator;
 
 @Controller
@@ -30,7 +30,7 @@ import com.kgl.validator.CorretorValidator;
 public class CorretorController {
 
 	@Autowired
-	private CorretorRepository dao;
+	private CorretorService dao;
 
 	@Autowired
 	private CorretorValidator corretorValidation;
@@ -55,7 +55,7 @@ public class CorretorController {
 			}
 			corretor.getConta().setTitular(corretor.getNome());
 			corretor.setDtInclusao(Calendar.getInstance());
-			dao.save(corretor);
+			dao.salvar(corretor);
 			insertUser(corretor.getEmail());
 		return listar();
 	}
@@ -63,21 +63,21 @@ public class CorretorController {
 	@RequestMapping("/listar")
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("corretor/listar");
-		mvn.addObject("corretores", dao.findAll());
+		mvn.addObject("corretores", dao.todosCorretores());
 		
 		return mvn;
 	}
 
 	@RequestMapping("/deletar/{id}")
 	private ModelAndView deletar(@PathVariable("id") Long id) {
-		dao.delete(dao.findOne(id));
+		dao.excluir(dao.buscarCorretor(id).getId());
 		return listar();
 	}
 	
 	@RequestMapping("/detalhe/{id}")
 	private ModelAndView detalhe(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("corretor/detalhe");
-		mvn.addObject("corretor", dao.findOne(id));
+		mvn.addObject("corretor", dao.buscarCorretor(id));
 		return mvn;
 	}
 	@RequestMapping("/update/{corretor}")

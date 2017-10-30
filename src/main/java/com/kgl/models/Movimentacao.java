@@ -143,6 +143,6 @@ public class Movimentacao implements Serializable {
 		this.tarifa = tarifa;
 	}
 	public String getDtConverter() {
-		return  String.valueOf(dtPagamento);
+		return  String.valueOf(dtPagamento.getMonthOfYear() + "/"+dtPagamento.getYear());
 	}
 }

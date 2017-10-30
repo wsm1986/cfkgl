@@ -24,8 +24,8 @@ import com.kgl.models.Operadora;
 import com.kgl.models.Role;
 import com.kgl.models.StatusMovimentacao;
 import com.kgl.models.User;
-import com.kgl.repository.CorretorRepository;
 import com.kgl.repository.UserRepository;
+import com.kgl.services.CorretorService;
 import com.kgl.webservices.ContratoRepository;
 import com.kgl.webservices.MovimentacaoRepository;
 import com.kgl.webservices.OperadoraRepository;
@@ -47,7 +47,7 @@ public class HomeController {
 	ConfigurarUser conf;
 
 	@Autowired
-	private CorretorRepository corretorRep;
+	private CorretorService corretorService;
 	
 	@Autowired
 	private OperadoraRepository operadoraRepository; 
@@ -81,7 +81,7 @@ public class HomeController {
 			session.setAttribute("nomeCorretor", "ADM - KGL");
 
 		} else {
-			Corretor corretor = corretorRep.findByEmail(user.getUserName());
+			Corretor corretor = corretorService.findByEmail(user.getUserName());
 			List<Contrato> contratos = contratoRepository.findByCorretor(corretor);
 			for (Contrato contrato : contratos) {
 				List<Movimentacao> movs = movRepository.findByContratoId(contrato.getId());

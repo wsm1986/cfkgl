@@ -42,6 +42,9 @@
 
 <script type="text/javascript">
 	/*<![CDATA[*/
+		
+
+
 	$(document).ready(function() {
 
 		$('.inputmask').inputmask({
@@ -101,7 +104,7 @@
               			$('#list-mov').dataTable({
               				  "aaData": data,
               				  "aoColumns": [
-                				    { "mData": "contrato.corretor.nome" },
+                				{ "mData": "contrato.corretor.nome" },
               				    { "mData": "dtConverter" },
               				    { "mData": "contrato.codigoContrato" },
               				    { "mData": "contrato.valor" },
@@ -110,7 +113,7 @@
               				    { "mData": "lucro" },
               				    { "mData": "status" }
               				  ],
-              				    "bDestroy": true,
+              				  "bDestroy": true,
               				  "footerCallback": function ( row, data, start, end, display ) {
               		            var api = this.api(), data;
               		 
@@ -139,7 +142,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 3 ).footer() ).html(
-              		                '$'+pageTotal +' ( $'+ total +' total)'
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
               		            );
               		            
               		            
@@ -160,7 +163,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 4 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( $'+ total +' total)'
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
               		            );
               		            
               		            
@@ -180,7 +183,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 5 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( $'+ total +' total)'
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
               		            );
               		            
               		            // Total over all pages
@@ -200,7 +203,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 6 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( $'+ total +' total)'
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
               		            );
               		        }
               				});

@@ -11,5 +11,7 @@ public interface CorretorService {
 	public Corretor buscarCorretor(Long id);
 	public void salvar(Corretor c);
 	public void excluir(Long id);
+	Corretor findByEmail(String email);
+
 	
 }

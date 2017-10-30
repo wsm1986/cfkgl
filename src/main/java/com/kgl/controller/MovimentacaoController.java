@@ -3,15 +3,10 @@ package com.kgl.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,22 +24,17 @@ import com.kgl.models.Corretor;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
 import com.kgl.models.StatusMovimentacao;
-import com.kgl.models.TipoPesquisaMovimentacao;
-import com.kgl.repository.CorretorRepository;
 import com.kgl.repository.EmployeeRepository;
 import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;
-import com.kgl.webservices.MovimentacaoRepository;
+import com.kgl.services.MovimentacaoService;
 
 @Controller
 @RequestMapping("/movimentacao")
 public class MovimentacaoController {
 
 	@Autowired
-	MovimentacaoRepository dao;
-	
-	@Autowired
-	private HomeBean home;
+	MovimentacaoService movimentcaoService;
 	
 	@Autowired
 	EmployeeRepository emp;
@@ -58,20 +48,13 @@ public class MovimentacaoController {
 	@RequestMapping({ "/form" })
 	public ModelAndView form(Movimentacao movimentacao, HttpSession session) {
 		ModelAndView mvn = new ModelAndView("movimentacao/novo");
-		List<Movimentacao> mov = new ArrayList<>();
-		if(home.permissaoUsuario()) {
-			mov = (List<Movimentacao>) dao.findAll();
-			//financeiro(dao.findByDtPagamentoBefore(new DateTime()),  session);
-		}else {
-			mov = dao.findByContratoCorretorEmail(home.emailLogado());
-		}
-		mvn.addObject("movimentacoes", mov);
+		mvn.addObject("movimentacoes", movimentcaoService.buscarMovimentacoes());
 		return mvn;
 	}
 	
 	@RequestMapping(value = "/remover/{movimentacao}", method = RequestMethod.GET)
 	public ModelAndView remover(@PathVariable("movimentacao") Movimentacao mov) {
-		dao.delete(mov);
+		movimentcaoService.excluir(mov.getId());
 		return new ModelAndView("redirect:/contrato/detalharContr/"+mov.getContrato().getId()+"");
 
 	}
@@ -84,13 +67,12 @@ public class MovimentacaoController {
 			session.setAttribute("vlrCorretor",  vlr.subtract(mov.getValorCorretor()));
 
 		}else if("N".equals(flag)) {
-			//session.setAttribute("vlrCorretor",  vlr.add(mov.getValorCorretor()));
 			mov.setStatus(StatusMovimentacao.RECUSADO);
 		}else if("A".equals(flag)) {
 			session.setAttribute("vlrCorretor",  vlr.add(mov.getValorCorretor()));
 			mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
 		}
-		dao.save(mov);
+		movimentcaoService.salvar(mov);
 		return new ModelAndView("redirect:/contrato/detalharContr/"+mov.getContrato().getId()+"");
 
 	}
@@ -103,29 +85,11 @@ public class MovimentacaoController {
 		Response response = gson.fromJson(data, Response.class);
 		List<Movimentacao> mov = new ArrayList<>();	
 		try {
-			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-			if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.ENTRE)) {
-				DateTime dt = formatter.parseDateTime(response.getDtInicial());
-				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
-				mov = (List<Movimentacao>) dao.findByDtPagamentoBetween(dt, dtF);
-			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.CORRETOR)) {
-				mov = dao.findByContratoCorretorId(Long.valueOf(response.getCorretor()));
-				//mov = (List<Movimentacao>) dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
-			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.APARTIR)) {
-				DateTime dt = formatter.parseDateTime(response.getDtInicial());
-				mov = (List<Movimentacao>) dao.findByDtPagamentoAfter(dt);
-			}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.FILTRO_COMPLETO)) {
-				DateTime dt = formatter.parseDateTime(response.getDtInicial());
-				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
-				mov = (List<Movimentacao>) dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
-			}else {
-				mov = (List<Movimentacao>) dao.findAll();
-				
-			}
+			mov = movimentcaoService.buscarMovimentacao(response);
+			
 			if (mov.size() == 0) {
 				mov = new ArrayList<>();
 			}
-			financeiro(mov, sessao);
 		} catch (Exception e) {
 			System.out.println(data);
 			System.out.println(e.getMessage());
@@ -135,23 +99,6 @@ public class MovimentacaoController {
 	}
 	
 
-/*	@RequestMapping(value = "/atualizarLista/{dtPagamento}", method = RequestMethod.GET
-	public ModelAndView   atualizarLista(@PathVariable("dtPagamento") String data, HttpSession session) {
-		
-		ModelAndView mvn = new ModelAndView("movimentacao/novo");
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-		DateTime dt = formatter.parseDateTime(data);
-		DateTime dtF = formatter.parseDateTime("30"+data.substring(2));
-		mvn.addObject("movimentacoes", 	dao.findByDtPagamentoBetween(dt, dtF));
-		financeiro(dao.findByDtPagamentoBetween(dt, dtF), session);
-		return mvn;
-		
-		List<Movimentacao> mov = new ArrayList<>();
-		mov =  (List<Movimentacao>) dao.findAll();
-		return new ResponseEntity<List<Movimentacao>>(mov,HttpStatus.OK);
-		
-	}
-	*/
 	public void financeiro(List<Movimentacao> movs, HttpSession session) {
 		BigDecimal vlrLucro = new BigDecimal(0);
 		BigDecimal vlrCorretor = new BigDecimal(0);

@@ -1,4 +1,4 @@
-package com.kgl.services;
+package com.kgl.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.kgl.models.Corretor;
 import com.kgl.repository.CorretorRepository;
+import com.kgl.services.CorretorService;
+import com.kgl.services.HomeBean;
 
 @Service("corretor")
 public class CorretorServiceImpl implements CorretorService {
@@ -47,6 +49,11 @@ public class CorretorServiceImpl implements CorretorService {
 		// TODO Auto-generated method stub
 		repository.delete(id);
 		
+	}
+
+	@Override
+	public Corretor findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 
 

@@ -26,7 +26,6 @@ import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
 import com.kgl.models.SubProduto;
-import com.kgl.repository.CorretorRepository;
 import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;
 import com.kgl.validator.ContratoValidator;
@@ -54,8 +53,6 @@ public class ContratoKglController {
 	@Autowired
 	MovimentacaoRepository movRepository;
 
-	@Autowired
-	CorretorRepository corretorRepository;
 
 	@Autowired
 	private ContratoValidator contratoValidation;
@@ -93,7 +90,7 @@ public class ContratoKglController {
 			mvn.addObject("contratos", contratoRepository.findAll());
 		} else {
 			String email = home.emailLogado();
-			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(email)));
+			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorService.findByEmail(email)));
 		}
 		return mvn;
 
@@ -153,7 +150,7 @@ public class ContratoKglController {
 			mvn.addObject("contratos", contratoRepository.findAll());
 		} else {
 			String email = home.emailLogado();
-			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorRepository.findByEmail(email)));
+			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorService.findByEmail(email)));
 		}
 		mvn.addObject("movimentacoes", movRepository.findByContrato(contratoRepository.findOne(id)));
 		return mvn;
