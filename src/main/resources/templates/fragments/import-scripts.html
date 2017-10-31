@@ -107,10 +107,10 @@
                 				{ "mData": "contrato.corretor.nome" },
               				    { "mData": "dtConverter" },
               				    { "mData": "contrato.codigoContrato" },
-              				    { "mData": "contrato.valor" },
-              				    { "mData": "valorKgl" },
-              				    { "mData": "valorCorretor" },
-              				    { "mData": "lucro" },
+              				    { "mData": "formatarValorContrato" },
+              				    { "mData": "formatarValorKgl" },
+              				    { "mData": "formatarValorCorretor" },
+              				    { "mData": "formatarValorLucro" },
               				    { "mData": "status" }
               				  ],
               				  "bDestroy": true,
@@ -119,12 +119,35 @@
               		 
               		            // Remove the formatting to get integer data for summation
               		            var intVal = function ( i ) {
+          		                	i = i.toString().replace("R$ ","").replace(".","");
               		                return typeof i === 'string' ?
               		                    i.replace(/[\$,]/g, '')*1 :
               		                    typeof i === 'number' ?
               		                        i : 0;
               		            };
-              		 
+	              		          function numberParaReal(numero){
+	              		            var formatado = "R$ " + numero.toFixed(2).replace(".",",");
+	              		            return formatado;
+	              		        };
+	              		        
+	              		      function formatBR(value, decimais) {
+
+	              		        decimais = decimais || 2;
+	              		        var mi = value.toString().length - parseInt(decimais);
+	              		        var sm = parseInt(mi / 3);
+	              		        var regx = "", repl = "";
+
+	              		        for (var i = 0; i < sm; i++) {
+	              		            regx = regx.concat('([0-9]{3})');
+	              		            repl = repl.concat('.$' + (i + 1));
+	              		        }
+
+	              		        regx = regx.concat('([0-9]{' + decimais + '})') + "$";
+	              		        repl = repl.concat(',$' + (sm + 1));
+	              		        value = value.toString().replace(new RegExp(regx, 'g'), repl);
+	              		        return (mi % 3) === 0 ? value.substr(1) : value;
+	              		    };
+	              		 
               		            // Valor Contrato
               		            
               		            total = api
@@ -142,7 +165,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 3 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            		'R$: '+formatBR(pageTotal,2) +' ( R$: '+ formatBR(total,2) +' total)'
               		            );
               		            
               		            
@@ -163,7 +186,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 4 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            		'R$: '+formatBR(pageTotal,2) +' ( R$: '+ formatBR(total,2) +' total)'
               		            );
               		            
               		            
@@ -183,7 +206,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 5 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            		'R$: '+formatBR(pageTotal,2) +' ( R$: '+ formatBR(total,2) +' total)'
               		            );
               		            
               		            // Total over all pages
@@ -203,7 +226,7 @@
               		                }, 0 );
               		          
               		            $( api.column( 6 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            		'R$: '+formatBR(pageTotal,2) +' ( R$: '+ formatBR(total,2) +' total)'
               		            );
               		        }
               				});
@@ -270,21 +293,45 @@
                 				{ "mData": "contrato.corretor.nome" },
               				    { "mData": "dtConverter" },
               				    { "mData": "contrato.codigoContrato" },
-              				    { "mData": "contrato.valor" },
-              				    { "mData": "valorCorretor" },
+              				    { "mData": "formatarValorContrato" },
+              				    { "mData": "formatarValorCorretor" },
               				    { "mData": "status" }
               				  ],
               				  "bDestroy": true,
               				  "footerCallback": function ( row, data, start, end, display ) {
               		            var api = this.api(), data;
               		 
-              		            // Remove the formatting to get integer data for summation
+              		          // Remove the formatting to get integer data for summation
               		            var intVal = function ( i ) {
+          		                	i = i.toString().replace("R$ ","").replace(".","");
               		                return typeof i === 'string' ?
               		                    i.replace(/[\$,]/g, '')*1 :
               		                    typeof i === 'number' ?
               		                        i : 0;
               		            };
+	              		          function numberParaReal(numero){
+	              		            var formatado = "R$ " + numero.toFixed(2).replace(".",",");
+	              		            return formatado;
+	              		        };
+	              		        
+	              		      function formatBR(value, decimais) {
+
+	              		        decimais = decimais || 2;
+	              		        var mi = value.toString().length - parseInt(decimais);
+	              		        var sm = parseInt(mi / 3);
+	              		        var regx = "", repl = "";
+
+	              		        for (var i = 0; i < sm; i++) {
+	              		            regx = regx.concat('([0-9]{3})');
+	              		            repl = repl.concat('.$' + (i + 1));
+	              		        }
+
+	              		        regx = regx.concat('([0-9]{' + decimais + '})') + "$";
+	              		        repl = repl.concat(',$' + (sm + 1));
+	              		        value = value.toString().replace(new RegExp(regx, 'g'), repl);
+	              		        return (mi % 3) === 0 ? value.substr(1) : value;
+	              		    };
+	              		 
               		 
               		            // Valor Contrato
               		            
@@ -303,12 +350,12 @@
               		                }, 0 );
               		          
               		            $( api.column( 3 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            		'R$: '+formatBR(pageTotal,2) +' ( R$: '+ formatBR(total,2) +' total)'
               		            );
               		            
               		            
 
-								// /valor KGL
+								// /valor Corretor
               		            total = api
               		                .column( 4 )
               		                .data()
@@ -324,48 +371,13 @@
               		                }, 0 );
               		          
               		            $( api.column( 4 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            		'R$: '+formatBR(pageTotal,2) +' ( R$: '+ formatBR(total,2) +' total)'
               		            );
               		            
               		            
-								// Valor Corretor '$'+pageTotal +' ( $'+ total +' total)'
-              		            total = api
-              		                .column( 5 )
-              		                .data()
-              		                .reduce( function (a, b) {
-              		                    return intVal(a) + intVal(b);
-              		                }, 0 );
-
-								pageTotal = api
-              		                .column(5 , { page: 'current'} )
-              		                .data()
-              		                .reduce( function (a, b) {
-              		                    return intVal(a) + intVal(b);
-              		                }, 0 );
+								
               		          
-              		            $( api.column( 5 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
-              		            );
-              		            
-              		            // Total over all pages
-              		            total = api
-              		                .column( 6 )
-              		                .data()
-              		                .reduce( function (a, b) {
-              		                    return intVal(a) + intVal(b);
-              		                }, 0 );
-              		            // Total over this page
-              		            // Total over this page
-              		            pageTotal = api
-              		                .column(6 , { page: 'current'} )
-              		                .data()
-              		                .reduce( function (a, b) {
-              		                    return intVal(a) + intVal(b);
-              		                }, 0 );
               		          
-              		            $( api.column( 6 ).footer() ).html(
-              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
-              		            );
               		        }
               				});
                  }  
