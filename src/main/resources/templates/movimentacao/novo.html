@@ -34,7 +34,7 @@
 									
 								</div>
 			    </div>
-			    <div class='col-md-4'>
+			    <div sec:authorize="hasRole('ROLE_ADMIN')"  class='col-md-4'>
 						<select class="form-control" id="corretor">
 						  	<option th:text="SELECIONE" th:value="-1" ></option>
 						
