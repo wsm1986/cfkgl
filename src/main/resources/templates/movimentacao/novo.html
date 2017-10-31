@@ -68,7 +68,6 @@
 			                                <thead>
 			                                    <tr>
 			                                    	<th>Corretorn</th>
-			                                    
 			                                        <th>Data Pagamento</th>
 			                                        <th>Num. Proposta</th>
 			                                        <th>$ Contrato</th>
@@ -85,9 +84,9 @@
 									                <th></th>
 									                <th></th>
 									                <th></th>
+									                <th sec:authorize="hasRole('ROLE_ADMIN')" ></th>
 									                <th></th>
-									                <th></th>
-									                <th></th>
+									                 <th  sec:authorize="hasRole('ROLE_ADMIN')" ></th>
 									                <th></th>
 									            </tr>
 									        </tfoot>

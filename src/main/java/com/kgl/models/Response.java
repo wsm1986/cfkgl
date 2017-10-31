@@ -58,7 +58,7 @@ public class Response implements Serializable {
 		}else if(StringUtils.isBlank(getDtInicial()) && StringUtils.isBlank(getDtFinal()) && StringUtils.isNotBlank(getCorretor())) {
 			return TipoPesquisaMovimentacao.CORRETOR;
 		}else if(StringUtils.isNotBlank(getDtInicial()) && StringUtils.isBlank(getDtFinal()) && StringUtils.isNotBlank(getCorretor())) {
-			return TipoPesquisaMovimentacao.CORRETOR;
+			return TipoPesquisaMovimentacao.CORRETOR_APARTIR;
 		}
 		else {
 			return TipoPesquisaMovimentacao.FILTRO_COMPLETO;

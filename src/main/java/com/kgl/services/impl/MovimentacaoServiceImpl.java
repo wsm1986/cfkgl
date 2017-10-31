@@ -60,6 +60,9 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 			DateTime dt = formatter.parseDateTime(response.getDtInicial());
 			DateTime dtF = formatter.parseDateTime(response.getDtFinal());
 			return dao.findByDtPagamentoBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
+		}else if(response.tipoPesquisa().equals(TipoPesquisaMovimentacao.CORRETOR_APARTIR)) {
+			DateTime dt = formatter.parseDateTime(response.getDtInicial());
+			return dao.findByDtPagamentoAfterAndContratoCorretorId(dt, Long.valueOf(response.getCorretor()));
 		}else {
 			return (List<Movimentacao>) dao.findAll();
 		}

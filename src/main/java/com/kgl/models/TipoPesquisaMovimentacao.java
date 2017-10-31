@@ -2,7 +2,7 @@ package com.kgl.models;
 
 public enum TipoPesquisaMovimentacao {
 
-	TODAS("0"),APARTIR("1"), ENTRE("2"), CORRETOR("3"),FILTRO_COMPLETO("4");
+	TODAS("0"),APARTIR("1"), ENTRE("2"), CORRETOR("3"),FILTRO_COMPLETO("4"), CORRETOR_APARTIR("5");
 	
 	private String nome;
 
