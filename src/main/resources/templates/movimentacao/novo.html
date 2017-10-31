@@ -44,7 +44,8 @@
 						</select>
 				</div>
 				
-				<a  class="btn btn-primary  js-listar-movimentacoes " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" >CONSULTAR</a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary  js-listar-movimentacoes " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" title="ADMIN" >CONSULTAR</a>
+				<a  sec:authorize="hasRole('ROLE_USER')" class="btn btn-primary  js-listar-movimentacoes-user " th:href="${(#mvc.url('MC#atualizarLista').arg(0,dtPagamento)).build()}" title="USER" >CONSULTAR</a>
 			
 </div>
 			

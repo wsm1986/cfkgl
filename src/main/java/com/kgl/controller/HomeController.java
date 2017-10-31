@@ -94,6 +94,8 @@ public class HomeController {
 			Corretor corretor = corretorService.findByEmail(user.getUserName());
 			session.setAttribute("nomeCorretor", corretor.getNome());
 			session.setAttribute("emailCorretor", user.getUserName());
+			session.setAttribute("corretorId", corretor.getId());
+
 
 		}
 		session.setAttribute("vlrCorretor", vlr);

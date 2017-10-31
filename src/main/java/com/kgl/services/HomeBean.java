@@ -20,5 +20,10 @@ public class HomeBean {
 		return (String)session.getAttribute("emailCorretor");
 
 	}
+	public Long idCorretor() {
+		return (Long)session.getAttribute("corretorId");
+
+	}
+	
 	
 }

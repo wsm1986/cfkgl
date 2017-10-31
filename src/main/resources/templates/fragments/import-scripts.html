@@ -245,6 +245,133 @@
 			
 			;*/
 		});
+		
+		$(".js-listar-movimentacoes-user").on('click', function (e) {
+			e.preventDefault();
+			var botao =  $(e.currentTarget);
+			var url = botao.attr('href');
+			console.log(url);
+			
+			var dataInicial = $('#dateTimeInicial').val();
+			var dataFinal = $('#dateTimeFinal').val();
+			var corretor = $('#corretor').val();
+			var request = JSON.parse('{ "dtInicial":"'+dataInicial+'", "dtFinal":"'+dataFinal+'", "corretor":"'+corretor+'"}');
+			$.ajax({  
+                url: url,  
+                dataType: 'json',
+                data : JSON.stringify(request),  
+				contentType: "application/json; charset=utf-8",
+				type: 'POST',
+                success: function(data, status) {
+              			var resultado =data ;
+              			$('#list-mov').dataTable({
+              				  "aaData": data,
+              				  "aoColumns": [
+                				{ "mData": "contrato.corretor.nome" },
+              				    { "mData": "dtConverter" },
+              				    { "mData": "contrato.codigoContrato" },
+              				    { "mData": "contrato.valor" },
+              				    { "mData": "valorCorretor" },
+              				    { "mData": "status" }
+              				  ],
+              				  "bDestroy": true,
+              				  "footerCallback": function ( row, data, start, end, display ) {
+              		            var api = this.api(), data;
+              		 
+              		            // Remove the formatting to get integer data for summation
+              		            var intVal = function ( i ) {
+              		                return typeof i === 'string' ?
+              		                    i.replace(/[\$,]/g, '')*1 :
+              		                    typeof i === 'number' ?
+              		                        i : 0;
+              		            };
+              		 
+              		            // Valor Contrato
+              		            
+              		            total = api
+              		                .column( 3 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+
+              		            pageTotal = api
+              		                .column(3 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 3 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            );
+              		            
+              		            
+
+								// /valor KGL
+              		            total = api
+              		                .column( 4 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+
+								pageTotal = api
+              		                .column(4 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 4 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            );
+              		            
+              		            
+								// Valor Corretor '$'+pageTotal +' ( $'+ total +' total)'
+              		            total = api
+              		                .column( 5 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+
+								pageTotal = api
+              		                .column(5 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 5 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            );
+              		            
+              		            // Total over all pages
+              		            total = api
+              		                .column( 6 )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		            // Total over this page
+              		            // Total over this page
+              		            pageTotal = api
+              		                .column(6 , { page: 'current'} )
+              		                .data()
+              		                .reduce( function (a, b) {
+              		                    return intVal(a) + intVal(b);
+              		                }, 0 );
+              		          
+              		            $( api.column( 6 ).footer() ).html(
+              		                'R$: '+pageTotal +' ( R$: '+ total +' total)'
+              		            );
+              		        }
+              				});
+                 }  
+          });  
+
+		});
      	$('#dtPagamento').datetimepicker({
             locale: 'pt-br',
             format: 'DD/MM/YYYY'

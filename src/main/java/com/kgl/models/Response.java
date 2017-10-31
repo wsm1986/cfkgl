@@ -42,7 +42,7 @@ public class Response implements Serializable {
 	}
 
 	public String getCorretor() {
-		return corretor.equals("-1") ? null : corretor;
+		return corretor.equals("-1") || corretor.equals("undefined") ? null : corretor;
 	}
 
 	public void setCorretor(String corretor) {
