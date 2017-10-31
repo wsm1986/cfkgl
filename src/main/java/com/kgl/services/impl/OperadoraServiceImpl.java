@@ -1,4 +1,4 @@
-package com.kgl.services;
+package com.kgl.services.impl;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kgl.models.Operadora;
+import com.kgl.services.OperadoraService;
 
 
 @Service("operadoraService")

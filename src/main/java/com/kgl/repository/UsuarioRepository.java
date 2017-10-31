@@ -1,4 +1,4 @@
-package com.kgl.dao;
+package com.kgl.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,11 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.kgl.models.User;
-import com.kgl.repository.UserRepository;
 
 
 @Repository
-public class UsuarioDAO implements UserDetailsService {
+public class UsuarioRepository implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;

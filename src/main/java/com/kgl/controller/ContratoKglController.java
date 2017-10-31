@@ -26,11 +26,11 @@ import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
 import com.kgl.models.StatusContrato;
 import com.kgl.models.SubProduto;
+import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;
+import com.kgl.services.MovimentacaoService;
 import com.kgl.validator.ContratoValidator;
-import com.kgl.webservices.ContratoRepository;
-import com.kgl.webservices.MovimentacaoRepository;
 import com.kgl.webservices.ProdutoRepository;
 import com.kgl.webservices.SubProdutoRepository;
 
@@ -48,17 +48,15 @@ public class ContratoKglController {
 	CriadorDeContrato contratoNovo;
 
 	@Autowired
-	ContratoRepository contratoRepository;
+	ContratoService contratoService;
 
 	@Autowired
-	MovimentacaoRepository movRepository;
+	MovimentacaoService movService;
 
 
 	@Autowired
 	private ContratoValidator contratoValidation;
 
-	@Autowired
-	private HomeBean home;
 
 	@Autowired
 	ProdutoRepository dao;
@@ -76,22 +74,7 @@ public class ContratoKglController {
 	@RequestMapping({ "/listar" })
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		/*
-		 * com.kgl.models.User user =
-		 * (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().
-		 * getPrincipal(); for (Role role : user.getRoles()) {
-		 * if(role.getAuthority().equals("ROLE_ADMIN")) { mvn.addObject("contratos",
-		 * contratoRepository.findAll()); }else { mvn.addObject("contratos",
-		 * contratoRepository.findByCorretor(corretorRepository.findByEmail(user.
-		 * getUsername()))); } System.out.println(role.getAuthority()); }
-		 */
-
-		if (home.permissaoUsuario()) {
-			mvn.addObject("contratos", contratoRepository.findAll());
-		} else {
-			String email = home.emailLogado();
-			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorService.findByEmail(email)));
-		}
+		mvn.addObject("contratos", contratoService.buscarContrato());
 		return mvn;
 
 	}
@@ -146,33 +129,28 @@ public class ContratoKglController {
 	@RequestMapping(value = "/detalharContr/{id}", method = RequestMethod.GET)
 	public ModelAndView detalharContr(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		if (home.permissaoUsuario()) {
-			mvn.addObject("contratos", contratoRepository.findAll());
-		} else {
-			String email = home.emailLogado();
-			mvn.addObject("contratos", contratoRepository.findByCorretor(corretorService.findByEmail(email)));
-		}
-		mvn.addObject("movimentacoes", movRepository.findByContrato(contratoRepository.findOne(id)));
+		mvn.addObject("contratos", contratoService.buscarContrato());
+		mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
 		return mvn;
 	}
 
 	@RequestMapping(value = "/remover/{contrato}", method = RequestMethod.GET)
 	public ModelAndView remover(@PathVariable("contrato") Contrato contrato) {
-		contratoRepository.delete(contrato);
+		contratoService.excluir(contrato.getId());
 		return listar();
 	}
 
 	@RequestMapping(value = "/update/recusar/{contrato}", method = RequestMethod.GET)
 	public ModelAndView recusar(@PathVariable("contrato") Contrato contrato) {
 		contrato.setStatusContrato(StatusContrato.RECUSADO);
-		contratoRepository.save(contrato);
+		contratoService.salvar(contrato);
 		return listar();
 	}
 
 	@RequestMapping(value = "/update/implantar/{contrato}", method = RequestMethod.GET)
 	public ModelAndView implantar(@PathVariable("contrato") Contrato contrato) {
 		contrato.setStatusContrato(StatusContrato.IMPLANTADO);
-		contratoRepository.save(contrato);
+		contratoService.salvar(contrato);
 		return listar();
 	}
 
@@ -195,4 +173,14 @@ public class ContratoKglController {
 	public SubProduto novoSubProduto() {
 		return new SubProduto();
 	}
+	
+	/*
+	 * com.kgl.models.User user =
+	 * (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().
+	 * getPrincipal(); for (Role role : user.getRoles()) {
+	 * if(role.getAuthority().equals("ROLE_ADMIN")) { mvn.addObject("contratos",
+	 * contratoRepository.findAll()); }else { mvn.addObject("contratos",
+	 * contratoRepository.findByCorretor(corretorRepository.findByEmail(user.
+	 * getUsername()))); } System.out.println(role.getAuthority()); }
+	 */
 }

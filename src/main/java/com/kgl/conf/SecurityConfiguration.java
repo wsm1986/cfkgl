@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 
 	@Autowired
-	private com.kgl.dao.UsuarioDAO usuarioDao;
+	private com.kgl.repository.UsuarioRepository usuarioDao;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;

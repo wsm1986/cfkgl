@@ -12,6 +12,7 @@ import com.kgl.models.Contrato;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
 import com.kgl.models.TipoPesquisaMovimentacao;
+import com.kgl.services.ContratoService;
 import com.kgl.services.HomeBean;
 import com.kgl.services.MovimentacaoService;
 import com.kgl.webservices.MovimentacaoRepository;
@@ -26,6 +27,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 	@Autowired
 	MovimentacaoRepository dao;
+	
 
 	@Override
 	public List<Movimentacao> findByContrato(Contrato contrato) {

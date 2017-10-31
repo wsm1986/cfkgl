@@ -25,9 +25,9 @@ import com.kgl.models.Role;
 import com.kgl.models.StatusMovimentacao;
 import com.kgl.models.User;
 import com.kgl.repository.UserRepository;
+import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
-import com.kgl.webservices.ContratoRepository;
-import com.kgl.webservices.MovimentacaoRepository;
+import com.kgl.services.MovimentacaoService;
 import com.kgl.webservices.OperadoraRepository;
 
 @Controller
@@ -38,10 +38,10 @@ public class HomeController {
 	private UserRepository userRepository;
 
 	@Autowired
-	private MovimentacaoRepository movRepository;
+	private MovimentacaoService movimentacaoServic;
 
 	@Autowired
-	private ContratoRepository contratoRepository;
+	private ContratoService contratoService;
 
 	@Autowired
 	ConfigurarUser conf;
@@ -71,7 +71,7 @@ public class HomeController {
 		session.setAttribute("permissao", permissao);
 
 		if (permissao) {
-			List<Movimentacao> movs = (List<Movimentacao>) movRepository.findAll();
+			List<Movimentacao> movs =  movimentacaoServic.buscarMovimentacoes();
 			for (Movimentacao movimentacao : movs) {
 				if (movimentacao.getStatus().equals(StatusMovimentacao.AGUARDADO_PAGAMENTO)) {
 					vlr = vlr.add(movimentacao.getLucro());
@@ -81,10 +81,9 @@ public class HomeController {
 			session.setAttribute("nomeCorretor", "ADM - KGL");
 
 		} else {
-			Corretor corretor = corretorService.findByEmail(user.getUserName());
-			List<Contrato> contratos = contratoRepository.findByCorretor(corretor);
+			List<Contrato> contratos = contratoService.buscarContrato();
 			for (Contrato contrato : contratos) {
-				List<Movimentacao> movs = movRepository.findByContratoId(contrato.getId());
+				List<Movimentacao> movs = movimentacaoServic.findByContratoId(contrato.getId());
 				for (Movimentacao movimentacao : movs) {
 					if (movimentacao.getStatus().equals(StatusMovimentacao.AGUARDADO_PAGAMENTO)) {
 						vlr = vlr.add(movimentacao.getValorCorretor());
@@ -92,6 +91,7 @@ public class HomeController {
 				}
 
 			}
+			Corretor corretor = corretorService.findByEmail(user.getUserName());
 			session.setAttribute("nomeCorretor", corretor.getNome());
 			session.setAttribute("emailCorretor", user.getUserName());
 

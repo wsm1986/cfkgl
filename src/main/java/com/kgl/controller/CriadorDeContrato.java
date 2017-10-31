@@ -1,23 +1,15 @@
 package com.kgl.controller;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kgl.models.Contrato;
 import com.kgl.models.Movimentacao;
-import com.kgl.models.Parcela;
-import com.kgl.models.Produto;
 import com.kgl.models.StatusContrato;
 import com.kgl.models.StatusMovimentacao;
-import com.kgl.models.SubProduto;
-import com.kgl.models.TabelaComissao;
-import com.kgl.models.TipoMovimentacao;
-import com.kgl.webservices.ContratoRepository;
+import com.kgl.services.ContratoService;
 import com.kgl.webservices.MovimentacaoRepository;
 import com.kgl.webservices.OperadoraRepository;
 import com.kgl.webservices.ProdutoRepository;
@@ -27,7 +19,7 @@ import com.kgl.webservices.ProdutoRepository;
 public class CriadorDeContrato {
 	
 	@Autowired
-	ContratoRepository contratoRepository;
+	ContratoService contratoService;
 	
 	@Autowired
 	MovimentacaoRepository movimentacaoRepository;
@@ -42,7 +34,7 @@ public class CriadorDeContrato {
 	public void implantarContrato(Contrato contrato) {
 		//List<Produto> movimentacaoEntrada = produtoRepository.findByOperadoraAndTabelaComissao(contrato.getSubProduto().getProduto().getOperadora(), TabelaComissao.COMISSAO_KGL);
 		contrato.setStatusContrato(StatusContrato.AGUARDANDO_IMPLANTACAO);
-		contratoRepository.save(contrato);
+		contratoService.salvar(contrato);
 		gerarMovimentacao(contrato);
 		//gerarMovimentacaoFinanceiraEntrada(contrato);
 		//gerarMovimentacaoFinanceira(contrato);
