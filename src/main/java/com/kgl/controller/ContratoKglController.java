@@ -129,7 +129,7 @@ public class ContratoKglController {
 	@RequestMapping(value = "/detalharContr/{id}", method = RequestMethod.GET)
 	public ModelAndView detalharContr(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		mvn.addObject("contratos", contratoService.buscarContrato());
+		mvn.addObject("contratos", contratoService.buscarContrato(id));
 		mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
 		return mvn;
 	}

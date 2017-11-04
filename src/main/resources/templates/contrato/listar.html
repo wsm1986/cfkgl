@@ -25,6 +25,8 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                        <a class="btn btn-primary" th:href="${(#mvc.url('CKC#listar')).build()}" title="ADMIN" >ATUALIZAR</a>
+                        
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
@@ -43,7 +45,7 @@
                          			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'RECUSADO')}"  class="danger">
 										<td th:text="${contrato.codigoContrato}">1</td>
 										<td sec:authorize="hasRole('ROLE_USER')" th:text="${contrato.produto}">1</td>
-										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.produto} + ' KGL :' + |${contrato.produto.parcelaKgl.totalComissaoKgl}  CORRETOR: ${contrato.produto.parcelaKgl.totalComissaoKgl}"></td>
+										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.produto} + ' KGL :' + |${contrato.produto.parcelaKgl.totalComissaoKgl}  CORRETOR: ${contrato.produto.parcelaCorretor.totalComissaoCorretor}"></td>
 										
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
@@ -55,7 +57,7 @@
 										
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar" ></a>
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar" ></a>
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="remover"></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   "></a>
 
 										</td>
 										
@@ -63,7 +65,7 @@
                          			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'IMPLANTADO')}"  class="success">
 										<td th:text="${contrato.codigoContrato}">1</td>
 										<td sec:authorize="hasRole('ROLE_USER')" th:text="${contrato.produto}">1</td>
-										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.produto} + ' KGL :' + |${contrato.produto.parcelaKgl.totalComissaoKgl}  CORRETOR: ${contrato.produto.parcelaKgl.totalComissaoKgl}"></td>
+										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.produto} + ' KGL :' + |${contrato.produto.parcelaKgl.totalComissaoKgl}  CORRETOR: ${contrato.produto.parcelaCorretor.totalComissaoCorretor}"></td>
 
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
@@ -75,7 +77,7 @@
 										
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar"></a>
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar"></a>
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="remover"></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   "></a>
 										
 										</td>
 										
@@ -83,7 +85,7 @@
                          			<tr th:each="contrato : ${contratos}" th:if="${#strings.equals(contrato.statusContrato,'AGUARDANDO_IMPLANTACAO')}"  >
 										<td th:text="${contrato.codigoContrato}">1</td>
 										<td sec:authorize="hasRole('ROLE_USER')" th:text="${contrato.produto}">1</td>
-										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.produto} + ' KGL :' + |${contrato.produto.parcelaKgl.totalComissaoKgl}  CORRETOR: ${contrato.produto.parcelaKgl.totalComissaoKgl}"></td>
+										<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${contrato.produto} + ' KGL :' + |${contrato.produto.parcelaKgl.totalComissaoKgl}  CORRETOR: ${contrato.produto.parcelaCorretor.totalComissaoCorretor}"></td>
 
 										<td th:text="${#calendars.format(contrato.dtCadastro, 'dd/MM/yyyy')}">1</td>
 										<td th:text="${#calendars.format(contrato.dtAssinatura, 'dd/MM/yyyy')}">1</td>
@@ -95,7 +97,7 @@
 										
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar" ></a>
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar"></a>
-										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="remover"></a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   "></a>
 										
 										</td>
 										
