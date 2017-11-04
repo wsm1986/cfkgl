@@ -58,7 +58,6 @@
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#implantar').arg(0,contrato)).build()}" class="fa fa-thumbs-o-up fa-fw  " title="Implantar" ></a>
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#recusar').arg(0,contrato)).build()}" class="fa fa-stop   fa-fw  " title="Recusar" ></a>
 										<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('CKC#remover').arg(0,contrato)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   "></a>
-
 										</td>
 										
                                     </tr>
