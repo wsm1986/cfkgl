@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,10 +23,10 @@ import com.kgl.models.Operadora;
 import com.kgl.models.Role;
 import com.kgl.models.StatusMovimentacao;
 import com.kgl.models.User;
-import com.kgl.repository.UserRepository;
 import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
 import com.kgl.services.MovimentacaoService;
+import com.kgl.services.UsuarioService;
 import com.kgl.webservices.OperadoraRepository;
 
 @Controller
@@ -35,7 +34,7 @@ import com.kgl.webservices.OperadoraRepository;
 public class HomeController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UsuarioService usuarioService;
 
 	@Autowired
 	private MovimentacaoService movimentacaoServic;
@@ -107,7 +106,7 @@ public class HomeController {
 	@RequestMapping("/url-magica-maluca-")
 	public ModelAndView urlMagicaMaluca() throws Exception {
 		User user;
-		List<User> users = (List<User>) userRepository.findAll();
+		List<User> users = (List<User>) usuarioService.todosUsuarios();
 		if (users.size() == 0) {
 			String password = GenerateHashPasswordUtil.generateHash("1234");
 			List<Role> list = new ArrayList();
@@ -115,7 +114,7 @@ public class HomeController {
 			role.setNome("ROLE_ADMIN");
 			list.add(role);
 			user = new User("kglbergamini@gmail.com", password, list);
-			userRepository.save(user);
+			usuarioService.salvar(user);
 			return new ModelAndView("index");
 		} else {
 			return conf.updatePassword(new User());

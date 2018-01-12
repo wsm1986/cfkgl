@@ -2,7 +2,7 @@ package com.kgl.models;
 
 public enum TabelaComissao {
 
-	COMISSAO_A("A"),COMISSAO_B("B");
+	COMISSAO_A("A"),COMISSAO_B("B"), INTERNO_A("IA");
 	
 	private String nome;
 

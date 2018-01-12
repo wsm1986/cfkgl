@@ -1,6 +1,5 @@
 package com.kgl.controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;

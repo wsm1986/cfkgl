@@ -39,7 +39,7 @@
 							<label for="nome" class="control-label">Convenio</label> 
 								<select class="form-control" th:field="*{produto}">
 									<option th:each="produto : ${produtos}"
-										th:text="${produto} +' | ' + |${produto.tabelaComissao}  " th:value="${produto.id}"	>
+										th:text="${produto} +' - ' + |${produto.tabelaComissao} - ${produto.categoriaProduto} " th:value="${produto.id}"	>
 									</option>
 								</select>
 						</div>

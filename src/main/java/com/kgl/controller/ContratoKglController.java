@@ -30,6 +30,8 @@ import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;
 import com.kgl.services.MovimentacaoService;
+import com.kgl.services.ProdutoService;
+import com.kgl.services.impl.CriadorDeContrato;
 import com.kgl.validator.ContratoValidator;
 import com.kgl.webservices.ProdutoRepository;
 import com.kgl.webservices.SubProdutoRepository;
@@ -59,7 +61,7 @@ public class ContratoKglController {
 
 
 	@Autowired
-	ProdutoRepository dao;
+	ProdutoService produtoService;
 
 	@Autowired
 	SubProdutoRepository daoSubProduto;
@@ -84,10 +86,9 @@ public class ContratoKglController {
 		if (result.hasErrors()) {
 			return form(contrato);
 		}
-		ModelAndView mvn = new ModelAndView("contrato/novo");
 		contratoNovo.implantarContrato(contrato);
 
-		return mvn;
+		return form(new Contrato());
 	}
 
 	@RequestMapping({ "/salvarSubProduto/{produto}/{descricao}" })
@@ -166,7 +167,7 @@ public class ContratoKglController {
 
 	@ModelAttribute("produtos")
 	public List<Produto> listaProdutos() {
-		return (List<Produto>) dao.findAll();
+		return (List<Produto>) produtoService.produtos();
 	}
 
 	@ModelAttribute("novoSubProduto")

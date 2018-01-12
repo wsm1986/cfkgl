@@ -17,6 +17,7 @@ public interface MovimentacaoService {
 	void salvar(Movimentacao mov);
 	void excluir(Long id);
 	List<Movimentacao> buscarMovimentacoes();
+	void gerarMovimentacao(Contrato contrato);
 
 	
 }

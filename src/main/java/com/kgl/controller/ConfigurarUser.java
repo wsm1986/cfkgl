@@ -9,29 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.User;
-import com.kgl.repository.UserRepository;
-import com.kgl.services.HomeBean;
+import com.kgl.services.UsuarioService;
 
 @Controller
 public class ConfigurarUser {
 
 	@Autowired
-	private UserRepository repository;
-	
-	
-	@Autowired
-	private HomeBean home;
+	private UsuarioService usuarioService;
 
 	@RequestMapping(value = "/confUser", method = RequestMethod.GET)
 	public ModelAndView updatePassword(User user) throws Exception {
 		ModelAndView mvn = new ModelAndView("updateUser");
-		if(home.permissaoUsuario()) {
-			mvn.addObject("users", repository.findAll());
-		}else {
-			String email = home.emailLogado();
-			mvn.addObject("users", repository.findByUserName(email));
-		}
-		
+		mvn.addObject("users", usuarioService.todosUsuarios());
 		mvn.addObject("user", user);
 
 		return mvn;
@@ -39,19 +28,21 @@ public class ConfigurarUser {
 
 	@RequestMapping(value = "/update/user", method = RequestMethod.POST)
 	private String cadastro(User user) {
-		User u = repository.findOne(user.getId());
+		User u = usuarioService.buscarUsuario(user.getId());
 		u.setSenha(GenerateHashPasswordUtil.generateHash(user.getSenha()));
-		repository.save(u);
+		usuarioService.salvar(u);
 		return "redirect:/logout";
 	}
+
 	@RequestMapping(value = "/detalhar/{usuario}", method = RequestMethod.GET)
 	public ModelAndView detalhar(@PathVariable("usuario") User usuario) throws Exception {
 		return updatePassword(usuario);
 	}
+
 	@RequestMapping(value = "/remover/{usuario}", method = RequestMethod.GET)
 	public ModelAndView remover(@PathVariable("usuario") User usuario) throws Exception {
-		repository.delete(usuario);
+		usuarioService.deletar(usuario.getId());
 		return updatePassword(new User());
-	}	
-	
+	}
+
 }

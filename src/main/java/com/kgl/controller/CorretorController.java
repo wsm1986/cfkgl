@@ -21,8 +21,8 @@ import com.kgl.models.Corretor;
 import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.Role;
 import com.kgl.models.User;
-import com.kgl.repository.UserRepository;
 import com.kgl.services.CorretorService;
+import com.kgl.services.UsuarioService;
 import com.kgl.validator.CorretorValidator;
 
 @Controller
@@ -36,7 +36,7 @@ public class CorretorController {
 	private CorretorValidator corretorValidation;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UsuarioService usuarioService;
 
 	@RequestMapping({ "/", "/form"})
 	private ModelAndView form(Corretor Corretor) {
@@ -100,6 +100,6 @@ public class CorretorController {
 		role.setNome("ROLE_USER");
 		list.add(role);
 		User user = new User(userName,password,list);
-		userRepository.save(user);
+		usuarioService.salvar(user);
 	}
 }

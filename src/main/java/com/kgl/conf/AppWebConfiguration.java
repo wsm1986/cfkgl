@@ -33,7 +33,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
 import com.kgl.models.Operadora;
-import com.kgl.repository.UserRepository;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,8 +41,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
