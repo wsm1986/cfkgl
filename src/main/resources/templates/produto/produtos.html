@@ -50,9 +50,9 @@
 			                               			<td th:text="${produto.statusProduto}">1</td>
 			                               			
 			                                    
-													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
+													<td th:text="${produto.id} + ')  ' + ${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
-													<td th:text="COMISSAO_KGL">1</td>
+													<td th:text="${produto.tabelaComissao}+ ' - KGL '">1</td>
 													<!-- 													<td th:text="${produto.parcelaKgl.primeiraParcelaKgl} >0 ? ${produto.parcelaKgl.primeiraParcelaKgl} +'%': 0">1</td>
 													 -->
 													<td th:text="|${produto.parcelaKgl.totalComissaoKgl}|+'%'">1</td>
@@ -75,11 +75,11 @@
 													
 																																							
 			                                    </tr>
-			                                    <tr class="odd gradeX" th:each="produto : ${produtos}">
+			                                    <tr class="odd gradeX" th:each="produto : ${produtos}" class="info">
 			                                    	<td th:text="${produto.statusProduto}">1</td>
-													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
+													<td th:text="${produto.id} + ') ' +  ${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
-													<td th:text="${produto.tabelaComissao}">1</td>
+													<td th:text="${produto.tabelaComissao}+ '- Corretor'">1</td>
 													<td th:text="|${produto.parcelaCorretor.totalComissaoCorretor}|+'%'">1</td>
 													<td th:text="${produto.parcelaCorretor.primeiraParcela}+'%'">1</td>
 													<td th:text="${produto.parcelaCorretor.segundaParcela}+'%'">1</td>
