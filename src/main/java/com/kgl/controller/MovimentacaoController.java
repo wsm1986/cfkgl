@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 import com.kgl.models.Corretor;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
-import com.kgl.models.StatusMovimentacao;
+import com.kgl.enums.StatusMovimentacao;
 import com.kgl.repository.EmployeeRepository;
 import com.kgl.services.CorretorService;
 import com.kgl.services.HomeBean;

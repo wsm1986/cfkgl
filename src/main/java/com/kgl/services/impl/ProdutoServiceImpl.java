@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kgl.models.Operadora;
 import com.kgl.models.Produto;
-import com.kgl.models.TabelaComissao;
+import com.kgl.enums.StatusProduto;
+import com.kgl.enums.TabelaComissao;
 import com.kgl.services.ProdutoService;
 import com.kgl.webservices.ProdutoRepository;
 
@@ -29,6 +30,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public List<Produto> produtos() {
 		List<Produto> produtos = (List<Produto>) dao.findAll();
+		return (List<Produto>) produtos.stream()
+				.sorted((p1, p2) -> p1.getOperadora().getNome().compareTo(p2.getOperadora().getNome()))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Produto> produtosAtivos() {
+		List<Produto> produtos = (List<Produto>) dao.findByStatusProduto(StatusProduto.ATIVO);
 		return (List<Produto>) produtos.stream()
 				.sorted((p1, p2) -> p1.getOperadora().getNome().compareTo(p2.getOperadora().getNome()))
 				.collect(Collectors.toList());

@@ -2,7 +2,6 @@ package com.kgl.models;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import com.kgl.enums.CategoriaProduto;
+import com.kgl.enums.StatusProduto;
+import com.kgl.enums.TabelaComissao;
 
 @Entity
 public class Produto implements Serializable{
@@ -37,6 +40,11 @@ public class Produto implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private CategoriaProduto categoriaProduto;
 
+	
+	@Enumerated(EnumType.STRING)
+	private StatusProduto statusProduto;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -118,6 +126,14 @@ public class Produto implements Serializable{
 	@Override
 	public String toString() {
 		return operadora.getNome();
+	}
+
+	public StatusProduto getStatusProduto() {
+		return statusProduto;
+	}
+
+	public void setStatusProduto(StatusProduto statusProduto) {
+		this.statusProduto = statusProduto;
 	}
 
 	

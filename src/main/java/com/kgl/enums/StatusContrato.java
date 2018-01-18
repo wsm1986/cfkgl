@@ -1,4 +1,4 @@
-package com.kgl.models;
+package com.kgl.enums;
 
 import java.io.Serializable;
 

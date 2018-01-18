@@ -21,13 +21,15 @@ import com.kgl.models.GenerateHashPasswordUtil;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Operadora;
 import com.kgl.models.Role;
-import com.kgl.models.StatusMovimentacao;
+import com.kgl.enums.StatusMovimentacao;
+import com.kgl.enums.StatusProduto;
 import com.kgl.models.User;
 import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
 import com.kgl.services.MovimentacaoService;
 import com.kgl.services.UsuarioService;
 import com.kgl.webservices.OperadoraRepository;
+import com.kgl.webservices.ProdutoRepository;
 
 @Controller
 @Scope("session")
@@ -47,9 +49,12 @@ public class HomeController {
 
 	@Autowired
 	private CorretorService corretorService;
-	
+
 	@Autowired
-	private OperadoraRepository operadoraRepository; 
+	private OperadoraRepository operadoraRepository;
+
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@ResponseBody
 	@RequestMapping("/index")
@@ -70,7 +75,7 @@ public class HomeController {
 		session.setAttribute("permissao", permissao);
 
 		if (permissao) {
-			List<Movimentacao> movs =  movimentacaoServic.buscarMovimentacoes();
+			List<Movimentacao> movs = movimentacaoServic.buscarMovimentacoes();
 			for (Movimentacao movimentacao : movs) {
 				if (movimentacao.getStatus().equals(StatusMovimentacao.AGUARDADO_PAGAMENTO)) {
 					vlr = vlr.add(movimentacao.getLucro());
@@ -95,7 +100,6 @@ public class HomeController {
 			session.setAttribute("emailCorretor", user.getUserName());
 			session.setAttribute("corretorId", corretor.getId());
 
-
 		}
 		session.setAttribute("vlrCorretor", vlr);
 		return mvn;
@@ -119,8 +123,9 @@ public class HomeController {
 		} else {
 			return conf.updatePassword(new User());
 		}
-		
+
 	}
+
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/prepararAmbiente")
@@ -166,7 +171,7 @@ public class HomeController {
 		operadoraRepository.save(new Operadora("AMEPLAN"));
 		operadoraRepository.save(new Operadora("AMIL DENTAL"));
 		operadoraRepository.save(new Operadora("BIOVIDA / BIOVIDA SENIOR"));
-		operadoraRepository.save(new Operadora("GARANTIA SAÚDE")); 
+		operadoraRepository.save(new Operadora("GARANTIA SAÚDE"));
 		operadoraRepository.save(new Operadora("GARANTIA SAÚDE ADVENTISTA"));
 		operadoraRepository.save(new Operadora("GREENLINE SENIOR"));
 		operadoraRepository.save(new Operadora("MEDIAL HEALTH"));
@@ -179,4 +184,13 @@ public class HomeController {
 		return new ModelAndView("/index");
 	}
 
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/ativarProd")
+
+	public ModelAndView prepararAmbiente2() {
+		produtoRepository.ativarAll(StatusProduto.ATIVO);
+		return new ModelAndView("/index");
+
+	}
 }

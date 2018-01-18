@@ -25,9 +25,10 @@
 			                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 			                                <thead>
 			                                    <tr>
+			                                    	<th>Status</th>
 			                                        <th>Operadora</th>
 			                                        <th>Categoria</th>
-			                                        <th>Tabela Comissao</th>
+			                                        <th>Comissao</th>
 			                                        <th>Total</th>
 			                                        <th>1</th>
 			                                        <th>2</th>
@@ -41,10 +42,14 @@
 			                                        <th>10</th>
 			                                        <th>11</th>
 			                                        <th>12</th>
+			                                        <th></th>
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
-			                                    <tr  th:each="produto : ${produtos}" class="success"> 
+			                                    <tr  th:each="produto : ${produtos}"  class="success"> 
+			                               			<td th:text="${produto.statusProduto}">1</td>
+			                               			
+			                                    
 													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
 													<td th:text="COMISSAO_KGL">1</td>
@@ -63,9 +68,15 @@
 													<td th:text="${produto.parcelaKgl.decimaParcelaKgl}+'%'">1</td>
 													<td th:text="${produto.parcelaKgl.decimaPrimeiraParcelaKgl}+'%'">1</td>
 													<td th:text="${produto.parcelaKgl.decimaSegundaParcelaKgl}+'%'">1</td>
+													<td >
+													 <a th:href="${(#mvc.url('PC#ativar').arg(0,produto)).build()}" class="fa fa-thumbs-o-up fa-fw  "  title="Ativar"></a>
+			                               			 <a th:href="${(#mvc.url('PC#inativar').arg(0,produto)).build()}" class="fa fa-stop   fa-fw  " title="Inativar"></a>
+			                               			</td>
+													
 																																							
 			                                    </tr>
 			                                    <tr class="odd gradeX" th:each="produto : ${produtos}">
+			                                    	<td th:text="${produto.statusProduto}">1</td>
 													<td th:text="${produto.operadora.nome} + ' ' + |${produto.idadeMinima} a ${produto.idadeMaxima}|"></td>
 													<td th:text="${produto.categoriaProduto}">1</td>
 													<td th:text="${produto.tabelaComissao}">1</td>
@@ -82,7 +93,10 @@
 													<td th:text="${produto.parcelaCorretor.decimaParcela}+'%'">1</td>
 													<td th:text="${produto.parcelaCorretor.decimaPrimeiraParcela}+'%'">1</td>
 													<td th:text="${produto.parcelaCorretor.decimaSegundaParcela}+'%'">1</td>
-																																							
+													<td >
+													 <a th:href="${(#mvc.url('PC#ativar').arg(0,produto)).build()}" class="fa fa-thumbs-o-up fa-fw  "  title="Ativar"></a>
+			                               			 <a th:href="${(#mvc.url('PC#inativar').arg(0,produto)).build()}" class="fa fa-stop   fa-fw  " title="Inativar"></a>
+			                               			</td>
 			                                    </tr>	
 			                                    
 			                                </tbody>

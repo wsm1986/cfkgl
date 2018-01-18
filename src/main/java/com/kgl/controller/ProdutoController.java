@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kgl.models.CategoriaProduto;
+import com.kgl.enums.CategoriaProduto;
+import com.kgl.enums.StatusProduto;
 import com.kgl.models.ParcelaCorretor;
 import com.kgl.models.ParcelaKgl;
 import com.kgl.models.Produto;
-import com.kgl.models.TabelaComissao;
+import com.kgl.enums.TabelaComissao;
 import com.kgl.services.OperadoraService;
 import com.kgl.services.ProdutoService;
 import com.kgl.validator.ProdutoValidator;
@@ -71,6 +72,20 @@ return mvn;
 		return form(produto);
 	}
 
+	@RequestMapping("/inativar/{produto}")
+	private ModelAndView inativar(@PathVariable("produto") Produto produto) {
+		produto.setStatusProduto(StatusProduto.INATIVO);
+		produtoService.salvar(produto);
+		return new ModelAndView("produto/produtos");
+	}
+	
+	@RequestMapping("/ativar/{produto}")
+	private ModelAndView ativar(@PathVariable("produto") Produto produto) {
+		produto.setStatusProduto(StatusProduto.ATIVO);
+		produtoService.salvar(produto);
+		return new ModelAndView("produto/produtos");
+	}
+	
 	@RequestMapping("/findAll")
 	private ModelAndView lista() {
 		ModelAndView mvn = new ModelAndView("produto/produtos");

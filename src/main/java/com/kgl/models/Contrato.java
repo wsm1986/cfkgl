@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.kgl.enums.StatusContrato;
+
 @Entity
 public class Contrato implements Serializable {
 

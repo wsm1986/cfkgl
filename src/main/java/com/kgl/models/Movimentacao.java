@@ -19,6 +19,8 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.kgl.enums.StatusMovimentacao;
+
 @Entity
 public class Movimentacao implements Serializable {
 
@@ -42,6 +44,7 @@ public class Movimentacao implements Serializable {
 	private DateTime dtPagamento;
 
 	private BigDecimal lucro;
+	
 	@Enumerated(EnumType.STRING)
 	private StatusMovimentacao status;
 

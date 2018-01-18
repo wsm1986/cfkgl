@@ -1,4 +1,4 @@
-package com.kgl.models;
+package com.kgl.enums;
 
 public enum TipoPesquisaMovimentacao {
 

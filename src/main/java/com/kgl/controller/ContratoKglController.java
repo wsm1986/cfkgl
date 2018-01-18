@@ -24,16 +24,14 @@ import com.kgl.models.Contrato;
 import com.kgl.models.Corretor;
 import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
-import com.kgl.models.StatusContrato;
+import com.kgl.enums.StatusContrato;
 import com.kgl.models.SubProduto;
 import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
-import com.kgl.services.HomeBean;
 import com.kgl.services.MovimentacaoService;
 import com.kgl.services.ProdutoService;
 import com.kgl.services.impl.CriadorDeContrato;
 import com.kgl.validator.ContratoValidator;
-import com.kgl.webservices.ProdutoRepository;
 import com.kgl.webservices.SubProdutoRepository;
 
 @Controller
@@ -167,7 +165,9 @@ public class ContratoKglController {
 
 	@ModelAttribute("produtos")
 	public List<Produto> listaProdutos() {
-		return (List<Produto>) produtoService.produtos();
+		//return (List<Produto>) produtoService.produtos();
+		return (List<Produto>) produtoService.produtosAtivos();
+
 	}
 
 	@ModelAttribute("novoSubProduto")

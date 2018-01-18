@@ -16,6 +16,8 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.kgl.enums.TipoPesquisaMovimentacao;
+
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
