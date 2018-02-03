@@ -158,22 +158,18 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOT. PARCELA]]></text>
+				<text><![CDATA[LIQUIDO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="712" y="93" width="83" height="20" uuid="50315b3d-3409-494d-a855-585e21b4618d"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOT. BRUTO]]></text>
+				<text><![CDATA[PAGO]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="802" y="73" width="100" height="20" uuid="87099603-9fd2-4951-992f-01b4e2c2a5ea"/>
 				<textFieldExpression><![CDATA[$P{totalParcela}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="801" y="93" width="100" height="20" uuid="5cf70407-a118-4df8-b12b-b95d53caa4ab"/>
-				<textFieldExpression><![CDATA[$P{totalBruto}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="769" y="46" width="55" height="20" uuid="b9c9cb95-a02b-4529-9c3c-9d4ba34f22df"/>
@@ -181,6 +177,13 @@
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[RESUMO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="712" y="111" width="83" height="20" uuid="4095dd2c-e5da-4b55-ae56-957baa5d52ca"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEBER]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -293,17 +296,6 @@
 				<reportElement x="397" y="15" width="244" height="91" uuid="bbe06228-51db-442f-bc73-03121b85c722"/>
 				<imageExpression><![CDATA[$P{logo2}]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="11" y="15" width="177" height="20" uuid="8365f938-8576-4079-b86a-73387774710b"/>
-				<text><![CDATA[Obs: (Bruto * %) = Valor Liquido]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="11" y="35" width="207" height="20" uuid="3fcdd49e-fa20-46ee-af3a-c954246af54d"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Valor Final = Valor Liquido - Desp. Admin]]></text>
-			</staticText>
 		</band>
 	</columnFooter>
 </jasperReport>
