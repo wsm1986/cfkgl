@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+<title></title>
+</head>
+<body>
+	<div th:fragment="content">
+
+
+		<div class="panel-body">
+
+			<form method="POST" th:object="${response}"
+				th:action="@{/relatorio/pdf/}">
+
+				<div class="row">
+
+					<div class="col-lg-12">
+
+
+
+						<h1 class="page-header">RELATORIO KGL</h1>
+
+						<div class="col-lg-12">
+
+							<div class='col-md-2'>
+								<div class=" input-group date" id='dtPagamento'>
+									<input id="dateTimeInicial" type='text' class="form-control "
+										th:field="*{dtInicial}" placeholder="ddmmyyyy" /> <span
+										class="input-group-addon"> <span
+										class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+
+							<div class='col-md-2'>
+								<div class=" input-group date" id='dtPagamentoFinal'>
+									<input id="dateTimeFinal" type='text' class="form-control "
+										th:field="*{dtFinal}" placeholder="ddmmyyyy" /> <span
+										class="input-group-addon"> <span
+										class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+
+							<div sec:authorize="hasRole('ROLE_ADMIN')" class='col-md-4'>
+								<select class="form-control" id="corretor"
+									th:field="*{corretorRelatorio}">
+									<option th:text="SELECIONE" th:value="-1"></option>
+
+									<option th:each="corretor : ${corretores}"
+										th:text="${corretor.nome} +' | CPF: ' + |${corretor.cpfCnpj} "
+										th:value="${corretor.id}">
+						</option>
+								</select>
+							</div>
+
+					<button type="submit" class="btn btn-primary">Novo</button>
+	
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+				</div>
+			</form>
+		</div>
+
+		<script>
+			
+		</script>
+
+	</div>
+</body>
+</html>

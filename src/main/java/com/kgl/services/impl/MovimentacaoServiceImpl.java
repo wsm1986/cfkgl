@@ -45,7 +45,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 	@Override
 	public List<Movimentacao> buscarMovimentacao(Response response) {
-		if (!home.permissaoUsuario()) {
+		if (home.permissaoUsuario() != null && !home.permissaoUsuario()) {
 			response.setCorretor(home.idCorretor().toString());
 		}
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");

@@ -13,7 +13,7 @@ public class HomeBean {
 	
 	public Boolean permissaoUsuario() {
 		Boolean permissao =  (Boolean) session.getAttribute("permissao");
-		return permissao;
+		return permissao == null ? false : permissao;
 
 	}
 	public String emailLogado() {

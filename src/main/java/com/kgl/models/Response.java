@@ -25,7 +25,7 @@ public class Response implements Serializable {
 	private String dtInicial;
 	private String dtFinal;
 	private String corretor;
-	
+	private Corretor corretorRelatorio;
 
 	public String getDtInicial() {
 		return dtInicial;
@@ -44,7 +44,7 @@ public class Response implements Serializable {
 	}
 
 	public String getCorretor() {
-		return corretor.equals("-1") || corretor.equals("undefined") ? null : corretor;
+		return ("-1").equals(corretor) || ("undefined").equals(corretor) ? null : corretor;
 	}
 
 	public void setCorretor(String corretor) {
@@ -66,5 +66,13 @@ public class Response implements Serializable {
 			return TipoPesquisaMovimentacao.FILTRO_COMPLETO;
 
 		}
+	}
+
+	public Corretor getCorretorRelatorio() {
+		return corretorRelatorio;
+	}
+
+	public void setCorretorRelatorio(Corretor corretorRelatorio) {
+		this.corretorRelatorio = corretorRelatorio;
 	}
 }
