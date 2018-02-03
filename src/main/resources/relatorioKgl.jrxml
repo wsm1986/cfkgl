@@ -42,10 +42,6 @@
 				</textElement>
 				<text><![CDATA[RELATORIO DE PAGAMENTOS]]></text>
 			</staticText>
-			<image>
-				<reportElement x="10" y="4" width="190" height="35" uuid="8396c836-c7b8-434f-a392-5d8104681187"/>
-				<imageExpression><![CDATA["/home/wellington/Documentos/Projeto/workspace-sts-eureka/cfkgl/src/main/resources/static/imagens/logo.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -284,11 +280,6 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="111">
-			<image>
-				<reportElement x="382" y="5" width="177" height="106" uuid="c418c278-71d3-4062-ab5b-f87fcadd3fc9"/>
-				<imageExpression><![CDATA["/home/wellington/Documentos/Projeto/workspace-sts-eureka/cfkgl/src/main/resources/static/imagens/footer-logo.png"]]></imageExpression>
-			</image>
-		</band>
+		<band height="111"/>
 	</columnFooter>
 </jasperReport>
