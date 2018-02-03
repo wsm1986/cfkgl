@@ -1,5 +1,9 @@
 package com.kgl.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -134,6 +138,14 @@ public class RelatorioController {
 		params.put("dtFinal", response.getDtFinal());
 		params.put("totalBruto", totalBruto);
 		params.put("totalParcela", totalParcela);
+		
+        InputStream caminhoImagem = getClass().getResourceAsStream("/static/imagens/logo.png");
+        InputStream caminhoImagem2 = getClass().getResourceAsStream("/static/imagens/footer-logo.png");
+
+		params.put("logo",caminhoImagem);
+		params.put("logo2",caminhoImagem2);
+
+;    
 
 		return new ModelAndView(view, params);
 	}

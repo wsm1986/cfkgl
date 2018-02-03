@@ -14,6 +14,8 @@
 	<parameter name="conta" class="java.lang.String"/>
 	<parameter name="totalParcela" class="java.lang.String"/>
 	<parameter name="totalBruto" class="java.lang.String"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="logo2" class="java.lang.String"/>
 	<field name="dataPagamento" class="java.lang.String"/>
 	<field name="proposta" class="java.lang.String"/>
 	<field name="valorContrato" class="java.lang.String"/>
@@ -42,6 +44,10 @@
 				</textElement>
 				<text><![CDATA[RELATORIO DE PAGAMENTOS]]></text>
 			</staticText>
+			<image>
+				<reportElement x="6" y="0" width="180" height="50" uuid="6abb7a6c-a30d-4a4e-a88d-403263282c89"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -280,6 +286,11 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="111"/>
+		<band height="111">
+			<image>
+				<reportElement x="397" y="15" width="244" height="91" uuid="bbe06228-51db-442f-bc73-03121b85c722"/>
+				<imageExpression><![CDATA[$P{logo2}]]></imageExpression>
+			</image>
+		</band>
 	</columnFooter>
 </jasperReport>
