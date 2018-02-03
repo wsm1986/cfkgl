@@ -146,8 +146,8 @@ public class RelatorioController {
 		params.put("conta", list.get(0).getContrato().getCorretor().getConta().getNumero());
 		params.put("dtInicio", response.getDtInicial());
 		params.put("dtFinal", response.getDtFinal());
-		params.put("totalBruto", totalBruto);
-		params.put("totalParcela", totalParcela);
+		params.put("totalBruto",  vlr.format(totalBruto));
+		params.put("totalParcela", vlr.format(totalParcela));
 		
         InputStream caminhoImagem = getClass().getResourceAsStream("/static/imagens/logo.png");
         InputStream caminhoImagem2 = getClass().getResourceAsStream("/static/imagens/footer-logo.png");
