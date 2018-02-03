@@ -15,7 +15,7 @@
 	<parameter name="totalParcela" class="java.lang.String"/>
 	<parameter name="totalBruto" class="java.lang.String"/>
 	<parameter name="logo" class="java.io.InputStream"/>
-	<parameter name="logo2" class="java.lang.String"/>
+	<parameter name="logo2" class="java.io.InputStream"/>
 	<field name="dataPagamento" class="java.lang.String"/>
 	<field name="proposta" class="java.lang.String"/>
 	<field name="valorContrato" class="java.lang.String"/>
