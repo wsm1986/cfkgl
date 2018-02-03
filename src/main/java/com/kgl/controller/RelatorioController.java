@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -93,24 +94,23 @@ public class RelatorioController {
 
 		// Variavel para controlar a proposta
 		List<Relatorio> relatorios = new ArrayList<>();
+		BigDecimal porcentagem = new BigDecimal(8.5 / 100);
+		NumberFormat vlr = NumberFormat.getCurrencyInstance();
+
 		for (Movimentacao obj : list) {
 			Relatorio dto = new Relatorio();
 			dto.setDataPagamento(dtfOut.print(obj.getDtPagamento()));
 			dto.setProposta(obj.getContrato().getCodigoContrato().toString());
 			dto.setValorContrato(obj.getFormatarValorContrato());
-			dto.setValorCorretor(obj.getFormatarValorCorretor().toString());
 			dto.setValorKgl(obj.getFormatarValorKgl());
 			dto.setLucro(obj.getFormatarValorKgl());
 			dto.setStatus(obj.getStatus().toString());
 			dto.setIdCorretor("Verificar ");
 			dto.setSegurado(obj.getContrato().getSegurado().getNome().toUpperCase());
-			dto.setPorcentagem("Verificar");
-			dto.setTaxa(obj.getTaxa().toString());
+			dto.setTarifa(obj.getTarifa().toString());
 			dto.setAdmin(obj.getTaxa().toString());
-			dto.setDespesaAdmin("");
 			dto.setValorLiquido(String.valueOf(obj.getValorCorretor().subtract(obj.getValorKgl())));
-			dto.setPorcentagemAdmin("+8,50%");
-			dto.setDespesaAdmin(null == obj.getTotalDesconto() ? "" : obj.getTotalDesconto().toString());
+			
 			dto.setProduto(obj.getContrato().getProduto().toString());
 			if(obj.getContrato().getId().equals(auxId)){
 				dto.setParcela(String.valueOf(++parcela));
@@ -120,7 +120,17 @@ public class RelatorioController {
 				parcela = 1;
 				dto.setParcela("1");
 			}
+			dto.setPorcentagemAdmin(obj.getContrato().getProduto().getParcelaCorretor().retornoPorcentagem(parcela).toString());
 			
+			BigDecimal valorLiquido = 		obj.getContrato().getProduto().getParcelaCorretor().calcularValorPorcentagem(
+							obj.getContrato().getValor(), Integer.valueOf(dto.getPorcentagemAdmin()));
+			
+			
+			dto.setValorCorretor(vlr.format(valorLiquido));
+			dto.setValorLiquido(obj.getFormatarValorCorretor().toString());
+
+			dto.setDespesaAdmin(vlr.format(obj.getValorCorretor().subtract(valorLiquido)));
+
 			// Somar Valor
 			totalBruto= totalBruto.add(obj.getContrato().getValor());
 			totalParcela = totalParcela.add(obj.getValorCorretor());

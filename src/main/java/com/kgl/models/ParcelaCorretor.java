@@ -197,6 +197,64 @@ public class ParcelaCorretor implements Parcela, Serializable {
 
 	}
 
+	
+	public Integer retornoPorcentagem( Integer numParcela) {
+		numParcela = --numParcela;
+		switch (numParcela) {
+		case 0:
+			numParcela = this.getPrimeiraParcela();
+			break;
+
+		case 1:
+			numParcela = this.getSegundaParcela();
+			break;
+
+		case 2:
+			numParcela = this.getTerceiraParcela();
+			break;
+
+		case 3:
+			numParcela = this.getQuartaParcela();
+			break;
+
+		case 4:
+			numParcela = this.getQuintaParcela();
+			break;
+
+		case 5:
+			numParcela = this.getSextaParcela();
+			break;
+
+		case 6:
+			numParcela = this.getSetimaParcela();
+			break;
+
+		case 7:
+			numParcela = this.getOitavaParcela();
+			break;
+
+		case 8:
+			numParcela = this.getNonaParcela();
+			break;
+
+		case 9:
+			numParcela = this.getDecimaParcela();
+			break;
+
+		case 10:
+			numParcela = this.getDecimaPrimeiraParcela();
+			break;
+
+		case 11:
+			numParcela = this.getDecimaSegundaParcela();
+			break;
+
+		default:
+			return 0;
+		}
+		return numParcela;
+
+	}
 	public Integer getTotalComissaoCorretor() {
 		return totalComissaoCorretor;
 	}

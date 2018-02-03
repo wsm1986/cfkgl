@@ -13,7 +13,7 @@ public class Relatorio {
 	private String segurado;
 	private String parcela;
 	private String porcentagem;
-	private String taxa;
+	private String tarifa;
 	private String porcentagemAdmin;
 	private String despesaAdmin;
 	private String valorLiquido;
@@ -108,13 +108,7 @@ public class Relatorio {
 		this.porcentagem = porcentagem;
 	}
 
-	public String getTaxa() {
-		return taxa;
-	}
 
-	public void setTaxa(String taxa) {
-		this.taxa = taxa;
-	}
 
 	public String getPorcentagemAdmin() {
 		return porcentagemAdmin;
@@ -154,6 +148,14 @@ public class Relatorio {
 
 	public void setProduto(String produto) {
 		this.produto = produto;
+	}
+
+	public String getTarifa() {
+		return tarifa;
+	}
+
+	public void setTarifa(String tarifa) {
+		this.tarifa = tarifa;
 	}
 
 }
