@@ -43,6 +43,10 @@
 				</textElement>
 				<text><![CDATA[RELATORIO DE PAGAMENTOS]]></text>
 			</staticText>
+			<image>
+				<reportElement x="6" y="0" width="180" height="50" uuid="6abb7a6c-a30d-4a4e-a88d-403263282c89"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
