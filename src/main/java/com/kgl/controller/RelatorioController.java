@@ -86,7 +86,7 @@ public class RelatorioController {
 		
 		List<Movimentacao> list = movimentcaoService.buscarMovimentacao(response);
 		
-		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM/dd/yyyy");
+		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy");
 		Integer parcela = 0;
 		Long auxId = list.get(0).getContrato().getId();
 		BigDecimal totalParcela = new BigDecimal(0);
@@ -104,7 +104,7 @@ public class RelatorioController {
 			dto.setValorContrato(obj.getFormatarValorContrato());
 			dto.setValorKgl(obj.getFormatarValorKgl());
 			dto.setLucro(obj.getFormatarValorKgl());
-			dto.setStatus(obj.getStatus().toString());
+			dto.setStatus("Contrato: "+ obj.getContrato().getStatusContrato() + "Pagamento: " + obj.getStatus().toString());
 			dto.setIdCorretor("Verificar ");
 			dto.setSegurado(obj.getContrato().getSegurado().getNome().toUpperCase());
 			dto.setTarifa(obj.getTarifa().toString());

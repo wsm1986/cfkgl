@@ -289,7 +289,7 @@
 				<textFieldExpression><![CDATA[$F{valorLiquido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="811" y="2" width="156" height="20" uuid="259d2fa4-f193-4dca-89a1-833573d1c833"/>
+				<reportElement x="619" y="1" width="371" height="20" uuid="259d2fa4-f193-4dca-89a1-833573d1c833"/>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 		</band>
