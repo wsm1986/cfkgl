@@ -43,10 +43,6 @@
 				</textElement>
 				<text><![CDATA[RELATORIO DE PAGAMENTOS]]></text>
 			</staticText>
-			<image>
-				<reportElement x="6" y="0" width="180" height="50" uuid="6abb7a6c-a30d-4a4e-a88d-403263282c89"/>
-				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -295,11 +291,6 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="111">
-			<image>
-				<reportElement x="397" y="15" width="244" height="91" uuid="bbe06228-51db-442f-bc73-03121b85c722"/>
-				<imageExpression><![CDATA[$P{logo2}]]></imageExpression>
-			</image>
-		</band>
+		<band height="111"/>
 	</columnFooter>
 </jasperReport>
