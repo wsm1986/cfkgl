@@ -214,24 +214,24 @@
 				<text><![CDATA[R$: CONTRATO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="792" y="5" width="51" height="20" uuid="124b5d0c-528a-4991-885c-01315642dbaa"/>
+				<reportElement x="676" y="5" width="51" height="20" uuid="124b5d0c-528a-4991-885c-01315642dbaa"/>
 				<text><![CDATA[TARIFA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="849" y="5" width="55" height="20" uuid="32e222a9-6605-4ded-9025-c8ded2347020"/>
+				<reportElement x="733" y="5" width="55" height="20" uuid="32e222a9-6605-4ded-9025-c8ded2347020"/>
 				<text><![CDATA[ADMIN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="911" y="5" width="80" height="20" uuid="d1e8e444-96c8-41f5-b3cf-db23148c66d9"/>
+				<reportElement x="795" y="5" width="80" height="20" uuid="d1e8e444-96c8-41f5-b3cf-db23148c66d9"/>
 				<text><![CDATA[DESP. ADMIN]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="680" y="4" width="100" height="20" uuid="4b77e19a-a5d1-4f06-9623-f0268d1a388e"/>
-				<text><![CDATA[R$: LIQUIDO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="577" y="5" width="90" height="20" uuid="e8fe4719-1929-4689-813e-391a6b487a5a"/>
 				<text><![CDATA[R$: TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="884" y="3" width="100" height="20" uuid="4b77e19a-a5d1-4f06-9623-f0268d1a388e"/>
+				<text><![CDATA[R$: LIQUIDO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -262,15 +262,15 @@
 				<textFieldExpression><![CDATA[$F{valorContrato}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="792" y="23" width="51" height="20" uuid="9f0b06f6-41b8-4dd9-8279-d8cded568a16"/>
+				<reportElement x="676" y="23" width="51" height="20" uuid="9f0b06f6-41b8-4dd9-8279-d8cded568a16"/>
 				<textFieldExpression><![CDATA[$F{tarifa}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="850" y="23" width="55" height="20" uuid="8b708d49-2e15-46b2-b7f6-72d785c0ca7e"/>
+				<reportElement x="734" y="23" width="55" height="20" uuid="8b708d49-2e15-46b2-b7f6-72d785c0ca7e"/>
 				<textFieldExpression><![CDATA[$F{admin}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="913" y="23" width="54" height="20" uuid="c4089087-c2b5-4886-a4b8-19a4a59146b5"/>
+				<reportElement x="797" y="23" width="78" height="20" uuid="c4089087-c2b5-4886-a4b8-19a4a59146b5"/>
 				<textFieldExpression><![CDATA[$F{despesaAdmin}]]></textFieldExpression>
 			</textField>
 			<rectangle>
@@ -285,12 +285,12 @@
 				<textFieldExpression><![CDATA[$F{valorCorretor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="677" y="25" width="100" height="20" uuid="3693100c-901f-42fe-8a3e-b56b4b2a74c2"/>
-				<textFieldExpression><![CDATA[$F{valorLiquido}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="619" y="1" width="371" height="20" uuid="259d2fa4-f193-4dca-89a1-833573d1c833"/>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="881" y="24" width="100" height="20" uuid="3693100c-901f-42fe-8a3e-b56b4b2a74c2"/>
+				<textFieldExpression><![CDATA[$F{valorLiquido}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

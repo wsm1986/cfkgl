@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kgl.models.MessageWeb;
 import com.kgl.models.Operadora;
+import com.kgl.services.OperadoraService;
 import com.kgl.webservices.OperadoraRepository;
 
 
@@ -22,13 +23,13 @@ import com.kgl.webservices.OperadoraRepository;
 public class OperadoraController {
 
 	@Autowired
-	OperadoraRepository dao; 
+	OperadoraService operadoraService;
 	
 	@RequestMapping({ "/form" })
 	public ModelAndView form(Operadora operadora) {
 		ModelAndView mvn = new ModelAndView("operadora/novo");
 		mvn.addObject("operadora", operadora);
-		mvn.addObject("operadoras", dao.findAll());
+		mvn.addObject("operadoras", operadoraService.getAllOperadoras());
 		return mvn;
 	}
 	
@@ -39,7 +40,7 @@ public class OperadoraController {
 			return form(operadora);
 		}
 		
-		dao.save(operadora);
+		operadoraService.save(operadora);
 
 		attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_ALTER);
 
@@ -49,7 +50,7 @@ public class OperadoraController {
 	private ModelAndView remover(@PathVariable("id") Long id, HttpServletRequest request) {
 		String referer = request.getHeader("Referer");
 
-		dao.delete(id);
+		operadoraService.delete(id);
 		return new ModelAndView("redirect:" + referer);
 	}
 	

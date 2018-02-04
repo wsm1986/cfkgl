@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.kgl.models.Contrato;
@@ -87,6 +89,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 	}
 
 	@Override
+	@Cacheable(value = "movimentacaoHome")
 	public List<Movimentacao> buscarMovimentacoes() {
 		if (home.permissaoUsuario()) {
 			return (List<Movimentacao>) dao.findAll();
@@ -96,6 +99,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 	}
 
 	@Override
+	@CacheEvict(value="movimentacaoHome",allEntries=true)
 	public void gerarMovimentacao(Contrato contrato) {
 		for (int mesPagamento = 0; mesPagamento < 12; mesPagamento++) {
 			Movimentacao mov = new Movimentacao();

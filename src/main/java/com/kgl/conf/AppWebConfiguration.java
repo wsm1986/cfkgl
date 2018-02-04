@@ -4,13 +4,16 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-
 import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,16 +35,16 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
+import com.google.common.cache.CacheBuilder;
 import com.kgl.models.Operadora;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
-	
-	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("/", "/index");
@@ -50,8 +53,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
 	ServletRegistrationBean h2servletRegistration() {
-		ServletRegistrationBean registrationBean = new ServletRegistrationBean(
-				new WebServlet());
+		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
 		registrationBean.addUrlMappings("/console/*");
 		return registrationBean;
 	}
@@ -84,8 +86,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		mailProperties.put("mail.smtp.starttls.enable", "true");
 		mailProperties.put("mail.smtp.socketFactory.port", "465");
 		mailProperties.put("mail.smtp.socketFactory.fallback", "false");
-		mailProperties.put("mail.smtp.socketFactory.class",
-				"javax.net.ssl.SSLSocketFactory");
+		mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
 		mailSender.setJavaMailProperties(mailProperties);
 		return mailSender;
@@ -98,10 +99,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
-		return (container -> container.addErrorPages(
-				new ErrorPage(HttpStatus.NOT_FOUND, "/404"), 
-				new ErrorPage(HttpStatus.FORBIDDEN, "/403"),
-				new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/404")));
+		return (container -> container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"),
+				new ErrorPage(HttpStatus.FORBIDDEN, "/403"), new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/404")));
 	}
 
 	@Bean
@@ -126,38 +125,44 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// @formatter:off
-		registry.addResourceHandler("/static/**")
-				.addResourceLocations("/resources/", "/webjars/")
-				.setCacheControl(
-						CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic())
-				.resourceChain(true).addResolver(new WebJarsResourceResolver());
+		registry.addResourceHandler("/static/**").addResourceLocations("/resources/", "/webjars/")
+				.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic()).resourceChain(true)
+				.addResolver(new WebJarsResourceResolver());
 		// @formatter:on
 	}
-	
+
 	@Component
 	public class ConfigurationRest extends RepositoryRestConfigurerAdapter {
-	    @Override
-	    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-	        config.exposeIdsFor(Operadora.class);
-	    }
+		@Override
+		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+			config.exposeIdsFor(Operadora.class);
+		}
 	}
-	
-	
+
 	@Bean
-	public PasswordEncoder passwordEncoder(){
+	public PasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
 	}
-	
+
 	@Bean
 	public FilterRegistrationBean myFilterBean() {
-	  final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
-	  filterRegBean.setFilter(new MyFilter());
-	  filterRegBean.addUrlPatterns("/*");
-	  filterRegBean.setEnabled(Boolean.TRUE);
-	  filterRegBean.setName("Meu Filter");
-	  filterRegBean.setAsyncSupported(Boolean.TRUE);
-	  return filterRegBean;
+		final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
+		filterRegBean.setFilter(new MyFilter());
+		filterRegBean.addUrlPatterns("/*");
+		filterRegBean.setEnabled(Boolean.TRUE);
+		filterRegBean.setName("Meu Filter");
+		filterRegBean.setAsyncSupported(Boolean.TRUE);
+		return filterRegBean;
 	}
+
+	
+	@Bean
+    public CacheManager cacheManager() {
+        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(1, TimeUnit.MINUTES);
+        GuavaCacheManager manager = new GuavaCacheManager();
+        manager.setCacheBuilder(builder);
+        return manager;
+    }
 
 }

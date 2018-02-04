@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.kgl.models.Corretor;
@@ -21,6 +23,7 @@ public class CorretorServiceImpl implements CorretorService {
 	private HomeBean home;
 
 	@Override
+	@Cacheable(value = "corretorHome")
 	public List<Corretor> todosCorretores() {
 		List<Corretor> corretores = (List<Corretor>) repository.findAll();
 		
@@ -37,6 +40,7 @@ public class CorretorServiceImpl implements CorretorService {
 	}
 
 	@Override
+	@CacheEvict(value="corretorHome",allEntries=true)
 	public void salvar(Corretor c) {
 		// TODO Auto-generated method stub
 		repository.save(c);
@@ -44,6 +48,7 @@ public class CorretorServiceImpl implements CorretorService {
 	}
 
 	@Override
+	@CacheEvict(value="corretorHome",allEntries=true)
 	public void excluir(Long id) {
 		// TODO Auto-generated method stub
 		repository.delete(id);

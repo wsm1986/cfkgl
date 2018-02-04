@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.SubProduto;
+import com.kgl.services.OperadoraService;
 import com.kgl.validator.SubProdutoValidator;
 import com.kgl.webservices.OperadoraRepository;
 import com.kgl.webservices.ProdutoRepository;
@@ -25,9 +26,6 @@ public class SubProdutoController {
 
 	@Autowired
 	ProdutoRepository dao;
-
-	@Autowired
-	OperadoraRepository daoOperadora;
 
 	@Autowired
 	SubProdutoRepository daoSubProduto;

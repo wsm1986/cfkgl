@@ -3,6 +3,8 @@ package com.kgl.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.kgl.models.Contrato;
@@ -24,6 +26,7 @@ public class ContratoServiceImpl implements ContratoService {
 	CorretorService corretorService;
 
 	@Override
+	@Cacheable(value = "contratoHome")
 	public List<Contrato> buscarContrato() {
 
 		if (home.permissaoUsuario()) {
@@ -35,12 +38,14 @@ public class ContratoServiceImpl implements ContratoService {
 	}
 
 	@Override
+	@CacheEvict(value="movimentacaoHome,contratoHome",allEntries=true)
 	public void salvar(Contrato contrato) {
 		contratoRepository.save(contrato);
 
 	}
 
 	@Override
+	@CacheEvict(value="movimentacaoHome,contratoHome",allEntries=true)
 	public void excluir(Long id) {
 		contratoRepository.delete(id);
 

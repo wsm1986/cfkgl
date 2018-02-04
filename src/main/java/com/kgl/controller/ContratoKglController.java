@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.Contrato;
 import com.kgl.models.Corretor;
+import com.kgl.models.Movimentacao;
 import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
 import com.kgl.enums.StatusContrato;
@@ -135,6 +136,10 @@ public class ContratoKglController {
 
 	@RequestMapping(value = "/remover/{contrato}", method = RequestMethod.GET)
 	public ModelAndView remover(@PathVariable("contrato") Contrato contrato) {
+		List<Movimentacao> list = movService.findByContrato(contrato);
+		for (Movimentacao movimentacao : list) {
+			movService.excluir(movimentacao.getId());
+		} 
 		contratoService.excluir(contrato.getId());
 		return listar();
 	}

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,6 @@ import com.kgl.services.MovimentacaoService;
 
 @Controller
 @RequestMapping("/movimentacao")
-@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 
 public class MovimentacaoController {
 
