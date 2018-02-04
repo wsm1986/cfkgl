@@ -159,7 +159,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Bean
     public CacheManager cacheManager() {
-        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(1, TimeUnit.MINUTES);
+        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(180, TimeUnit.MINUTES);
         GuavaCacheManager manager = new GuavaCacheManager();
         manager.setCacheBuilder(builder);
         return manager;
