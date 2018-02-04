@@ -38,14 +38,14 @@ public class ContratoServiceImpl implements ContratoService {
 	}
 
 	@Override
-	@CacheEvict(value="movimentacaoHome,contratoHome",allEntries=true)
+	@CacheEvict(value= {"movimentacaoHome","contratoHome"},allEntries=true)
 	public void salvar(Contrato contrato) {
 		contratoRepository.save(contrato);
 
 	}
 
 	@Override
-	@CacheEvict(value="movimentacaoHome,contratoHome",allEntries=true)
+	@CacheEvict(value= {"movimentacaoHome","contratoHome"},allEntries=true)
 	public void excluir(Long id) {
 		contratoRepository.delete(id);
 

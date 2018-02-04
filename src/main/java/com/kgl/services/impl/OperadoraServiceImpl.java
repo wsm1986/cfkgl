@@ -32,14 +32,13 @@ public class OperadoraServiceImpl implements OperadoraService {
 	}
 
 	@Override
-	@CacheEvict(value = "operadoraHome,operadoraId", allEntries = true)
-
+	@CacheEvict(value = {"operadoraHome","operadoraId"}, allEntries = true)
 	public void save(Operadora op) {
 		operadora.save(op);
 	}
 
 	@Override
-	@CacheEvict(value = "operadoraHome,operadoraId", allEntries = true)
+	@CacheEvict(value = {"operadoraHome","operadoraId"}, allEntries = true)
 	public void delete(Long id) {
 		operadora.delete(id);
 	}
