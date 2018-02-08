@@ -53,6 +53,9 @@ public class Movimentacao implements Serializable {
 	private Double taxa;
 
 	private BigDecimal totalDesconto;
+	
+	private BigDecimal adiantamento;
+
 
 	public Contrato getContrato() {
 		return contrato;
@@ -168,6 +171,14 @@ public class Movimentacao implements Serializable {
 	public String getFormatarValorLucro() {
 		NumberFormat vlr = NumberFormat.getCurrencyInstance();
 		return vlr.format(getLucro());
+	}
+
+	public BigDecimal getAdiantamento() {
+		return adiantamento;
+	}
+
+	public void setAdiantamento(BigDecimal adiantamento) {
+		this.adiantamento = adiantamento;
 	}
 
 }

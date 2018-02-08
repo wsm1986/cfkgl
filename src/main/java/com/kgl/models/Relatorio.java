@@ -19,6 +19,7 @@ public class Relatorio {
 	private String valorLiquido;
 	private String admin;
 	private String produto;
+	private String adiantamento;
 	
 	public String getDataPagamento() {
 		return dataPagamento;
@@ -156,6 +157,14 @@ public class Relatorio {
 
 	public void setTarifa(String tarifa) {
 		this.tarifa = tarifa;
+	}
+
+	public String getAdiantamento() {
+		return adiantamento;
+	}
+
+	public void setAdiantamento(String adiantamento) {
+		this.adiantamento = adiantamento;
 	}
 
 }

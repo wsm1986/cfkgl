@@ -37,6 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
+import com.kgl.enums.StatusMovimentacao;
 import com.kgl.models.Banco;
 import com.kgl.models.Corretor;
 import com.kgl.models.GenerateHashPasswordUtil;
@@ -71,6 +72,8 @@ public class RelatorioController {
 		mvn.addObject("response", new Response());
 		mvn.addObject("corretores", corretorService.todosCorretores());
 
+		mvn.addObject("status", StatusMovimentacao.values());
+
 		return mvn;
 	}
 
@@ -80,17 +83,23 @@ public class RelatorioController {
 		view.setUrl("classpath:relatorioKgl.jrxml");
 		view.setApplicationContext(appContext);
 		Map<String, Object> params = new HashMap<>();
-		
-		
-		response.setCorretor(null == response.getCorretorRelatorio() ? "" :  response.getCorretorRelatorio().getId().toString());
-		
-		List<Movimentacao> list = movimentcaoService.buscarMovimentacao(response);
-		
+
+		response.setCorretor(
+				null == response.getCorretorRelatorio() ? "" : response.getCorretorRelatorio().getId().toString());
+
+		List<Movimentacao> list = movimentcaoService.buscarMovimentacao(response).stream()
+				.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
+		;
+
 		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy");
 		Integer parcela = 0;
 		Long auxId = list.get(0).getContrato().getId();
 		BigDecimal totalParcela = new BigDecimal(0);
 		BigDecimal totalBruto = new BigDecimal(0);
+		BigDecimal parcial = new BigDecimal(0);
+		BigDecimal total = new BigDecimal(0);
+
+
 
 		// Variavel para controlar a proposta
 		List<Relatorio> relatorios = new ArrayList<>();
@@ -104,41 +113,43 @@ public class RelatorioController {
 			dto.setValorContrato(obj.getFormatarValorContrato());
 			dto.setValorKgl(obj.getFormatarValorKgl());
 			dto.setLucro(obj.getFormatarValorKgl());
-			dto.setStatus("Contrato: "+ obj.getContrato().getStatusContrato() + "Pagamento: " + obj.getStatus().toString());
+			dto.setStatus(
+					"Contrato: " + obj.getContrato().getStatusContrato() + "    Pagamento: " + obj.getStatus().toString());
 			dto.setIdCorretor("Verificar ");
 			dto.setSegurado(obj.getContrato().getSegurado().getNome().toUpperCase());
 			dto.setTarifa(obj.getTarifa().toString());
 			dto.setAdmin(obj.getTaxa().toString());
 			dto.setValorLiquido(String.valueOf(obj.getValorCorretor().subtract(obj.getValorKgl())));
-			
+
 			dto.setProduto(obj.getContrato().getProduto().toString());
-			if(obj.getContrato().getId().equals(auxId)){
+			if (obj.getContrato().getId().equals(auxId)) {
 				dto.setParcela(String.valueOf(++parcela));
 				auxId = obj.getContrato().getId();
-			}else {
+			} else {
 				auxId = obj.getContrato().getId();
 				parcela = 1;
 				dto.setParcela("1");
 			}
-			dto.setPorcentagemAdmin(obj.getContrato().getProduto().getParcelaCorretor().retornoPorcentagem(parcela).toString());
-			
-			BigDecimal valorLiquido = 		obj.getContrato().getProduto().getParcelaCorretor().calcularValorPorcentagem(
-							obj.getContrato().getValor(), Integer.valueOf(dto.getPorcentagemAdmin()));
-			
-			
-			dto.setValorCorretor(vlr.format(valorLiquido));
-			dto.setValorLiquido(obj.getFormatarValorCorretor().toString());
+			dto.setPorcentagemAdmin(
+					obj.getContrato().getProduto().getParcelaCorretor().retornoPorcentagem(parcela).toString());
 
+			BigDecimal valorLiquido = obj.getContrato().getProduto().getParcelaCorretor()
+					.calcularValorPorcentagem(obj.getContrato().getValor(), Integer.valueOf(dto.getPorcentagemAdmin()));
+
+			dto.setValorCorretor(vlr.format(valorLiquido));
+			dto.setValorLiquido(vlr.format(obj.getValorCorretor().subtract(obj.getAdiantamento())));
+			dto.setAdiantamento(vlr.format(obj.getAdiantamento()));
 			dto.setDespesaAdmin(vlr.format(obj.getValorCorretor().subtract(valorLiquido)));
 
 			// Somar Valor
-			totalBruto= totalBruto.add(obj.getContrato().getValor());
+			totalBruto = totalBruto.add(obj.getContrato().getValor());
 			totalParcela = totalParcela.add(obj.getValorCorretor());
+			parcial = parcial.add(obj.getAdiantamento());
 			relatorios.add(dto);
 		}
 
 		params.put("datasource", relatorios);
-		
+
 		params.put("corretor", response.getCorretorRelatorio().getNome());
 		params.put("codigoCorretor", response.getCorretor());
 		params.put("banco", list.get(0).getContrato().getCorretor().getConta().getBanco().toString());
@@ -146,16 +157,20 @@ public class RelatorioController {
 		params.put("conta", list.get(0).getContrato().getCorretor().getConta().getNumero());
 		params.put("dtInicio", response.getDtInicial());
 		params.put("dtFinal", response.getDtFinal());
-		params.put("totalBruto",  vlr.format(totalBruto));
+		params.put("totalBruto", vlr.format(totalBruto));
 		params.put("totalParcela", vlr.format(totalParcela));
-		
-        InputStream caminhoImagem = getClass().getResourceAsStream("/static/imagens/logo.png");
-        InputStream caminhoImagem2 = getClass().getResourceAsStream("/static/imagens/footer-logo.png");
+		params.put("parcial", vlr.format(parcial));
+		total = totalParcela.subtract(parcial);
+		params.put("total", vlr.format(total));
 
-		params.put("logo",caminhoImagem);
-		params.put("logo2",caminhoImagem2);
 
-;    
+		InputStream caminhoImagem = getClass().getResourceAsStream("/static/imagens/logo.png");
+		InputStream caminhoImagem2 = getClass().getResourceAsStream("/static/imagens/footer-logo.png");
+
+		params.put("logo", caminhoImagem);
+		params.put("logo2", caminhoImagem2);
+
+		;
 
 		return new ModelAndView(view, params);
 	}

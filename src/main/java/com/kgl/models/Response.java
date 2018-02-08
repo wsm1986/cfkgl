@@ -16,6 +16,7 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.kgl.enums.StatusMovimentacao;
 import com.kgl.enums.TipoPesquisaMovimentacao;
 
 public class Response implements Serializable {
@@ -26,6 +27,7 @@ public class Response implements Serializable {
 	private String dtFinal;
 	private String corretor;
 	private Corretor corretorRelatorio;
+	private StatusMovimentacao status;
 
 	public String getDtInicial() {
 		return dtInicial;
@@ -74,5 +76,13 @@ public class Response implements Serializable {
 
 	public void setCorretorRelatorio(Corretor corretorRelatorio) {
 		this.corretorRelatorio = corretorRelatorio;
+	}
+
+	public StatusMovimentacao getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusMovimentacao status) {
+		this.status = status;
 	}
 }

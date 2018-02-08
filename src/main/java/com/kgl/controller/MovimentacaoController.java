@@ -31,6 +31,7 @@ import com.kgl.models.Corretor;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Relatorio;
 import com.kgl.models.Response;
+import com.kgl.enums.StatusContrato;
 import com.kgl.enums.StatusMovimentacao;
 import com.kgl.repository.EmployeeRepository;
 import com.kgl.services.CorretorService;
@@ -72,21 +73,12 @@ public class MovimentacaoController {
 	@RequestMapping(value = "/gerarPagamento/{movimentacao}/{flag}", method = RequestMethod.GET)
 	public ModelAndView gerarPagamento(@PathVariable("movimentacao") Movimentacao mov,
 			@PathVariable("flag") String flag, HttpSession session) {
-		BigDecimal vlr = (BigDecimal) session.getAttribute("vlrCorretor");
-		if ("S".equals(flag)) {
-			mov.setStatus(StatusMovimentacao.PAGO);
-			session.setAttribute("vlrCorretor", vlr.subtract(mov.getValorCorretor()));
-
-		} else if ("N".equals(flag)) {
-			mov.setStatus(StatusMovimentacao.RECUSADO);
-		} else if ("A".equals(flag)) {
-			session.setAttribute("vlrCorretor", vlr.add(mov.getValorCorretor()));
-			mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
-		}
-		movimentcaoService.salvar(mov);
+		movimentcaoService.atualizarContrato(mov, session, flag);
 		return new ModelAndView("redirect:/contrato/detalharContr/" + mov.getContrato().getId() + "");
 
 	}
+	
+
 
 	@RequestMapping(value = "/atualizarLista", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	@ResponseBody

@@ -6,6 +6,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +132,7 @@ public class ContratoKglController {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
 		mvn.addObject("contratos", contratoService.buscarContrato(id));
 		mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
+
 		return mvn;
 	}
 
@@ -158,6 +160,15 @@ public class ContratoKglController {
 		return listar();
 	}
 
+	@RequestMapping(value = "/adiantamento/", method = RequestMethod.POST)
+	public ModelAndView adiantamento(Movimentacao movimentacao) {
+		Movimentacao update = movService.findById(movimentacao.getId());
+		update.setAdiantamento(movimentacao.getAdiantamento());
+		movService.salvar(update);
+		return new ModelAndView("redirect:/contrato/detalharContr/" + 1 + "");
+
+	}
+	
 	@ModelAttribute("corretores")
 	public List<Corretor> listaCorretores() {
 		return corretorService.todosCorretores();
@@ -178,6 +189,11 @@ public class ContratoKglController {
 	@ModelAttribute("novoSubProduto")
 	public SubProduto novoSubProduto() {
 		return new SubProduto();
+	}
+	
+	@ModelAttribute("mov")
+	public Movimentacao Movimentacao() {
+		return new Movimentacao();
 	}
 	
 	/*

@@ -6,13 +6,14 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.kgl.models.Contrato;
+import com.kgl.models.Movimentacao;
 import com.kgl.models.SubProduto;
 
 @Component
 public class ContratoValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return Contrato.class.equals(aClass) || SubProduto.class.equals(aClass);
+        return Contrato.class.equals(aClass) || SubProduto.class.equals(aClass) || Movimentacao.class.equals(aClass);
     }
 
     @Override
