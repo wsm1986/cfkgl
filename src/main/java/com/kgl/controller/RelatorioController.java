@@ -99,8 +99,6 @@ public class RelatorioController {
 		BigDecimal parcial = new BigDecimal(0);
 		BigDecimal total = new BigDecimal(0);
 
-
-
 		// Variavel para controlar a proposta
 		List<Relatorio> relatorios = new ArrayList<>();
 		BigDecimal porcentagem = new BigDecimal(8.5 / 100);
@@ -113,8 +111,8 @@ public class RelatorioController {
 			dto.setValorContrato(obj.getFormatarValorContrato());
 			dto.setValorKgl(obj.getFormatarValorKgl());
 			dto.setLucro(obj.getFormatarValorKgl());
-			dto.setStatus(
-					"Contrato: " + obj.getContrato().getStatusContrato() + "    Pagamento: " + obj.getStatus().toString());
+			dto.setStatus("Contrato: " + obj.getContrato().getStatusContrato() + "    Pagamento: "
+					+ obj.getStatus().toString());
 			dto.setIdCorretor("Verificar ");
 			dto.setSegurado(obj.getContrato().getSegurado().getNome().toUpperCase());
 			dto.setTarifa(obj.getTarifa().toString());
@@ -137,14 +135,22 @@ public class RelatorioController {
 					.calcularValorPorcentagem(obj.getContrato().getValor(), Integer.valueOf(dto.getPorcentagemAdmin()));
 
 			dto.setValorCorretor(vlr.format(valorLiquido));
-			dto.setValorLiquido(vlr.format(obj.getValorCorretor().subtract(obj.getAdiantamento())));
-			dto.setAdiantamento(vlr.format(obj.getAdiantamento()));
+			if (obj.getAdiantamento() != null) {
+				dto.setAdiantamento(vlr.format(obj.getAdiantamento()));
+				dto.setValorLiquido(vlr.format(obj.getValorCorretor().subtract(obj.getAdiantamento())));
+				parcial = parcial.add(obj.getAdiantamento());
+
+			} else {
+				dto.setAdiantamento("Não Teve");
+
+				dto.setValorLiquido(vlr.format(obj.getValorCorretor()));
+
+			}
 			dto.setDespesaAdmin(vlr.format(obj.getValorCorretor().subtract(valorLiquido)));
 
 			// Somar Valor
 			totalBruto = totalBruto.add(obj.getContrato().getValor());
 			totalParcela = totalParcela.add(obj.getValorCorretor());
-			parcial = parcial.add(obj.getAdiantamento());
 			relatorios.add(dto);
 		}
 
@@ -162,7 +168,6 @@ public class RelatorioController {
 		params.put("parcial", vlr.format(parcial));
 		total = totalParcela.subtract(parcial);
 		params.put("total", vlr.format(total));
-
 
 		InputStream caminhoImagem = getClass().getResourceAsStream("/static/imagens/logo.png");
 		InputStream caminhoImagem2 = getClass().getResourceAsStream("/static/imagens/footer-logo.png");
