@@ -31,7 +31,7 @@ public class ContratoServiceImpl implements ContratoService {
 	CorretorService corretorService;
 
 	@Override
-	@Cacheable(value = "contratoHome")
+	//@Cacheable(value = "contratoHome")
 	public List<Contrato> buscarContrato() {
 		try {
 			if (home.permissaoUsuario()) {
