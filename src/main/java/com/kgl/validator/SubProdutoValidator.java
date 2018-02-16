@@ -5,6 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.kgl.models.MessageWeb;
 import com.kgl.models.SubProduto;
 
 @Component
@@ -12,7 +13,7 @@ public class SubProdutoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return SubProduto.class.equals(aClass);
+        return SubProduto.class.equals(aClass) || MessageWeb.class.equals(aClass);
     }
 
     @Override

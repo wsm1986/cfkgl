@@ -14,9 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kgl.models.MessageWeb;
 import com.kgl.models.Operadora;
 import com.kgl.services.OperadoraService;
-import com.kgl.webservices.OperadoraRepository;
-
-
 
 @Controller
 @RequestMapping("/operadora")
@@ -24,7 +21,7 @@ public class OperadoraController {
 
 	@Autowired
 	OperadoraService operadoraService;
-	
+
 	@RequestMapping({ "/form" })
 	public ModelAndView form(Operadora operadora) {
 		ModelAndView mvn = new ModelAndView("operadora/novo");
@@ -32,37 +29,41 @@ public class OperadoraController {
 		mvn.addObject("operadoras", operadoraService.getAllOperadoras());
 		return mvn;
 	}
-	
+
 	@RequestMapping({ "/salvar" })
-	public ModelAndView salvar(@Valid Operadora operadora, BindingResult result,HttpServletRequest request, RedirectAttributes attributes) {
+	public ModelAndView salvar(@Valid Operadora operadora, BindingResult result, HttpServletRequest request,
+			RedirectAttributes attributes) {
 		String referer = request.getHeader("Referer");
-		if (result.hasErrors()) {
-			return form(operadora);
+
+		try {
+			if (result.hasErrors()) {
+				return form(operadora);
+			}
+
+			operadoraService.save(operadora);
+
+			attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_ALTER);
+		} catch (Exception e) {
+			attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_SAVE);
 		}
-		
-		operadoraService.save(operadora);
-
-		attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_ALTER);
-
 		return new ModelAndView("redirect:" + referer);
 	}
+
 	@RequestMapping("/remover/{id}")
-	private ModelAndView remover(@PathVariable("id") Long id, HttpServletRequest request) {
+	private ModelAndView remover(@PathVariable("id") Long id, HttpServletRequest request,
+			RedirectAttributes attributes) {
 		String referer = request.getHeader("Referer");
-
-		operadoraService.delete(id);
+		try {
+			operadoraService.delete(id);
+		} catch (Exception e) {
+			attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_SAVE);
+		}
 		return new ModelAndView("redirect:" + referer);
 	}
-	
+
 	@RequestMapping("/listar")
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("operadora/operadoras");
-		return mvn;
-	}
-	
-	@RequestMapping("/teste")
-	private ModelAndView teste() {
-		ModelAndView mvn = new ModelAndView("index2");
 		return mvn;
 	}
 }

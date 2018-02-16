@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprovantePagamento" language="groovy" pageWidth="1050" pageHeight="1024" whenNoDataType="AllSectionsNoDetail" columnWidth="1010" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8675e83f-3881-485d-a559-f269adf3df61">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="165"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="New Dataset 1" uuid="efbd1938-1006-4f01-ae5d-512fed193ce7"/>
 	<subDataset name="dataset1" uuid="76fbf82d-426b-43c6-9707-5cfffda76814"/>
@@ -321,6 +321,11 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="111"/>
+		<band height="111">
+			<image isUsingCache="true" isLazy="true">
+				<reportElement x="423" y="22" width="301" height="61" uuid="25985e11-1ec2-44d6-b282-570e3e22e948"/>
+				<imageExpression><![CDATA[$P{logo2}]]></imageExpression>
+			</image>
+		</band>
 	</columnFooter>
 </jasperReport>

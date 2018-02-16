@@ -5,13 +5,17 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.kgl.models.Contrato;
 import com.kgl.models.Corretor;
+import com.kgl.models.MessageWeb;
+import com.kgl.models.Movimentacao;
+import com.kgl.models.SubProduto;
 
 @Component
 public class CorretorValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return Corretor.class.equals(aClass);
+        return Corretor.class.equals(aClass) || MessageWeb.class.equals(aClass) ;
     }
 
     @Override

@@ -158,7 +158,7 @@
 													<td  th:text="${movimentacao.adiantamento}">1</td>
 													<td>
 													
-														<button type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
+														<button disabled="disabled"  type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
 														    data-target="#newSession">Adicionar</button>
 													</td>
 													<td> 
@@ -169,6 +169,33 @@
 													</td>
 													
 			                                    </tr>
+			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'PARCIAL')}" class= "info">
+													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
+													<td th:text="${movimentacao.contrato.valor}">1</td>
+													<td sec:authorize="hasRole('ROLE_ADMIN')"   th:text="${movimentacao.valorKgl}">1</td>
+													<td th:text="${movimentacao.tarifa}">1</td>
+													<td th:text="${movimentacao.taxa}">1</td>
+													<td th:text="${movimentacao.totalDesconto}">1</td>
+													<td th:text="${movimentacao.valorCorretor}">1</td>
+													
+													<td sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${movimentacao.lucro}">1</td>
+													<td  th:text="${movimentacao.status}">1</td>
+													<td  th:text="${movimentacao.adiantamento}">1</td>
+													<td>
+													
+														<button  type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
+														    data-target="#newSession">Adicionar</button>
+													</td>
+													<td> 
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'A')).build()}" title="Aguardando Pag." class="fa  fa-strikethrough   fa-fw   " ></a>
+													
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   " ></a>
+													</td>
+													
+			                                    </tr>
+			                                    
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'RECUSADO')}" class= "danger">
 													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
@@ -187,7 +214,7 @@
 														    data-target="#newSession">Adicionar</button>
 													</td>
 													<td>
-													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
+												 <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
 													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'A')).build()}" title="Aguardando Pag." class="fa  fa-strikethrough   fa-fw   " ></a>
 													
 													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   " ></a></td>
@@ -207,7 +234,7 @@
 													<td  th:text="${movimentacao.adiantamento}">1</td>
 													
 														<td>
-														<button disabled="disabled" type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
+														<button  type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
 														    data-target="#newSession">Adicionar</button>
 													</td>
 													<td> <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>

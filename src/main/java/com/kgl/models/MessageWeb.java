@@ -10,10 +10,20 @@ public class MessageWeb {
      */
 	public static final String MESSAGE_ATTRIBUTE = "message";
 	public static final MessageWeb SUCCESS_SAVE = new MessageWeb("schema.save.create", Type.SUCCESS);
-	public static final MessageWeb SUCCESS_ALTER = new MessageWeb("schema.alter.sucess", Type.SUCCESS);
-	public static final MessageWeb ERROR_SAVE = new MessageWeb("schema.save.error", Type.DANGER);
-	public static final MessageWeb ERROR_ALTER = new MessageWeb("schema.alter.error", Type.DANGER);
+	public static final MessageWeb SUCCESS_ALTER = new MessageWeb("alterar.sucess", Type.SUCCESS);
+	public static final MessageWeb SUCCESS_DELETE = new MessageWeb("delete.sucess", Type.SUCCESS);
+
+	public static final MessageWeb ERROR_SAVE = new MessageWeb("save.error", Type.DANGER);
+	public static final MessageWeb ERROR_ALTER = new MessageWeb("alterar.error", Type.DANGER);
 	public static final MessageWeb FIND_SCHEMA_NOTFOUND = new MessageWeb("schema.find.error", Type.DANGER);
+	public static final MessageWeb ERROR_DELETE = new MessageWeb("delete.error", Type.DANGER);
+	
+	public static final MessageWeb ERROR_FIND = new MessageWeb("find.error", Type.INFO);
+	public static final MessageWeb ERROR_RELATORIO = new MessageWeb("relatorio.error", Type.DANGER);
+
+
+	 
+
 
     /**
      * The type of the message to be displayed. The type is used to show message in a different style.

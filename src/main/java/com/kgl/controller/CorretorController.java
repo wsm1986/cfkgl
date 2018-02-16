@@ -2,33 +2,28 @@ package com.kgl.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kgl.models.Banco;
 import com.kgl.models.Corretor;
 import com.kgl.models.GenerateHashPasswordUtil;
-import com.kgl.models.Movimentacao;
-import com.kgl.models.Relatorio;
+import com.kgl.models.MessageWeb;
 import com.kgl.models.Role;
 import com.kgl.models.User;
 import com.kgl.services.CorretorService;
@@ -54,8 +49,6 @@ public class CorretorController {
 	@Autowired
 	MovimentacaoService movimentcaoService;
 
-	@Autowired
-	private ApplicationContext appContext;
 
 	@RequestMapping({ "/", "/form" })
 	private ModelAndView form(Corretor Corretor) {
@@ -68,34 +61,66 @@ public class CorretorController {
 
 	@RequestMapping("/novo")
 	private ModelAndView novo(@Valid Corretor corretor, BindingResult result) {
-		if (result.hasErrors()) {
-			return form(corretor);
+
+		ModelAndView mvn = new ModelAndView("corretor/listar");
+		try {
+			if (result.hasErrors()) {
+				return form(corretor);
+			}
+			corretor.getConta().setTitular(corretor.getNome());
+			corretor.setDtInclusao(Calendar.getInstance());
+			dao.salvar(corretor);
+			insertUser(corretor.getEmail());
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_SAVE);
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_SAVE);
 		}
-		corretor.getConta().setTitular(corretor.getNome());
-		corretor.setDtInclusao(Calendar.getInstance());
-		dao.salvar(corretor);
-		insertUser(corretor.getEmail());
-		return listar();
+		return mvn;
 	}
 
 	@RequestMapping("/listar")
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("corretor/listar");
-		mvn.addObject("corretores", dao.todosCorretores());
-
 		return mvn;
 	}
 
 	@RequestMapping("/deletar/{id}")
-	private ModelAndView deletar(@PathVariable("id") Long id) {
-		dao.excluir(dao.buscarCorretor(id).getId());
-		return listar();
+	private ModelAndView deletar(@PathVariable("id") Long id, RedirectAttributes attributes,
+			HttpServletRequest request) {
+		ModelAndView mvn = new ModelAndView("corretor/listar");
+		mvn.addObject("corretores", dao.todosCorretores());
+		try {
+			dao.excluir(dao.buscarCorretor(id).getId());
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_DELETE);
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_DELETE);
+		}
+
+		return mvn;
+
+	}
+
+	@ModelAttribute("corretores")
+	public List<Corretor> listaCorretores() {
+		return dao.todosCorretores();
 	}
 
 	@RequestMapping("/detalhe/{id}")
 	private ModelAndView detalhe(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("corretor/detalhe");
-		mvn.addObject("corretor", dao.buscarCorretor(id));
+		try {
+			Corretor corretor = dao.buscarCorretor(id);
+			if (corretor == null) {
+				mvn = new ModelAndView("corretor/listar");
+				mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_FIND);
+				return mvn;
+			}
+			mvn.addObject("corretor", corretor);
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_FIND);
+		}
 		return mvn;
 	}
 
@@ -120,34 +145,6 @@ public class CorretorController {
 		list.add(role);
 		User user = new User(userName, password, list);
 		usuarioService.salvar(user);
-	}
-
-	@RequestMapping(value = "/pdf/", method = RequestMethod.GET)
-	public ModelAndView imprimirPdf() {
-		JasperReportsPdfView view = new JasperReportsPdfView();
-		view.setUrl("classpath:relatorioKgl.jrxml");
-		view.setApplicationContext(appContext);
-		Map<String, Object> params = new HashMap<>();
-
-		List<Movimentacao> list = movimentcaoService.buscarMovimentacoes();
-		List<Relatorio> relatorio = new ArrayList<>();
-		for (Movimentacao movimentacao : list) {
-			Relatorio addLista = new Relatorio();
-			addLista.setDataPagamento(movimentacao.getDtPagamento().toString());
-			addLista.setLucro(movimentacao.getFormatarValorLucro());
-			addLista.setProposta(movimentacao.getContrato().getCodigoContrato().toString());
-			addLista.setStatus(movimentacao.getStatus().toString());
-			addLista.setValorContrato(movimentacao.getFormatarValorContrato());
-			addLista.setValorCorretor(movimentacao.getFormatarValorCorretor().toString());
-			addLista.setValorKgl(movimentacao.getFormatarValorKgl());
-
-			relatorio.add(addLista);
-		}
-
-		params.put("datasource", relatorio);
-		params.put("rg_inquilino", String.valueOf(1516));
-
-		return new ModelAndView(view, params);
 	}
 
 }

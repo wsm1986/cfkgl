@@ -2,17 +2,12 @@ package com.kgl.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,20 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kgl.models.Corretor;
+import com.kgl.models.MessageWeb;
 import com.kgl.models.Movimentacao;
-import com.kgl.models.Relatorio;
 import com.kgl.models.Response;
-import com.kgl.enums.StatusContrato;
-import com.kgl.enums.StatusMovimentacao;
 import com.kgl.repository.EmployeeRepository;
 import com.kgl.services.CorretorService;
-import com.kgl.services.HomeBean;
 import com.kgl.services.MovimentacaoService;
 
 @Controller
@@ -55,7 +46,6 @@ public class MovimentacaoController {
 	@Autowired
 	CorretorService corretorService;
 
-
 	@RequestMapping({ "/form" })
 	public ModelAndView form(Movimentacao movimentacao, HttpSession session) {
 		ModelAndView mvn = new ModelAndView("movimentacao/novo");
@@ -72,13 +62,20 @@ public class MovimentacaoController {
 
 	@RequestMapping(value = "/gerarPagamento/{movimentacao}/{flag}", method = RequestMethod.GET)
 	public ModelAndView gerarPagamento(@PathVariable("movimentacao") Movimentacao mov,
-			@PathVariable("flag") String flag, HttpSession session) {
-		movimentcaoService.atualizarContrato(mov, session, flag);
-		return new ModelAndView("redirect:/contrato/detalharContr/" + mov.getContrato().getId() + "");
+			@PathVariable("flag") String flag, HttpSession session, RedirectAttributes attributes) {
+		ModelAndView mvn = new ModelAndView("redirect:/contrato/detalharContr/" + mov.getContrato().getId() + "");
+
+		try {
+			movimentcaoService.atualizarContrato(mov, session, flag);
+
+			attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_ALTER);
+
+		} catch (Exception e) {
+			attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_ALTER);
+		}
+		return mvn;
 
 	}
-	
-
 
 	@RequestMapping(value = "/atualizarLista", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	@ResponseBody
@@ -99,9 +96,6 @@ public class MovimentacaoController {
 		return new ResponseEntity<List<Movimentacao>>(mov, HttpStatus.OK);
 
 	}
-
-
-	
 
 	public void financeiro(List<Movimentacao> movs, HttpSession session) {
 		BigDecimal vlrLucro = new BigDecimal(0);

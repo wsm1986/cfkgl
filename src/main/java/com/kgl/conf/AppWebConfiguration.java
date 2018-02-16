@@ -5,10 +5,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.h2.server.web.WebServlet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -124,11 +122,10 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// @formatter:off
-		registry.addResourceHandler("/static/**").addResourceLocations("/resources/", "/webjars/")
+		registry.addResourceHandler("/static/**")
+				.addResourceLocations("/resources/", "/webjars/")
 				.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic()).resourceChain(true)
 				.addResolver(new WebJarsResourceResolver());
-		// @formatter:on
 	}
 
 	@Component
@@ -146,23 +143,12 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public FilterRegistrationBean myFilterBean() {
-		final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
-		filterRegBean.setFilter(new MyFilter());
-		filterRegBean.addUrlPatterns("/*");
-		filterRegBean.setEnabled(Boolean.TRUE);
-		filterRegBean.setName("Meu Filter");
-		filterRegBean.setAsyncSupported(Boolean.TRUE);
-		return filterRegBean;
+	public CacheManager cacheManager() {
+		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(180,
+				TimeUnit.MINUTES);
+		GuavaCacheManager manager = new GuavaCacheManager();
+		manager.setCacheBuilder(builder);
+		return manager;
 	}
-
-	
-	@Bean
-    public CacheManager cacheManager() {
-        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(180, TimeUnit.MINUTES);
-        GuavaCacheManager manager = new GuavaCacheManager();
-        manager.setCacheBuilder(builder);
-        return manager;
-    }
 
 }

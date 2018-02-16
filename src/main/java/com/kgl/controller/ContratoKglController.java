@@ -23,10 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.models.Contrato;
 import com.kgl.models.Corretor;
+import com.kgl.models.MessageWeb;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Produto;
 import com.kgl.models.Segurado;
 import com.kgl.enums.StatusContrato;
+import com.kgl.enums.StatusMovimentacao;
 import com.kgl.models.SubProduto;
 import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
@@ -55,10 +57,8 @@ public class ContratoKglController {
 	@Autowired
 	MovimentacaoService movService;
 
-
 	@Autowired
 	private ContratoValidator contratoValidation;
-
 
 	@Autowired
 	ProdutoService produtoService;
@@ -76,19 +76,24 @@ public class ContratoKglController {
 	@RequestMapping({ "/listar" })
 	private ModelAndView listar() {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		mvn.addObject("contratos", contratoService.buscarContrato());
 		return mvn;
 
 	}
 
 	@RequestMapping({ "/salvar" })
 	private ModelAndView salvar(@Valid Contrato contrato, BindingResult result) {
-		if (result.hasErrors()) {
-			return form(contrato);
-		}
-		contratoNovo.implantarContrato(contrato);
+		ModelAndView mvn = new ModelAndView("contrato/novo");
+		try {
+			if (result.hasErrors()) {
+				return form(contrato);
+			}
+			contratoNovo.implantarContrato(contrato);
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_SAVE);
 
-		return form(new Contrato());
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_SAVE);
+		}
+		return mvn;
 	}
 
 	@RequestMapping({ "/salvarSubProduto/{produto}/{descricao}" })
@@ -130,48 +135,97 @@ public class ContratoKglController {
 	@RequestMapping(value = "/detalharContr/{id}", method = RequestMethod.GET)
 	public ModelAndView detalharContr(@PathVariable("id") Long id) {
 		ModelAndView mvn = new ModelAndView("contrato/listar");
-		mvn.addObject("contratos", contratoService.buscarContrato(id));
-		mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
+		try {
+			Contrato contrato = contratoService.buscarContrato(id);
+			if (contrato == null) {
+				mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_FIND);
+				return mvn;
+			}
+			mvn.addObject("contratos", contrato);
+			mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_FIND);
+		}
 
 		return mvn;
 	}
 
 	@RequestMapping(value = "/remover/{contrato}", method = RequestMethod.GET)
 	public ModelAndView remover(@PathVariable("contrato") Contrato contrato) {
-		List<Movimentacao> list = movService.findByContrato(contrato);
-		for (Movimentacao movimentacao : list) {
-			movService.excluir(movimentacao.getId());
-		} 
-		contratoService.excluir(contrato.getId());
-		return listar();
+		ModelAndView mvn = new ModelAndView("contrato/listar");
+
+		try {
+			List<Movimentacao> list = movService.findByContrato(contrato);
+			for (Movimentacao movimentacao : list) {
+				movService.excluir(movimentacao.getId());
+			}
+			contratoService.excluir(contrato.getId());
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_DELETE);
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_DELETE);
+		}
+		return mvn;
 	}
 
 	@RequestMapping(value = "/update/recusar/{contrato}", method = RequestMethod.GET)
 	public ModelAndView recusar(@PathVariable("contrato") Contrato contrato) {
-		contrato.setStatusContrato(StatusContrato.RECUSADO);
-		contratoService.salvar(contrato);
-		return listar();
+		ModelAndView mvn = new ModelAndView("contrato/listar");
+
+		try {
+			contrato.setStatusContrato(StatusContrato.RECUSADO);
+			contratoService.salvar(contrato);
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_ALTER);
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_ALTER);
+		}
+		return mvn;
 	}
 
 	@RequestMapping(value = "/update/implantar/{contrato}", method = RequestMethod.GET)
 	public ModelAndView implantar(@PathVariable("contrato") Contrato contrato) {
-		contrato.setStatusContrato(StatusContrato.IMPLANTADO);
-		contratoService.salvar(contrato);
-		return listar();
+		ModelAndView mvn = new ModelAndView("contrato/listar");
+
+		try {
+			contrato.setStatusContrato(StatusContrato.IMPLANTADO);
+			contratoService.salvar(contrato);
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_ALTER);
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_ALTER);
+		}
+		return mvn;
+
 	}
 
 	@RequestMapping(value = "/adiantamento/", method = RequestMethod.POST)
 	public ModelAndView adiantamento(Movimentacao movimentacao) {
 		Movimentacao update = movService.findById(movimentacao.getId());
-		update.setAdiantamento(movimentacao.getAdiantamento());
+
+		if (null != movimentacao.getAdiantamento() && movimentacao.getAdiantamento().intValue() != 0) {
+			update.setAdiantamento(movimentacao.getAdiantamento());
+			update.setStatus(movimentacao.getAdiantamento().intValue() != 0 ? StatusMovimentacao.PARCIAL
+					: StatusMovimentacao.AGUARDADO_PAGAMENTO);
+		} else {
+			update.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
+
+		}
 		movService.salvar(update);
-		return new ModelAndView("redirect:/contrato/detalharContr/" + 1 + "");
+
+		return detalharContr(update.getContrato().getId());
 
 	}
-	
+
 	@ModelAttribute("corretores")
 	public List<Corretor> listaCorretores() {
 		return corretorService.todosCorretores();
+	}
+
+	@ModelAttribute("contratos")
+	public List<Contrato> contratos() {
+		return contratoService.buscarContrato();
 	}
 
 	@ModelAttribute("subProdutos")
@@ -181,7 +235,7 @@ public class ContratoKglController {
 
 	@ModelAttribute("produtos")
 	public List<Produto> listaProdutos() {
-		//return (List<Produto>) produtoService.produtos();
+		// return (List<Produto>) produtoService.produtos();
 		return (List<Produto>) produtoService.produtosAtivos();
 
 	}
@@ -190,19 +244,9 @@ public class ContratoKglController {
 	public SubProduto novoSubProduto() {
 		return new SubProduto();
 	}
-	
+
 	@ModelAttribute("mov")
 	public Movimentacao Movimentacao() {
 		return new Movimentacao();
 	}
-	
-	/*
-	 * com.kgl.models.User user =
-	 * (com.kgl.models.User)SecurityContextHolder.getContext().getAuthentication().
-	 * getPrincipal(); for (Role role : user.getRoles()) {
-	 * if(role.getAuthority().equals("ROLE_ADMIN")) { mvn.addObject("contratos",
-	 * contratoRepository.findAll()); }else { mvn.addObject("contratos",
-	 * contratoRepository.findByCorretor(corretorRepository.findByEmail(user.
-	 * getUsername()))); } System.out.println(role.getAuthority()); }
-	 */
 }

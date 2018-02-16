@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.kgl.models.Contrato;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
@@ -147,20 +145,20 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 	@Override
 	public void atualizarContrato(Movimentacao mov, HttpSession session, String flag) {
-		if(!mov.getContrato().getStatusContrato().equals(StatusContrato.RECUSADO)) {
-		BigDecimal vlr = (BigDecimal) session.getAttribute("vlrCorretor");
-		if ("S".equals(flag)) {
-			mov.setStatus(StatusMovimentacao.PAGO);
-			session.setAttribute("vlrCorretor", vlr.subtract(mov.getValorCorretor()));
+		if (!mov.getContrato().getStatusContrato().equals(StatusContrato.RECUSADO)) {
+			BigDecimal vlr = (BigDecimal) session.getAttribute("vlrCorretor");
+			if ("S".equals(flag)) {
+				mov.setStatus(StatusMovimentacao.PAGO);
+				session.setAttribute("vlrCorretor", vlr.subtract(mov.getValorCorretor()));
 
-		} else if ("N".equals(flag)) {
-			mov.setStatus(StatusMovimentacao.RECUSADO);
-		} else if ("A".equals(flag)) {
-			session.setAttribute("vlrCorretor", vlr.add(mov.getValorCorretor()));
-			mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
+			} else if ("N".equals(flag)) {
+				mov.setStatus(StatusMovimentacao.RECUSADO);
+			} else if ("A".equals(flag)) {
+				session.setAttribute("vlrCorretor", vlr.add(mov.getValorCorretor()));
+				mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
+			}
 		}
-		}
-		
+		dao.save(mov);
 	}
 
 	@Override

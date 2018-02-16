@@ -58,8 +58,6 @@
 							<div sec:authorize="hasRole('ROLE_ADMIN')" class='col-md-2'>
 								<select class="form-control" id="status"
 									th:field="*{status}">
-									<option th:text="SELECIONE" th:value="-1"></option>
-
 									<option th:each="s : ${status}"
 										th:text="${s}"
 										th:value="${s}">
