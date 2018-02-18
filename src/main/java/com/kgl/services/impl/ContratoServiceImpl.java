@@ -31,11 +31,10 @@ public class ContratoServiceImpl implements ContratoService {
 	CorretorService corretorService;
 
 	@Override
-	//@Cacheable(value = "contratoHome")
 	public List<Contrato> buscarContrato() {
 		try {
 			if (home.permissaoUsuario()) {
-				return (List<Contrato>) contratoRepository.findAll();
+				return buscaContratoCache();
 			} else {
 				String email = home.emailLogado();
 				return contratoRepository.findByCorretor(corretorService.findByEmail(email));
@@ -46,6 +45,11 @@ public class ContratoServiceImpl implements ContratoService {
 		}
 	}
 
+	@Cacheable(value = "contratoHome")
+	private List<Contrato>  buscaContratoCache() {
+		return (List<Contrato>) contratoRepository.findAll();
+
+	}
 	@Override
 	@CacheEvict(value = { "movimentacaoHome", "contratoHome" }, allEntries = true)
 	public void salvar(Contrato contrato) {

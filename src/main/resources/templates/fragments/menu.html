@@ -71,7 +71,7 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Contrato<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                          <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/contrato/form}"  >Contrato</a></li>
-                         <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/contrato/listar}"  >Pesquisar Contrato</a></li>
+                         <li><a href="#" th:href="@{/contrato/listar}"  >Pesquisar Contrato</a></li>
                          
                         </ul>
                         
@@ -79,7 +79,7 @@
 					<li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Movimentações<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                         <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/movimentacao/form}"  >Pagamento</a></li>
+                         <li><a href="#" th:href="@{/movimentacao/form}"  >Pagamento</a></li>
                          <li sec:authorize="hasRole('ROLE_ADMIN')" ><a href="#" th:href="@{/relatorio/form}"  >Relatorio</a></li>
                          
                         </ul>

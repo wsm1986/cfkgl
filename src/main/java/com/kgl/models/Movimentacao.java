@@ -2,10 +2,7 @@ package com.kgl.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,8 +41,12 @@ public class Movimentacao implements Serializable {
 	@CreatedDate
 	private DateTime dtPagamento;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@CreatedDate
+	private DateTime dtPagamentoKgl;
+
 	private BigDecimal lucro;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatusMovimentacao status;
 
@@ -53,9 +55,8 @@ public class Movimentacao implements Serializable {
 	private Double taxa;
 
 	private BigDecimal totalDesconto;
-	
-	private BigDecimal adiantamento;
 
+	private BigDecimal adiantamento;
 
 	public Contrato getContrato() {
 		return contrato;
@@ -153,6 +154,11 @@ public class Movimentacao implements Serializable {
 		return String.valueOf(dtPagamento.getMonthOfYear() + "/" + dtPagamento.getYear());
 	}
 
+	public String getDtPagKglConverter() {
+		DateTimeFormatter dtfOut = org.joda.time.format.DateTimeFormat.forPattern("dd/MM/yyyy");
+		return dtPagamentoKgl == null ? " " : dtfOut.print(dtPagamentoKgl);
+	}
+
 	public String getFormatarValorKgl() {
 		NumberFormat vlr = NumberFormat.getCurrencyInstance();
 		return vlr.format(getValorKgl());
@@ -179,6 +185,14 @@ public class Movimentacao implements Serializable {
 
 	public void setAdiantamento(BigDecimal adiantamento) {
 		this.adiantamento = adiantamento;
+	}
+
+	public DateTime getDtPagamentoKgl() {
+		return dtPagamentoKgl;
+	}
+
+	public void setDtPagamentoKgl(DateTime dtPagamentoKgl) {
+		this.dtPagamentoKgl = dtPagamentoKgl;
 	}
 
 }

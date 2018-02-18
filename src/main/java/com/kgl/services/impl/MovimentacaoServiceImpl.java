@@ -96,15 +96,22 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 	}
 
 	@Override
-	@Cacheable(value = "movimentacaoHome")
 	public List<Movimentacao> buscarMovimentacoes() {
 		if (home.permissaoUsuario()) {
-			return (List<Movimentacao>) dao.findAll();
+			return buscarMovimentacoesCache();
 		} else {
 			return dao.findByContratoCorretorEmail(home.emailLogado());
 		}
 	}
 
+	
+	@Cacheable(value = "movimentacaoHome")
+	private List<Movimentacao> buscarMovimentacoesCache(){
+		return (List<Movimentacao>) dao.findAll();
+
+	}
+
+	
 	@Override
 	@CacheEvict(value = "movimentacaoHome", allEntries = true)
 	public void gerarMovimentacao(Contrato contrato) {
@@ -158,6 +165,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 				mov.setStatus(StatusMovimentacao.AGUARDADO_PAGAMENTO);
 			}
 		}
+		mov.setDtPagamentoKgl(new DateTime());
 		dao.save(mov);
 	}
 
