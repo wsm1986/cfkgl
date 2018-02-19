@@ -113,7 +113,7 @@ public class RelatorioController {
 
 			for (Movimentacao obj : list) {
 				Relatorio dto = new Relatorio();
-				dto.setDataPagamento(dtfOut.print(obj.getDtPagamentoKgl()));
+				dto.setDataPagamento(obj.getDtPagKglConverter());
 				dto.setProposta(obj.getContrato().getCodigoContrato().toString());
 				dto.setValorContrato(obj.getFormatarValorContrato());
 				dto.setValorKgl(obj.getFormatarValorKgl());
