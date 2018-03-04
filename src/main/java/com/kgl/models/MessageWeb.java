@@ -20,6 +20,8 @@ public class MessageWeb {
 	
 	public static final MessageWeb ERROR_FIND = new MessageWeb("find.error", Type.INFO);
 	public static final MessageWeb ERROR_RELATORIO = new MessageWeb("relatorio.error", Type.DANGER);
+	public static final MessageWeb RELATORIO_VAZIO = new MessageWeb("relatorio.vazio", Type.DANGER);
+
 
 
 	 
