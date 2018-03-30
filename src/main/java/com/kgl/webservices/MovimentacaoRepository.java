@@ -19,6 +19,10 @@ public interface MovimentacaoRepository extends PagingAndSortingRepository<Movim
 	List<Movimentacao> findByDtPagamentoBetween(DateTime dtI, DateTime dtF);
 	List<Movimentacao> findByDtPagamentoBetweenAndContratoCorretorId(DateTime dtI, DateTime dtF, Long id);
 	List<Movimentacao> findByDtPagamentoAfterAndContratoCorretorId(DateTime dtI, Long id);
+	List<Movimentacao> findByDtPagamentoKglAfter(DateTime dt);
+	List<Movimentacao> findByDtPagamentoKglBetween(DateTime dtI, DateTime dtF);
+	List<Movimentacao> findByDtPagamentoKglBetweenAndContratoCorretorId(DateTime dtI, DateTime dtF, Long id);
+	List<Movimentacao> findByDtPagamentoKglAfterAndContratoCorretorId(DateTime dtI, Long id);
 
 
 

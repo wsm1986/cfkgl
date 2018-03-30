@@ -50,7 +50,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 			response.setCorretor(
 					null == response.getCorretorRelatorio() ? "" : response.getCorretorRelatorio().getId().toString());
 
-			List<Movimentacao> list = movimentcaoService.buscarMovimentacao(response).stream()
+			List<Movimentacao> list = movimentcaoService.buscarMovimentacaoRelatorio(response).stream()
 					.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
 
 			

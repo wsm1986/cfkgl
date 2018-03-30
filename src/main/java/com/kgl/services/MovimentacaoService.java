@@ -15,6 +15,7 @@ public interface MovimentacaoService {
 	List<Movimentacao> findByContratoCorretorId(Long id);
 	List<Movimentacao> findByContratoId(Long id);
 	List<Movimentacao> buscarMovimentacao(Response response );
+	List<Movimentacao> buscarMovimentacaoRelatorio(Response response );
 	void salvar(Movimentacao mov);
 	void atualizarContrato(Movimentacao mov, HttpSession session, String flag);
 	Movimentacao findById(Long id);

@@ -84,6 +84,42 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 	}
 
 	@Override
+	public List<Movimentacao> buscarMovimentacaoRelatorio(Response response) {
+		try {
+			if (home.permissaoUsuario() != null && !home.permissaoUsuario()) {
+				response.setCorretor(home.idCorretor().toString());
+			}
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+			if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.ENTRE)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
+				return dao.findByDtPagamentoKglBetween(dt, dtF);
+			} else if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.CORRETOR)) {
+				return dao.findByContratoCorretorId(Long.valueOf(response.getCorretor()));
+			} else if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.APARTIR)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				return dao.findByDtPagamentoKglAfter(dt);
+			} else if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.FILTRO_COMPLETO)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
+				return dao.findByDtPagamentoKglBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
+			} else if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.CORRETOR_APARTIR)) {
+				DateTime dt = formatter.parseDateTime(response.getDtInicial());
+				return dao.findByDtPagamentoKglAfterAndContratoCorretorId(dt, Long.valueOf(response.getCorretor()));
+			} else {
+				if (home.permissaoUsuario()) {
+					return (List<Movimentacao>) dao.findAll();
+				} else {
+					return dao.findByContratoCorretorId(Long.valueOf(response.getCorretor()));
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Erro");
+		}
+		return null;
+	}
+
+	@Override
 	public void salvar(Movimentacao mov) {
 		dao.save(mov);
 
