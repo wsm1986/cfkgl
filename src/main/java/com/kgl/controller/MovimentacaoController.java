@@ -84,7 +84,7 @@ public class MovimentacaoController {
 		Response response = gson.fromJson(data, Response.class);
 		List<Movimentacao> mov = new ArrayList<>();
 		try {
-			mov = movimentcaoService.buscarMovimentacao(response);
+			mov = movimentcaoService.buscarMovimentacaoRelatorio(response);
 
 			if (mov.size() == 0) {
 				mov = new ArrayList<>();
