@@ -53,10 +53,10 @@ public class RelatorioServiceImpl implements RelatorioService {
 			List<Movimentacao> list = new ArrayList<>();
 			if (response.getStatus().equals(StatusMovimentacao.PAGO)) {
 
-				movimentcaoService.buscarMovimentacaoRelatorio(response).stream()
+				list = movimentcaoService.buscarMovimentacaoRelatorio(response).stream()
 						.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
 			} else {
-				movimentcaoService.buscarMovimentacao(response).stream()
+				list = movimentcaoService.buscarMovimentacao(response).stream()
 						.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
 			}
 
