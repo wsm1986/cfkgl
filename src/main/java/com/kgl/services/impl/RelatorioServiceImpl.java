@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
+import com.kgl.enums.StatusMovimentacao;
 import com.kgl.models.MessageWeb;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Relatorio;
@@ -49,12 +50,17 @@ public class RelatorioServiceImpl implements RelatorioService {
 
 			response.setCorretor(
 					null == response.getCorretorRelatorio() ? "" : response.getCorretorRelatorio().getId().toString());
+			List<Movimentacao> list = new ArrayList<>();
+			if (response.getStatus().equals(StatusMovimentacao.PAGO)) {
 
-			List<Movimentacao> list = movimentcaoService.buscarMovimentacaoRelatorio(response).stream()
-					.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
+				movimentcaoService.buscarMovimentacaoRelatorio(response).stream()
+						.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
+			} else {
+				movimentcaoService.buscarMovimentacao(response).stream()
+						.filter(l -> l.getStatus().equals(response.getStatus())).collect(Collectors.toList());
+			}
 
-			
-			if(list.isEmpty()){
+			if (list.isEmpty()) {
 				attributes.addFlashAttribute(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.RELATORIO_VAZIO);
 				return new ModelAndView("redirect:" + referer);
 			}
