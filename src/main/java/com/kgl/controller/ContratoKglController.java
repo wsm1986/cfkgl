@@ -142,7 +142,7 @@ public class ContratoKglController {
 				return mvn;
 			}
 			mvn.addObject("contratos", contrato);
-			movService.atualizarParcelaMov(contrato);
+			//movService.atualizarParcelaMov(contrato);
 			mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
 
 		} catch (Exception e) {
@@ -162,9 +162,7 @@ public class ContratoKglController {
 			for (Movimentacao movimentacao : list) {
 				movService.excluir(movimentacao.getId());
 			}
-			contratoNovo.implantarContrato(contrato);
 			contratoService.excluir(contrato.getId());
-
 			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_DELETE);
 
 		} catch (Exception e) {
