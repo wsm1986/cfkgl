@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -209,6 +208,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 	@Override
 	public Movimentacao findById(Long id) {
+		// TODO Auto-generated method stub
 		return dao.findOne(id);
 	}
 
@@ -216,7 +216,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 	public void atualizarParcelaMov(Contrato contrato) {
 		List<Movimentacao> movs = findByContrato(contrato);
 		for (int x = 0; x < movs.size(); x++) {
-			if(StringUtils.isEmpty(movs.get(x).getDescParcela())) {
+			if(movs.get(x).getDescParcela() == null || movs.get(x).getDescParcela().isEmpty()) {
 				movs.get(x).setDescParcela(String.valueOf(x));
 				salvar(movs.get(x));
 			}
