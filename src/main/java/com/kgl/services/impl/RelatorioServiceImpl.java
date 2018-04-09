@@ -95,14 +95,11 @@ public class RelatorioServiceImpl implements RelatorioService {
 				dto.setValorLiquido(String.valueOf(obj.getValorCorretor().subtract(obj.getValorKgl())));
 
 				dto.setProduto(obj.getContrato().getProduto().toString());
-				if (obj.getContrato().getId().equals(auxId)) {
-					dto.setParcela(String.valueOf(++parcela));
-					auxId = obj.getContrato().getId();
-				} else {
-					auxId = obj.getContrato().getId();
-					parcela = 1;
-					dto.setParcela("1");
-				}
+				
+				
+					dto.setParcela(obj.getDescParcela());
+					parcela = Integer.valueOf(obj.getDescParcela());
+
 				dto.setPorcentagemAdmin(
 						obj.getContrato().getProduto().getParcelaCorretor().retornoPorcentagem(parcela).toString());
 
@@ -126,6 +123,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 				// Somar Valor
 				totalBruto = totalBruto.add(obj.getContrato().getValor());
 				totalParcela = totalParcela.add(obj.getValorCorretor());
+				if(parcela > 0)
 				relatorios.add(dto);
 			}
 

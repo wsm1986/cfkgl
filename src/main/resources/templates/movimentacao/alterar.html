@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:include="fragments/template :: page">
+<head>
+<title></title>
+</head>
+<body>
+	<div th:fragment="content">
+
+
+		<form method="POST" th:object="${movimentacao}" th:action="@{/movimentacao/update}" id="form">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">ATUALIZAR MOVIMENTACAO KGL</h1>
+					<div class="alert  alert-danger  alert-dismissible" role="alert"
+							th:if="${#fields.hasAnyErrors()}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<th:block th:each="erro : ${#fields.detailedErrors()}">
+								<div>
+									<i class="fa  fa-exclamation-circle"></i> <span
+										th:text="${erro.message}">ERRO informado.</span>
+								</div>
+							</th:block>
+					</div>
+					<div class="row">
+
+						<div class="col-sm-12  form-group" >
+							<input	id="id" type="hidden" class="form-control" th:field="*{id}" />
+						</div>
+						
+						<div class="col-sm-12  form-group" >
+							<input	id="contrato" type="hidden" class="form-control" th:field="*{contrato}" />
+						</div>
+						
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('valorCorretor')} ? has-error">
+							<label for="nome" class="control-label">Valor Corretor</label> <input
+								id="nome" type="text" class="form-control" th:field="*{valorCorretor}" />
+						</div>
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('valorKgl')} ? has-error">
+							<label for="nome" class="control-label">valor Kgl</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{valorKgl}" />
+						</div>
+						
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('tarifa')} ? has-error">
+							<label for="nome" class="control-label">tarifa</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{tarifa}" />
+						</div>
+						
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('taxa')} ? has-error">
+							<label for="nome" class="control-label">taxa</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{taxa}" />
+						</div>
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('totalDesconto')} ? has-error">
+							<label for="nome" class="control-label">total Desconto</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{totalDesconto}" />
+						</div>						
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('adiantamento')} ? has-error">
+							<label for="nome" class="control-label">adiantamento</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{adiantamento}" />
+						</div>						
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('taxa')} ? has-error">
+							<label for="nome" class="control-label">descParcela</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{descParcela}" />
+						</div>						
+						
+						
+					
+					
+					</div>
+					<div class="row">
+						<h4 class="page-header"></h4>
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('dtPagamentoKgl')} ? has-error">
+							<label for="nome" class="control-label">Data Pagamento Kgl</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{dtPagamentoKgl}" />
+						</div>
+
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('dtPagamento')} ? has-error">
+							<label for="nome" class="control-label">Data Geracao Contrato </label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{dtPagamento}" />
+						</div>
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('porcentagemMov')} ? has-error">
+							<label for="nome" class="control-label">PorcentagemMov</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{porcentagemMov}" />
+						</div>		
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('lucro')} ? has-error">
+							<label for="nome" class="control-label">Lucro</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{lucro}" />
+						</div>								
+						<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('status')} ? has-error">
+							<label for="nome" class="control-label">Status</label> 
+							<input	id="rg" type="text"   class="form-control cpf" th:field="*{status}" />
+						</div>																
+						
+					
+					</div>					
+					<div class="row">
+						<h4 class="page-header">ENDEREÇO</h4>
+						
+						
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">SALVAR</button>
+				
+		</form>
+		
+
+	</div>
+</body>
+</html>

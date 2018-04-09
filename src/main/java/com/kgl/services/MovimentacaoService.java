@@ -22,6 +22,7 @@ public interface MovimentacaoService {
 	void excluir(Long id);
 	List<Movimentacao> buscarMovimentacoes();
 	void gerarMovimentacao(Contrato contrato);
+	void atualizarParcelaMov(Contrato contrato);
 
 	
 }

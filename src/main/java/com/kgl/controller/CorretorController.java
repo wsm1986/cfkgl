@@ -46,8 +46,6 @@ public class CorretorController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@Autowired
-	MovimentacaoService movimentcaoService;
 
 
 	@RequestMapping({ "/", "/form" })

@@ -77,7 +77,7 @@ public class HomeController {
 		if (permissao) {
 			List<Movimentacao> movs = movimentacaoServic.buscarMovimentacoes();
 			for (Movimentacao movimentacao : movs) {
-				if (movimentacao.getStatus().equals(StatusMovimentacao.AGUARDADO_PAGAMENTO)) {
+				if (StatusMovimentacao.AGUARDADO_PAGAMENTO.equals(movimentacao.getStatus())) {
 					vlr = vlr.add(movimentacao.getLucro());
 
 				}
@@ -89,7 +89,7 @@ public class HomeController {
 			for (Contrato contrato : contratos) {
 				List<Movimentacao> movs = movimentacaoServic.findByContratoId(contrato.getId());
 				for (Movimentacao movimentacao : movs) {
-					if (movimentacao.getStatus().equals(StatusMovimentacao.AGUARDADO_PAGAMENTO)) {
+					if (StatusMovimentacao.AGUARDADO_PAGAMENTO.equals(movimentacao.getStatus())) {
 						vlr = vlr.add(movimentacao.getValorCorretor());
 					}
 				}
@@ -111,7 +111,7 @@ public class HomeController {
 	public ModelAndView urlMagicaMaluca() throws Exception {
 		User user;
 		List<User> users = (List<User>) usuarioService.todosUsuarios();
-		if (users.size() == 0) {
+		if (users == null || users.size() == 0) {
 			String password = GenerateHashPasswordUtil.generateHash("1234");
 			List<Role> list = new ArrayList();
 			Role role = new Role();

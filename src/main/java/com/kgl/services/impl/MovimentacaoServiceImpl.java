@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.kgl.models.Contrato;
+import com.kgl.models.MessageWeb;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
 import com.kgl.enums.StatusContrato;
@@ -102,7 +105,8 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 			} else if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.FILTRO_COMPLETO)) {
 				DateTime dt = formatter.parseDateTime(response.getDtInicial());
 				DateTime dtF = formatter.parseDateTime(response.getDtFinal());
-				return dao.findByDtPagamentoKglBetweenAndContratoCorretorId(dt, dtF, Long.valueOf(response.getCorretor()));
+				return dao.findByDtPagamentoKglBetweenAndContratoCorretorId(dt, dtF,
+						Long.valueOf(response.getCorretor()));
 			} else if (response.tipoPesquisa().equals(TipoPesquisaMovimentacao.CORRETOR_APARTIR)) {
 				DateTime dt = formatter.parseDateTime(response.getDtInicial());
 				return dao.findByDtPagamentoKglAfterAndContratoCorretorId(dt, Long.valueOf(response.getCorretor()));
@@ -140,14 +144,12 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 		}
 	}
 
-	
 	@Cacheable(value = "movimentacaoHome")
-	private List<Movimentacao> buscarMovimentacoesCache(){
+	private List<Movimentacao> buscarMovimentacoesCache() {
 		return (List<Movimentacao>) dao.findAll();
 
 	}
 
-	
 	@Override
 	@CacheEvict(value = "movimentacaoHome", allEntries = true)
 	public void gerarMovimentacao(Contrato contrato) {
@@ -171,7 +173,6 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 			} else {
 				mov.setTarifa(new BigDecimal(0));
-				;
 				mov.setValorCorretor(contrato.getProduto().getParcelaCorretor().calcularValorLucro(contrato.getValor(),
 						mesPagamento));
 			}
@@ -179,7 +180,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 					contrato.getProduto().getParcelaKgl().calcularValorLucro(contrato.getValor(), mesPagamento));
 			mov.setLucro(mov.getValorKgl().subtract(mov.getValorCorretor()));
 			mov.setDtPagamento(contrato.getDtCadastro().plusMonths(mesPagamento));
-
+			mov.setDescParcela(String.valueOf(mesPagamento));
 			if (mov.getValorKgl().compareTo(BigDecimal.ZERO) == 1) {
 				dao.save(mov);
 			}
@@ -209,6 +210,17 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 	public Movimentacao findById(Long id) {
 		// TODO Auto-generated method stub
 		return dao.findOne(id);
+	}
+
+	@Override
+	public void atualizarParcelaMov(Contrato contrato) {
+		List<Movimentacao> movs = findByContrato(contrato);
+		for (int x = 0; x < movs.size(); x++) {
+			if(movs.get(x).getDescParcela().isEmpty()) {
+				movs.get(x).setDescParcela(String.valueOf(x));
+				salvar(movs.get(x));
+			}
+		}
 	}
 
 }

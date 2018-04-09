@@ -21,11 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.kgl.models.Contrato;
 import com.kgl.models.Corretor;
 import com.kgl.models.MessageWeb;
 import com.kgl.models.Movimentacao;
 import com.kgl.models.Response;
 import com.kgl.repository.EmployeeRepository;
+import com.kgl.services.ContratoService;
 import com.kgl.services.CorretorService;
 import com.kgl.services.MovimentacaoService;
 
@@ -36,6 +38,11 @@ public class MovimentacaoController {
 
 	@Autowired
 	MovimentacaoService movimentcaoService;
+	
+
+	@Autowired
+	ContratoService contratoService;
+
 
 	@Autowired
 	EmployeeRepository emp;
@@ -96,6 +103,44 @@ public class MovimentacaoController {
 		return new ResponseEntity<List<Movimentacao>>(mov, HttpStatus.OK);
 
 	}
+
+	@RequestMapping(value = "/update/alterar/{movimentacao}", method = RequestMethod.GET)
+	public ModelAndView alterar(@PathVariable("movimentacao") Movimentacao movimentacao) {
+		ModelAndView mvn = new ModelAndView("movimentacao/alterar");
+
+		try {
+			mvn.addObject("movimentacao", movimentacao);
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_ALTER);
+		}
+		return mvn;
+
+	}
+	
+	@RequestMapping("/update")
+	private ModelAndView update(Movimentacao movimentacao) {
+		ModelAndView mvn = new ModelAndView("contrato/listar");
+		try {
+			
+			movimentcaoService.salvar(movimentacao);
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_SAVE);
+
+			Contrato contrato = contratoService.buscarContrato(movimentacao.getContrato().getId());
+			if (contrato == null) {
+				mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_FIND);
+				return mvn;
+			}
+			mvn.addObject("contratos", contrato);
+			mvn.addObject("movimentacoes", movimentcaoService.findByContrato(contrato));
+			mvn.addObject("mov", new Movimentacao());
+
+		} catch (Exception e) {
+			mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.ERROR_FIND);
+		}
+
+		return mvn;
+	}
+	
 
 	public void financeiro(List<Movimentacao> movs, HttpSession session) {
 		BigDecimal vlrLucro = new BigDecimal(0);

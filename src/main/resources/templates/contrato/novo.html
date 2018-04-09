@@ -7,10 +7,10 @@
 </head>
 <body>
 	<div th:fragment="content">
-		<form method="POST" th:object="${contrato}" th:action="@{/contrato/salvar}" action="#" id="form">
+		<form method="POST" th:object="${contrato}" th:action="@{/contrato/alterar}" action="#" id="form">
 			<div class="row">
 				<div class="col-lg-142">
-					<h1 class="page-header">IMPLATAÇÃO DE CONTRATO</h1>
+					<h1 class="page-header">Alterar</h1>
 					<div class="alert  alert-danger  alert-dismissible" role="alert"
 							th:if="${#fields.hasAnyErrors()}">
 							<button type="button" class="close" data-dismiss="alert"
@@ -39,7 +39,7 @@
 							<label for="nome" class="control-label">Convenio</label> 
 								<select class="form-control" th:field="*{produto}">
 									<option th:each="produto : ${produtos}"
-										th:text="${produto} +' - ' + |${produto.tabelaComissao} - ${produto.categoriaProduto} " th:value="${produto.id}"	>
+										th:text="${produto}" th:value="${produto.id}"	>
 									</option>
 								</select>
 						</div>

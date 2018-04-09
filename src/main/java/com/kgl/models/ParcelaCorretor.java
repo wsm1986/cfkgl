@@ -199,7 +199,6 @@ public class ParcelaCorretor implements Parcela, Serializable {
 
 	
 	public Integer retornoPorcentagem( Integer numParcela) {
-		numParcela = --numParcela;
 		switch (numParcela) {
 		case 0:
 			numParcela = this.getPrimeiraParcela();

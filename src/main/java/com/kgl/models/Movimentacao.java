@@ -57,6 +57,8 @@ public class Movimentacao implements Serializable {
 	private BigDecimal totalDesconto;
 
 	private BigDecimal adiantamento;
+	
+	private String descParcela;
 
 	public Contrato getContrato() {
 		return contrato;
@@ -193,6 +195,14 @@ public class Movimentacao implements Serializable {
 
 	public void setDtPagamentoKgl(DateTime dtPagamentoKgl) {
 		this.dtPagamentoKgl = dtPagamentoKgl;
+	}
+
+	public String getDescParcela() {
+		return descParcela;
+	}
+
+	public void setDescParcela(String descParcela) {
+		this.descParcela = descParcela;
 	}
 
 }

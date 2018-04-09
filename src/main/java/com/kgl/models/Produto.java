@@ -16,7 +16,7 @@ import com.kgl.enums.StatusProduto;
 import com.kgl.enums.TabelaComissao;
 
 @Entity
-public class Produto implements Serializable{
+public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,7 +28,7 @@ public class Produto implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private TabelaComissao tabelaComissao;
 
-	@Embedded 
+	@Embedded
 	private ParcelaCorretor parcelaCorretor;
 
 	@Embedded
@@ -40,11 +40,9 @@ public class Produto implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private CategoriaProduto categoriaProduto;
 
-	
 	@Enumerated(EnumType.STRING)
 	private StatusProduto statusProduto;
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -106,7 +104,6 @@ public class Produto implements Serializable{
 				+ " - TABELA DE COMISSAO: " + tabelaComissao.getNome();
 	}
 
-
 	public ParcelaKgl getParcelaKgl() {
 		return parcelaKgl;
 	}
@@ -125,7 +122,8 @@ public class Produto implements Serializable{
 
 	@Override
 	public String toString() {
-		return operadora.getNome();
+		return id + ") " + operadora.getNome() + " " + tabelaComissao + " " + categoriaProduto + " | KGL:  "
+				+ parcelaKgl.getTotalComissaoKgl() + "% -Corretor:  " + parcelaCorretor.getTotalComissaoCorretor()+"%";
 	}
 
 	public StatusProduto getStatusProduto() {
@@ -135,7 +133,5 @@ public class Produto implements Serializable{
 	public void setStatusProduto(StatusProduto statusProduto) {
 		this.statusProduto = statusProduto;
 	}
-
-	
 
 }

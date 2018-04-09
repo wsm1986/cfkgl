@@ -125,7 +125,7 @@
 			                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-mov">
 			                                <thead>
 			                                    <tr>
-			                                        <th>Previsão Pag.</th>
+			                                        <th>Parcela.</th>
 			                                        <th>Data Pag. KGL</th>
 			                                        <th>Num. Proposta</th>
 			                                        <th>$ Contrato</th>
@@ -138,14 +138,15 @@
 			                                        <th>Status</th>]
 			                                        <th>Parcial</th>
 			                                        <th sec:authorize="hasRole('ROLE_ADMIN')">Adiant.</th>
+			                                         <th sec:authorize="hasRole('ROLE_ADMIN')">Alterar.</th>
 			                                        
-			                                        <th></th>
+			                                        <th>Dados. Contrato</th>
 			                                        
 			                                    </tr>
 			                                </thead>
 			                                <tbody>
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'PAGO')}" class= "success">
-													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.descParcela}">1</td>
 													<td th:text="${movimentacao.dtPagKglConverter}">1</td>
 													
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
@@ -164,6 +165,9 @@
 														<button disabled="disabled"  type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
 														    data-target="#newSession">Adicionar</button>
 													</td>
+													
+													<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('MC#alterar').arg(0,movimentacao)).build()}" class="fa fa-mail-forward fa-fw  " title="Alterar" ></a>
+													</td>
 													<td> 
 														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
 														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'A')).build()}" title="Aguardando Pag." class="fa  fa-strikethrough   fa-fw   " ></a>
@@ -173,7 +177,7 @@
 													
 			                                    </tr>
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'PARCIAL')}" class= "info">
-													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.descParcela}">1</td>
 													<td th:text="${movimentacao.dtPagKglConverter}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
@@ -191,7 +195,10 @@
 														<button  type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
 														    data-target="#newSession">Adicionar</button>
 													</td>
+													<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('MC#alterar').arg(0,movimentacao)).build()}" class="fa fa-mail-forward fa-fw  " title="Alterar" ></a>
+													</td>
 													<td> 
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
 														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
 														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'A')).build()}" title="Aguardando Pag." class="fa  fa-strikethrough   fa-fw   " ></a>
 													
@@ -201,7 +208,7 @@
 			                                    </tr>
 			                                    
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'RECUSADO')}" class= "danger">
-													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.descParcela}">1</td>
 													<td th:text="${movimentacao.dtPagKglConverter}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
@@ -218,15 +225,18 @@
 														<button disabled="disabled" type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
 														    data-target="#newSession">Adicionar</button>
 													</td>
-													<td>
-												 <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
-													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'A')).build()}" title="Aguardando Pag." class="fa  fa-strikethrough   fa-fw   " ></a>
 													
-													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   " ></a></td>
+													<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('MC#alterar').arg(0,movimentacao)).build()}" class="fa fa-mail-forward fa-fw  " title="Alterar" ></a>
+													</td>
+													<td>
+												 		<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'A')).build()}" title="Aguardando Pag." class="fa  fa-strikethrough   fa-fw   " ></a>
+													
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   " ></a></td>
 													
 			                                    </tr>			                                    
 			                                    <tr class="odd gradeX" th:each="movimentacao : ${movimentacoes}" th:if="${#strings.equals(movimentacao.status,'AGUARDADO_PAGAMENTO')}" >
-													<td th:text="${#calendars.format(movimentacao.dtPagamento, 'MM/yyyy')}">1</td>
+													<td th:text="${movimentacao.descParcela}">1</td>
 													<td th:text="${movimentacao.dtPagKglConverter}">1</td>
 													<td th:text="${movimentacao.contrato.codigoContrato}">1</td>
 													<td th:text="${movimentacao.contrato.valor}">1</td>
@@ -243,9 +253,12 @@
 														<button  type="button" class="btn btn-primary" data-toggle="modal" th:onclick="'javascript:setaDadosModal(\''+ ${movimentacao.id} +'\');'"
 														    data-target="#newSession">Adicionar</button>
 													</td>
-													<td> <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
-													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
-													<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   " ></a></td>
+													<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${(#mvc.url('MC#alterar').arg(0,movimentacao)).build()}" class="fa fa-mail-forward fa-fw  " title="Alterar" ></a>
+													</td>
+													<td> 
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'S')).build()}" title="Pagar" class="fa fa-thumbs-o-up fa-fw" ></a>
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#gerarPagamento').arg(0,movimentacao).arg(1, 'N')).build()}" title="Recusar" class="fa fa-thumbs-o-down fa-fw   " ></a>
+														<a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="${(#mvc.url('MC#remover').arg(0,movimentacao)).build()}" title="Excluir" class="fa fa-trash-o fa-fw   " ></a></td>
 													
 			                                    </tr>			                                    
 			                                </tbody>
