@@ -142,7 +142,7 @@ public class ContratoKglController {
 				return mvn;
 			}
 			mvn.addObject("contratos", contrato);
-			//movService.atualizarParcelaMov(contrato);
+			movService.atualizarParcelaMov(contrato);
 			mvn.addObject("movimentacoes", movService.findByContrato(contratoService.buscarContrato(id)));
 
 		} catch (Exception e) {
