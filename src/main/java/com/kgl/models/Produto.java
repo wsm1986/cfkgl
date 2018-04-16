@@ -126,6 +126,9 @@ public class Produto implements Serializable {
 				+ parcelaKgl.getTotalComissaoKgl() + "% -Corretor:  " + parcelaCorretor.getTotalComissaoCorretor()+"%";
 	}
 
+	public String getRelatorio() {
+		return id + ") " + operadora.getNome() + " " + tabelaComissao + " ";
+	}
 	public StatusProduto getStatusProduto() {
 		return statusProduto;
 	}

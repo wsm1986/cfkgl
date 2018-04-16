@@ -94,7 +94,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 				dto.setAdmin(obj.getTaxa().toString());
 				dto.setValorLiquido(String.valueOf(obj.getValorCorretor().subtract(obj.getValorKgl())));
 
-				dto.setProduto(obj.getContrato().getProduto().toString());
+				dto.setProduto(obj.getContrato().getProduto().getRelatorio());
 				
 				
 					dto.setParcela(obj.getDescParcela());
