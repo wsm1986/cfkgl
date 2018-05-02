@@ -111,12 +111,17 @@ public class RelatorioServiceImpl implements RelatorioService {
 					dto.setAdiantamento(vlr.format(obj.getAdiantamento()));
 					dto.setValorLiquido(vlr.format(obj.getValorCorretor().subtract(obj.getAdiantamento())));
 					parcial = parcial.add(obj.getAdiantamento());
+					if(parcela > 0) {
+						total = total.add(obj.getValorCorretor().subtract(obj.getAdiantamento()));
+					}
 
 				} else {
 					dto.setAdiantamento("Não Teve");
-
 					dto.setValorLiquido(vlr.format(obj.getValorCorretor()));
+					if(parcela > 0) {
 
+						total = total.add(obj.getValorCorretor());
+					}
 				}
 				
 				//total = total.add(valorLiquido);
