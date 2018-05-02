@@ -118,6 +118,8 @@ public class RelatorioServiceImpl implements RelatorioService {
 					dto.setValorLiquido(vlr.format(obj.getValorCorretor()));
 
 				}
+				
+				total = total.add(valorLiquido);
 				dto.setDespesaAdmin(vlr.format(obj.getValorCorretor().subtract(valorLiquido)));
 
 				// Somar Valor
@@ -146,10 +148,10 @@ public class RelatorioServiceImpl implements RelatorioService {
 
 			params.put("dtInicio", response.getDtInicial());
 			params.put("dtFinal", response.getDtFinal());
-			params.put("totalBruto", vlr.format(totalBruto));
-			params.put("totalParcela", vlr.format(totalParcela));
-			params.put("parcial", vlr.format(parcial));
-			total = totalParcela.subtract(parcial);
+			params.put("totalBruto", "");//vlr.format(totalBruto));
+			params.put("totalParcela", "");//vlr.format(totalParcela));
+			params.put("parcial", "");//vlr.format(parcial));
+			//total = totalParcela.subtract(parcial);
 			params.put("total", vlr.format(total));
 
 			InputStream caminhoImagem = getClass().getResourceAsStream("/static/imagens/logo.png");
