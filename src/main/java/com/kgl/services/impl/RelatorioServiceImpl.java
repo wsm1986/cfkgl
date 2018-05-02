@@ -119,7 +119,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 
 				}
 				
-				total = total.add(valorLiquido);
+				total = total.add(new BigDecimal(dto.getValorLiquido()));
 				dto.setDespesaAdmin(vlr.format(obj.getValorCorretor().subtract(valorLiquido)));
 
 				// Somar Valor
