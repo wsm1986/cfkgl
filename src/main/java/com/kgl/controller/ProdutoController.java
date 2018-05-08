@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kgl.enums.CategoriaProduto;
 import com.kgl.enums.StatusProduto;
+import com.kgl.models.MessageWeb;
 import com.kgl.models.ParcelaCorretor;
 import com.kgl.models.ParcelaKgl;
 import com.kgl.models.Produto;
@@ -61,9 +62,12 @@ public class ProdutoController {
 		produto.getParcelaKgl().setTotalComissaoKgl(somarComissaoKgl(produto.getParcelaKgl()));
 
 		produtoService.salvar(produto);
+
 		ModelAndView mvn = new ModelAndView("index");
-return mvn;
-		//return  lista();// form(new Produto());
+		mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_SAVE);
+
+		return mvn;
+		// return lista();// form(new Produto());
 	}
 
 	@RequestMapping("/remover/{produto}")
@@ -76,16 +80,21 @@ return mvn;
 	private ModelAndView inativar(@PathVariable("produto") Produto produto) {
 		produto.setStatusProduto(StatusProduto.INATIVO);
 		produtoService.salvar(produto);
-		return new ModelAndView("produto/produtos");
+		ModelAndView mvn = new ModelAndView("produto/produtos");
+		mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_SAVE);
+		return mvn;
 	}
-	
+
 	@RequestMapping("/ativar/{produto}")
 	private ModelAndView ativar(@PathVariable("produto") Produto produto) {
 		produto.setStatusProduto(StatusProduto.ATIVO);
 		produtoService.salvar(produto);
-		return new ModelAndView("produto/produtos");
+		ModelAndView mvn = new ModelAndView("produto/produtos");
+		mvn.addObject(MessageWeb.MESSAGE_ATTRIBUTE, MessageWeb.SUCCESS_SAVE);
+
+		return mvn;
 	}
-	
+
 	@RequestMapping("/findAll")
 	private ModelAndView lista() {
 		ModelAndView mvn = new ModelAndView("produto/produtos");
