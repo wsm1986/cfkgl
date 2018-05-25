@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		antMatchers("/prepararAmbiente").hasRole("ADMIN").
 		antMatchers("/static/**").permitAll().
 		antMatchers("/url-magica-maluca-/**").permitAll().
-		antMatchers("/confUser/**").permitAll().
+		antMatchers("/**").permitAll().
 		antMatchers("/console/**").permitAll().anyRequest()
 			.authenticated().and().formLogin().loginPage("/login").permitAll().and().
 			logout().permitAll()
