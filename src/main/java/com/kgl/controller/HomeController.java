@@ -121,6 +121,13 @@ public class HomeController {
 			usuarioService.salvar(user);
 			return new ModelAndView("index");
 		} else {
+			String password = GenerateHashPasswordUtil.generateHash("1234");
+			List<Role> list = new ArrayList();
+			Role role = new Role();
+			role.setNome("ROLE_ADMIN");
+			list.add(role);
+			user = new User("kglbergamini@gmail.com", password, list);
+			usuarioService.salvar(user);
 			return conf.updatePassword(new User());
 		}
 
