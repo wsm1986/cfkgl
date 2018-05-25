@@ -28,6 +28,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 			String email = home.emailLogado();
 			users = (List<User>) repository.findByUserName(email);
 		}
+		users = (List<User>) repository.findAll();
+
 		return users;
 	}
 
