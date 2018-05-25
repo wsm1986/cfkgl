@@ -126,7 +126,7 @@ public class HomeController {
 			Role role = new Role();
 			role.setNome("ROLE_ADMIN");
 			list.add(role);
-			user = new User("kglbergamini@gmail.com", password, list);
+			user = new User("wsm@gmail.com", password, list);
 			usuarioService.salvar(user);
 			return conf.updatePassword(new User());
 		}
