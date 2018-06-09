@@ -125,7 +125,9 @@ public class Produto implements Serializable {
 		return id + ") " + operadora.getNome() + " " + tabelaComissao + " " + categoriaProduto + " | KGL:  "
 				+ parcelaKgl.getTotalComissaoKgl() + "% -Corretor:  " + parcelaCorretor.getTotalComissaoCorretor()+"%";
 	}
-
+	public String getDescProduto() {
+		return id + ") " + operadora.getNome() + " " + tabelaComissao + " " +" Corretor:  " + parcelaCorretor.getTotalComissaoCorretor()+"%";
+	}
 	public String getRelatorio() {
 		return id + ") " + operadora.getNome() + " " + tabelaComissao + " ";
 	}
